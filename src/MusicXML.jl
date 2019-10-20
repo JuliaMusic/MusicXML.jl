@@ -199,6 +199,41 @@ function Clef(sign, line)
     return Clef(sign, line, xml)
 end
 ################################################################
+"""
+    Transpose
+
+A type to hold transpose information for a measure in musicxml file.
+
+If the part is being encoded for a transposing instrument in written vs. concert pitch, the transposition must be encoded in the transpose element using the transpose type.
+
+diatonic: The diatonic element specifies the number of pitch steps needed to go from written to sounding pitch. This allows for correct spelling of enharmonic transpositions.
+
+chromatic: The chromatic element represents the number of semitones needed to get from written to sounding pitch. This value does not include octave-change values; the values for both elements need to be added to the written pitch to get the correct sounding pitc
+
+octaveChange: The octave-change element indicates how many octaves to add to get from written pitch to sounding pitch.
+
+double: If the double element is present, it indicates that the music is doubled one octave down from what is currently written (as is the case for mixed cello / bass parts in orchestral literature).
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-transpose.htm)
+"""
+@kwdef mutable struct Transpose
+    diatonic::Int8 = 0
+    chromatic::Int8 = 0
+    octaveChange::Union{Nothing,Int8} = nothing
+    double::Union{Nothing,Bool} = nothing
+    xml::Node
+end
+
+# xml constructor
+function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothing)
+    xml = ElementNode("transpose")
+    addelement!(xml, "diatonic", string(diatonic))
+    addelement!(xml, "chromatic", string(chromatic))
+    octaveChange == nothing ?  : addelement!(xml, "octave-change", octaveChange)
+    double == nothing ?  : addelement!(xml, "double", double)
+    return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
