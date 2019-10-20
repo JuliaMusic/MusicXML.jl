@@ -309,6 +309,39 @@ function Attributes(;divisions, key, time, staves = nothing, instruments = nothi
     return Attributes(divisions = divisions, key = key, time = time, staves = staves, instruments = instruments, clef = clef, transpose = transpose, xml = xml)
 end
 ################################################################
+using Base.Meta, Base.Unicode
+const PITCH_TO_NAME = Dict(
+0=>"C", 1=>"C♯", 2=>"D", 3=>"D♯", 4=>"E", 5=>"F", 6=>"F♯", 7=>"G", 8=>"G♯", 9=>"A",
+10 =>"A♯", 11=>"B")
+const SHARPS = [1, 3, 6, 8, 10]
+const NAME_TO_PITCH = Dict(
+v => k for (v, k) in zip(values(PITCH_TO_NAME), keys(PITCH_TO_NAME)))
+
+"""
+    pitch2name(pitch) -> string
+Return the name of the pitch, e.g. `F5`, `A♯3` etc. in modern notation given the
+pitch value in integer.
+Reminder: middle C has pitch `60` and is displayed as `C4`.
+
+Modified from MIDI.jl
+"""
+function pitch2name(j)
+    i = Int(j)
+    rem = mod(i, 12)
+    notename = PITCH_TO_NAME[rem]
+
+    if rem in SHARPS
+        step = notename[1]
+        alter = 1 # using sharps by default (this is only for sound)
+    else
+        step = notename
+        alter = 0
+    end
+
+    octave = (i÷12)-1
+    return step, alter, octave
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
