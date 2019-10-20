@@ -216,7 +216,7 @@ function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midi
 end
 
 # xml extractor
-function Scorepart(;xml::Node)
+function Scorepart(xml::Node)
 
     name = findfirstcontent("/part-name",xml)
     scoreinstrument = Scoreinstrument(findfirst("/score-instrument", xml))
@@ -287,7 +287,7 @@ function Key(; fifth, mode = nothing)
 end
 
 # xml extractor
-function Key(;xml::Node)
+function Key(xml::Node)
     fifth = findfirstcontent(Int8, "/fifth", xml)
     mode = findfirstcontent("/mode", xml)
     return Key(fifth = fifth, mode = mode, xml = xml)
@@ -366,7 +366,7 @@ function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothin
 end
 
 # xml extractor
-function Transpose(;xml::Node)
+function Transpose(xml::Node)
 
     diatonic = findfirstcontent(Int8, "/diatonic", xml)
     chromatic = findfirstcontent(Int8, "/chromatic", xml)
@@ -455,7 +455,7 @@ function Attributes(;divisions, key, time, staves = nothing, instruments = nothi
 end
 
 # xml extractor
-function Attributes(;xml::Node)
+function Attributes(xml::Node)
 
     divisions = findfirstcontent(Int16, "/divisions", xml)
     key = Key(findfirst("/key", xml))
@@ -542,7 +542,7 @@ function Pitch(;pitch)
 end
 
 # xml extractor
-function Pitch(;xml::Node)
+function Pitch(xml::Node)
 
     step = findfirstcontent("/step", xml)
     alter = findfirstcontent(Float16,"/alter", xml)
@@ -657,7 +657,7 @@ function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, t
 end
 
 # xml extractor
-function Note(;xml::Node)
+function Note(xml::Node)
 
     pitch = Pitch(findfirstcontent("/pitch", xml))
     rest = Rest(findfirstcontent("/rest", xml))
@@ -699,7 +699,7 @@ function Measure(;attributes = nothing, notes)
 end
 
 # xml extractor
-function Measure(;xml::Node)
+function Measure(xml::Node)
 
     attributes = Attributes(findfirstcontent("/attributes", xml))
 
