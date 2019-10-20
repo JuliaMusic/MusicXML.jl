@@ -263,6 +263,51 @@ function Time(signature)
     return Time(signature, xml)
 end
 ################################################################
+"""
+    Attributes
+
+A type to hold the data for the attributes of a musicxml measure
+
+The attributes element contains musical information that typically changes on measure boundaries. This includes key and time signatures, clefs, transpositions, and staving. When attributes are changed mid-measure, it affects the music in score order, not in MusicXML document order.
+
+key: See [`Key`](@ref) doc
+
+divisions: Musical notation duration is commonly represented as fractions. The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. For example, if duration = 1 and divisions = 2, this is an eighth note duration. Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
+
+time: See [`Time`](@ref) doc
+
+staves: The staves element is used if there is more than one staff represented in the given part (e.g., 2 staves for typical piano parts). If absent, a value of 1 is assumed. Staves are ordered from top to bottom in a part in numerical order, with staff 1 above staff 2.
+
+instruments: The instruments element is only used if more than one instrument is represented in the part (e.g., oboe I and II where they play together most of the time). If absent, a value of 1 is assumed.
+
+clef: See [`Clef`](@ref) doc
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
+"""
+@kwdef mutable struct Attributes
+    divisions::Int16
+    key::Key
+    time::Time
+    staves::Union{Nothing, UInt16} = nothing
+    instruments::Union{Nothing,UInt16} = nothing
+    clef::Union{Nothing,Clef} = nothing
+    transpose::Union{Nothing,Transpose} = nothing
+    xml::Node
+end
+
+# xml constructor
+function Attributes(;divisions, key, time, staves = nothing, instruments = nothing, clef = nothing, transpose = nothing)
+    xml = ElementNode("transpose")
+    addelement!(xml, "divisions", string(divisions))
+    addelement!(xml, "key", key)
+    addelement!(xml, "time", time)
+    staves == nothing ?  : addelement!(xml, "staves", staves)
+    instruments == nothing ?  : addelement!(xml, "instruments", instruments)
+    clef == nothing ?  : addelement!(xml, "clef", clef)
+    transpose == nothing ?  : addelement!(xml, "transpose", transpose)
+    return Attributes(divisions = divisions, key = key, time = time, staves = staves, instruments = instruments, clef = clef, transpose = transpose, xml = xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
