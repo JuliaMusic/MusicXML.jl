@@ -122,8 +122,8 @@ mutable struct Midiinstrument
 end
 
 # default constructor
-Midiinstrument() = Midiinstrument(0, 1, 127, 0, "P1")
-Midiinstrument(channel, program, volume, pan) = Midiinstrument(channel, program, volume, pan, "P1")
+# Midiinstrument() = Midiinstrument(0, 1, 127, 0, "P1")
+# Midiinstrument(channel, program, volume, pan) = Midiinstrument(channel, program, volume, pan, "P1")
 
 # xml constructor
 function Midiinstrument(channel, program, volume, pan, ID)
@@ -183,7 +183,7 @@ Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
 end
 
 # default constructor
-Scorepart() = Scorepart(name = "Piano", midiinstrument = midiinstrument(), ID = "P1")
+# Scorepart() = Scorepart(name = "Piano", midiinstrument = midiinstrument(), ID = "P1")
 
 # xml constructor
 function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midiinstrument, ID)
@@ -388,10 +388,10 @@ mutable struct Time
 end
 
 # default constructor
-Time() = Time([4,4])
+# Time() = Time([4,4])
 
 # xml constructor
-function Time(signature)
+function Time(signature::Array{Int8,1})
     xml = ElementNode("time")
     addelement!(xml, "beats", string(signature[1]))
     addelement!(xml, "beat-type", string(signature[2]))
