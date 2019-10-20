@@ -123,6 +123,28 @@ function Scorepart(; name, scoreinstrument, mididevice, midiinstrument, ID)
     return Scorepart(name = name, scoreinstrument = scoreinstrument, mididevice = mididevice, midiinstrument = midiinstrument, ID = ID, xml = xml)
 end
 ################################################################
+"""
+    Partlist
+
+Holds scoreparts and partgroup.
+"""
+mutable struct Partlist
+    # partgroup
+    scoreparts::Vector{Scorepart}
+    xml::Node
+end
+
+# xml constructor
+function Partlist(scoreparts)
+    xml = ElementNode("part-list>")
+    numScoreparts = length(scoreparts)
+    for i = 1:numScoreparts
+        addelement!(xml, "score-part", scoreparts[i])
+    end
+    return Partlist(scoreparts, xml)
+end
+
+################################################################
 ################################################################
 ################################################################
 """
