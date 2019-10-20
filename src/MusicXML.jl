@@ -565,8 +565,12 @@ mutable struct Rest
 end
 
 # xml constructor
-function Rest(rest, octave)
-    xml = ElementNode("rest")
+function Rest(rest)
+    if unpitched
+        xml = ElementNode("rest")
+    else
+        xml = nothing
+    end
     return Rest(rest, xml)
 end
 
