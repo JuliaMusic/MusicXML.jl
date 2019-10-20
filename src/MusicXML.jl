@@ -769,7 +769,7 @@ end
 function Musicxml(partlist, parts)
     xml = ElementNode("score-partwise")
 
-    addelement!(xml, "partlist", measures[i])
+    addelement!(xml, "part-list", measures[i])
 
     numParts = length(parts)
     for i = 1:numParts
@@ -781,7 +781,7 @@ end
 # xml extractor
 function Musicxml(xml::Node)
 
-    partlist = Partlist(findfirstcontent("partlist", xml))
+    partlist = Partlist(findfirst("part-list", xml))
 
     parts = findallcontent(Part,"/part", xml)
     isnothing(parts) ? Musicxml(nothing) : Musicxml(partlist, parts, xml)
