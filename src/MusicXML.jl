@@ -1,6 +1,9 @@
 module MusicXML
 
 using EzXML, MIDI, MusicManipulations
+import Base.@kwdef
+import EzXML.Node
+
 export readmusicxml, parsemusicxml
 
 ################################################################
