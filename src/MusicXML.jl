@@ -410,6 +410,58 @@ function Unpitched(rest, octave)
     return Unpitched(rest, xml)
 end
 ################################################################
+"""
+    Note
+
+Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
+
+pitch: See [`Pitch`](@ref) doc
+
+duration : See [`MIDI.Note`] (@ref) doc
+
+type: Type indicates the graphic note type, Valid values (from shortest to longest) are 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima. The size attribute indicates full, cue, or large size, with full the default for regular notes and cue the default for cue and grace notes.
+
+accidental: The accidental type represents actual notated accidentals. Editorial and cautionary indications are indicated by attributes. Values for these attributes are "no" if not present. Specific graphic display such as parentheses, brackets, and size are controlled by the level-display attribute group. Empty accidental objects are not allowed. If no accidental is desired, it should be omitted. sharp, flat, natural, double sharp, double flat, parenthesized accidental
+
+tie:
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
+"""
+@kwdef mutable struct Note
+    pitch::Pitch = nothing
+    rest::Rest = nothing
+    unpitched::Unpitched = nothing
+    duration::UInt = nothing
+    # voice
+    type::String = nothing
+    accidental::String = nothing
+    # tie::Union{Nothing,Tie} = nothing # start, stop, nothing TODO
+    # TODO lyric
+    xml::Node
+end
+
+# xml constructor
+function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, type = nothing, accidental = nothing)
+    xml = ElementNode("note")
+
+    if pitch != nothing
+        addelement!(xml, "pitch", pitch)
+    elseif rest != nothing
+        addelement!(xml, "rest", rest)
+    elseif unpitched != nothing
+        addelement!(xml, "unpitched", unpitched)
+    else
+        error("one of the pitch, rest or unpitched should be given")
+    end
+
+    addelement!(xml, "duration", string(duration))
+    type == nothing ?  : addelement!(xml, "type", type)
+    accidental == nothing ?  : addelement!(xml, "accidental", accidental)
+    # tie == nothing ?  : addelement!(xml, "tie", tie)
+
+    return Note(pitch = pitch, rest = rest, unpitched = unpitched, duration = duration, type = type, accidental = accidental, xml = xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
