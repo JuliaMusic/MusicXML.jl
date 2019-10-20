@@ -87,7 +87,6 @@ end
 function Scoreinstrument(xml::Node)
 
     name = findfirstcontent("/instrument-name",xml)
-    # name = findfirst("/instrument-name", xml).content
     ID = xml["id"][end-3:end]
     return Scoreinstrument(name, ID, xml)
 end
@@ -164,13 +163,9 @@ end
 function Midiinstrument(xml::Node)
 
     channel = findfirstcontent(UInt8, "/midi-channel",xml)
-    # channel = parse(UInt8,findfirst("/midi-channel", xml).content)
     program = findfirstcontent(UInt8, "/midi-program",xml)
-    # program = parse(UInt8,findfirst("/midi-program", xml).content)
     volume = findfirstcontent(UInt8, "/volume",xml)
-    # volume = parse(UInt8,findfirst("/volume", xml).content)
     pan = findfirstcontent(UInt8, "/pan",xml)
-    # pan = parse(UInt8,findfirst("/pan", xml).content)
     ID = xml["id"][end-3:end]
     return Midiinstrument(channel, program, volume, pan, ID, xml)
 end
@@ -224,7 +219,6 @@ end
 function Scorepart(;xml::Node)
 
     name = findfirstcontent("/part-name",xml)
-    # name = findfirst("/part-name", xml).content
     scoreinstrument = Scoreinstrument(findfirst("/score-instrument", xml))
     mididevice = Mididevice(findfirst("/midi-device", xml))
     midiinstrument = Midiinstrument(findfirst("/midi-instrument", xml))
@@ -248,7 +242,7 @@ mutable struct Partlist
 end
 
 # xml constructor
-function Partlist(scoreparts)
+function Partlist(scoreparts::Vector{Scorepart})
     xml = ElementNode("part-list")
     numScoreparts = length(scoreparts)
     for i = 1:numScoreparts
@@ -260,18 +254,8 @@ end
 # xml extractor
 function Partlist(xml::Node)
 
-    elms = findall("/score-part", xml)
-    if isnothing(elms)
-        return Partlist(nothing)
-    else
-        scoreparts = Vector{Scorepart}(undef, length(elms))
-        i=1
-        for elm in elms
-            scoreparts[i]=Scorepart(elm)
-            i=+1
-        end
-        return Partlist(scoreparts, xml)
-    end
+    scoreparts = findallcontent(Scorepart,"/score-part", xml)
+    isnothing(scoreparts) ? Partlist(nothing) else Partlist(scoreparts, xml)
 end
 Partlist(n::Nothing) = nothing
 ################################################################
@@ -305,9 +289,7 @@ end
 # xml extractor
 function Key(;xml::Node)
     fifth = findfirstcontent(Int8, "/fifth", xml)
-    # fifth = parse(Int8, findfirst("/fifth", xml).content)
     mode = findfirstcontent("/mode", xml)
-    # mode = findfirstcontent("/mode", xml).content
     return Key(fifth = fifth, mode = mode, xml = xml)
 end
 Key(n::Nothing) = nothing
@@ -343,9 +325,7 @@ end
 function Clef(xml::Node)
 
     sign = findfirstcontent("/sign", xml)
-    # sign = findfirst("/sign", xml).content
     line = findfirstcontent(Int16, "/line", xml)
-    # line = parse(Int16, findfirst("/line", xml).content)
     return Clef(sign, line, xml)
 end
 Clef(n::Nothing) = nothing
@@ -389,13 +369,9 @@ end
 function Transpose(;xml::Node)
 
     diatonic = findfirstcontent(Int8, "/diatonic", xml)
-    # diatonic = parse(Int8, findfirst("/diatonic", xml).content)
     chromatic = findfirstcontent(Int8, "/chromatic", xml)
-    # chromatic = parse(Int8, findfirst("/chromatic", xml).content)
     octaveChange = findfirstcontent(Int8, "/octave-change", xml)
-    # octaveChange = parse(Int8, findfirst("/octave-change", xml).content)
     double = findfirstcontent("/double", xml)
-    # double = findfirst("/double", xml).content
 
     return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
 end
@@ -727,18 +703,9 @@ function Measure(;xml::Node)
 
     attributes = Attributes(findfirstcontent("/attributes", xml))
 
-    elms = findall("/note", xml)
-    if isnothing(elms)
-        return nothing
-    else
-        notes = Vector{Note}(undef, length(elms))
-        i=1
-        for elm in elms
-            notes[i]=Note(elm)
-            i=+1
-        end
-        return Measure(attributes = attributes, notes = notes, xml = xml)
-    end
+    notes = findallcontent(Note,"/note", xml)
+    isnothing(notes) ? Measure(nothing) else Measure(attributes = attributes, notes = notes, xml = xml)
+
 end
 Measure(n::Nothing) = nothing
 ################################################################
@@ -771,19 +738,9 @@ end
 # xml extractor
 function Part(xml::Node)
 
-    elms = findall("/measure", xml)
-    if isnothing(elms)
-        return nothing
-    else
-        measures = Vector{Measure}(undef, length(elms))
-        i=1
-        for elm in elms
-            measures[i]=Measure(elm)
-            i=+1
-        end
-        ID = xml["id"]
-        return Part(measures, ID, xml)
-    end
+     ID = xml["id"]
+    measures = findallcontent(Measure,"/measure", xml)
+    isnothing(measures) ? Part(nothing) else Part(measures, ID, xml)
 end
 Part(n::Nothing) = nothing
 ################################################################
@@ -816,20 +773,11 @@ end
 # xml extractor
 function Musicxml(xml::Node)
 
-    partlist = Partlist(findfirstcontent("/part-list", xml))
+    partlist = Partlist(findfirstcontent("partlist", xml))
 
-    elms = findall("/measure", xml)
-    if isnothing(elms)
-        return nothing
-    else
-        parts = Vector{Part}(undef, length(elms))
-        i=1
-        for elm in elms
-            parts[i]=Part(elm)
-            i=+1
-        end
-        return Musicxml(partlist, parts, xml)
-    end
+    parts = findallcontent(Part,"/part", xml)
+    isnothing(parts) ? Musicxml(nothing) else Musicxml(partlist, parts, xml)
+
 end
 Musicxml(n::Nothing) = nothing
 ################################################################
