@@ -9,6 +9,38 @@ export readmusicxml, parsemusicxml
 
 ################################################################
 """
+    findfirstcontent(element,node)
+    findfirstcontent(type,element,node)
+
+
+Returns first element content. It also convert to the desired format by passing type. element is given as string.
+```julia
+findfirstcontent("/instrument-name",node)
+findfirstcontent(UInt8,"/midi-channel",node)
+```
+"""
+function findfirstcontent(s::String,node::Node)
+    elm = findfirst(s,node)
+    if isnothing(elm)
+        return nothing
+    else
+        return elm.content
+    end
+end
+
+function findfirstcontent(::Type{T},s::String,node::Node) where {T}
+    elm = findfirst(s,node)
+    if isnothing(elm)
+        return nothing
+    else
+        return parse(T, elm.content)
+    end
+end
+
+# overloading nothing instead (not recommended):
+# Base.getproperty(::Nothing, sym::Symbol) = sym === :content ? nothing : Core.getfield(nothing, sym)
+################################################################
+"""
     Scoreinstrument
 
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required ID attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
