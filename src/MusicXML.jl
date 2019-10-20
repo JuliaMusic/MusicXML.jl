@@ -397,6 +397,17 @@ function Time(signature)
     addelement!(xml, "beat-type", string(signature[2]))
     return Time(signature, xml)
 end
+
+# xml extractor
+function Time(xml::Node)
+
+    signature = [4, 4]
+    signature[1] = findfirstcontent(Int8, "/beats", xml)
+    signature[2] = findfirstcontent(Int8, "/beat-type", xml)
+
+    return Time(signature, xml)
+end
+Time(n::Nothing) = nothing
 ################################################################
 """
     Attributes
