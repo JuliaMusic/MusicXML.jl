@@ -327,6 +327,7 @@ Modified from MIDI.jl
 """
 function pitch2name(j)
     i = Int(j)
+    # TODO: microtonals
     rem = mod(i, 12)
     notename = PITCH_TO_NAME[rem]
 
@@ -350,7 +351,7 @@ Holds both midi pitch and musicxml pitch data. MusicXML pitch data is represente
 @kwdef mutable struct Pitch
     pitch::UInt8  # midi pitch
     step::String
-    alter::Int8
+    alter::Float16
     octave::Int8
     xml::Node
 end
