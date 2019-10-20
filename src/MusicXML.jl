@@ -594,6 +594,15 @@ function Unpitched(rest, octave)
     xml = ElementNode("unpitched")
     return Unpitched(rest, xml)
 end
+
+# xml extractor
+function Unpitched(xml::Node)
+
+    rest = isnothing(findfirstcontent("/unpitched", xml))
+
+    return Unpitched(rest, xml)
+end
+Unpitched(n::Nothing) = nothing
 ################################################################
 """
     Note
