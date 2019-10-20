@@ -191,6 +191,18 @@ function Partlist(scoreparts)
     return Partlist(scoreparts, xml)
 end
 
+# xml extractor
+function Partlist(xml::Node)
+
+    elms = findall("/score-part", xml)
+    scoreparts = Vector{Scorepart}(undef, length(elms))
+    i=1
+    for elm in eachelement(elms)
+        scoreparts[i]=Scorepart(elm)
+        i=+1
+    end
+    return Partlist(scoreparts, xml)
+end
 ################################################################
 """
     Key
