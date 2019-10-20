@@ -594,9 +594,13 @@ mutable struct Unpitched
 end
 
 # xml constructor
-function Unpitched(rest, octave)
-    xml = ElementNode("unpitched")
-    return Unpitched(rest, xml)
+function Unpitched(unpitched)
+    if unpitched
+        xml = ElementNode("unpitched")
+    else
+        xml = nothing
+    end
+    return Unpitched(unpitched, xml)
 end
 
 # xml extractor
