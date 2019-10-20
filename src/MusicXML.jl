@@ -776,6 +776,7 @@ mutable struct Musicxml
     xml::Node
 end
 
+# xml constructor
 function Musicxml(partlist, parts)
     xml = ElementNode("score-partwise")
 
@@ -788,6 +789,25 @@ function Musicxml(partlist, parts)
     return Musicxml(partlist, parts, xml)
 end
 
+# xml extractor
+function Musicxml(xml::Node)
+
+    partlist = Partlist(findfirstcontent("/part-list", xml))
+
+    elms = findall("/measure", xml)
+    if isnothing(elms)
+        return nothing
+    else
+        parts = Vector{Part}(undef, length(elms))
+        i=1
+        for elm in eachelement(elms)
+            parts[i]=Part(elm)
+            i=+1
+        end
+        return Musicxml(partlist, parts, xml)
+    end
+end
+Musicxml(n::Nothing) = nothing
 ################################################################
 """
     extractdata(doc)
