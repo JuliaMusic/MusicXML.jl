@@ -697,6 +697,26 @@ function Measure(;attributes = nothing, notes)
     end
     return Measure(attributes = attributes, notes = notes, xml = xml)
 end
+
+# xml extractor
+function Measure(;xml::Node)
+
+    attributes = Attributes(findfirstcontent("/attributes", xml))
+
+    elms = findall("/note", xml)
+    if isnothing(elms)
+        return nothing
+    else
+        notes = Vector{Note}(undef, length(elms))
+        i=1
+        for elm in eachelement(elms)
+            notes[i]=Note(elm)
+            i=+1
+        end
+        return Measure(attributes = attributes, notes = notes, xml = xml)
+    end
+end
+Measure(n::Nothing) = nothing
 ################################################################
 """
     Part
