@@ -478,14 +478,13 @@ const NAME_TO_PITCH = Dict(
 v => k for (v, k) in zip(values(PITCH_TO_NAME), keys(PITCH_TO_NAME)))
 
 """
-    pitch2name(pitch) -> string
-Return the name of the pitch, e.g. `F5`, `A♯3` etc. in modern notation given the
-pitch value in integer.
-Reminder: middle C has pitch `60` and is displayed as `C4`.
+    pitch2xml(pitch)
+
+Return the musicxmls values of the given pitch
 
 Modified from MIDI.jl
 """
-function pitch2name(j)
+function pitch2xml(j)
     i = Int(j)
     # TODO: microtonals
     rem = mod(i, 12)
@@ -501,6 +500,19 @@ function pitch2name(j)
 
     octave = (i÷12)-1
     return step, alter, octave
+end
+################################################################
+"""
+    xml2pitch(step, alter, octave) -> Int
+Return the pitch value of the given note
+
+Modified from MIDI.jl
+"""
+function xml2pitch(step, alter, octave)
+
+    pitch = NAME_TO_PITCH[step]
+
+    return pitch + alter + 12(octave+1) # lowest possible octave is -1 but pitch starts from 0
 end
 ################################################################
 """
