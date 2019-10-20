@@ -732,6 +732,7 @@ mutable struct Part
     xml::Node
 end
 
+# xml constructor
 function Part(measures, ID)
     xml = ElementNode("part")
 
@@ -742,6 +743,25 @@ function Part(measures, ID)
     xml["id"] = ID
     return Part(measures, ID, xml)
 end
+
+# xml extractor
+function Part(xml::Node)
+
+    elms = findall("/measure", xml)
+    if isnothing(elms)
+        return nothing
+    else
+        measures = Vector{Measure}(undef, length(elms))
+        i=1
+        for elm in eachelement(elms)
+            measures[i]=Measure(elm)
+            i=+1
+        end
+        ID = xml["id"]
+        return Part(measures, ID, xml)
+    end
+end
+Part(n::Nothing) = nothing
 ################################################################
 """
     Musicxml
