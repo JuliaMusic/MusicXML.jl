@@ -242,7 +242,7 @@ function Partlist(xml::Node)
     else
         scoreparts = Vector{Scorepart}(undef, length(elms))
         i=1
-        for elm in eachelement(elms)
+        for elm in elms
             scoreparts[i]=Scorepart(elm)
             i=+1
         end
@@ -709,7 +709,7 @@ function Measure(;xml::Node)
     else
         notes = Vector{Note}(undef, length(elms))
         i=1
-        for elm in eachelement(elms)
+        for elm in elms
             notes[i]=Note(elm)
             i=+1
         end
@@ -753,7 +753,7 @@ function Part(xml::Node)
     else
         measures = Vector{Measure}(undef, length(elms))
         i=1
-        for elm in eachelement(elms)
+        for elm in elms
             measures[i]=Measure(elm)
             i=+1
         end
@@ -800,7 +800,7 @@ function Musicxml(xml::Node)
     else
         parts = Vector{Part}(undef, length(elms))
         i=1
-        for elm in eachelement(elms)
+        for elm in elms
             parts[i]=Part(elm)
             i=+1
         end
