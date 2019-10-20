@@ -7,6 +7,10 @@ import EzXML.Node
 
 export readmusicxml, parsemusicxml
 
+
+# overloading nothing (not recommended):
+Base.getproperty(::Nothing, sym::Symbol) = nothing
+# Base.getproperty(::Nothing, sym::Symbol) = sym === :content ? nothing : Core.getfield(nothing, sym)
 ################################################################
 """
     findfirstcontent(element,node)
@@ -37,8 +41,6 @@ function findfirstcontent(::Type{T},s::String,node::Node) where {T}
     end
 end
 
-# overloading nothing instead (not recommended):
-# Base.getproperty(::Nothing, sym::Symbol) = sym === :content ? nothing : Core.getfield(nothing, sym)
 ################################################################
 """
     Scoreinstrument
