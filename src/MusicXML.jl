@@ -378,6 +378,21 @@ function Pitch(;step, alter, octave)
     return Pitch(signature, xml)
 end
 ################################################################
+"""
+    Rest
+
+The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
+"""
+mutable struct Rest
+    rest::Bool
+    xml::Node
+end
+
+# xml constructor
+function Rest(rest, octave)
+    xml = ElementNode("rest")
+    return Rest(rest, xml)
+end
 ################################################################
 """
     extractdata(doc)
