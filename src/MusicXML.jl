@@ -242,6 +242,27 @@ function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothin
     return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
 end
 ################################################################
+"""
+    Time
+
+Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
+"""
+mutable struct Time
+    signature::Array{Int8,1}(undef,2)
+    xml
+end
+
+# default constructor
+Time() = Time([4,4])
+
+# xml constructor
+function Time(signature)
+    xml = ElementNode("time")
+    addelement!(xml, "beats", string(signature[1]))
+    addelement!(xml, "beat-type", string(signature[2]))
+    return Time(signature, xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
