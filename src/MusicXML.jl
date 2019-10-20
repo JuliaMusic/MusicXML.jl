@@ -1,6 +1,7 @@
 module MusicXML
 
 using EzXML, MIDI, MusicManipulations
+export readmusicxml, parsemusicxml
 
 ################################################################
 """
@@ -35,7 +36,7 @@ Holds information about one part in a score
 part("P1","Violin",midiinstrument(0,1,127,0))
 ```
 """
-mutable struct part
+mutable struct scorepart
     ID::String      # e.g. P1
     name::String    # e.g. Violin
     midiinstrument::midiinstrument
@@ -77,7 +78,7 @@ function extractdata(doc::EzXML.Document)
                 # Score Part
                 if partlistC.name == "score-part"
 
-                    scorePartI = part()
+                    scorePartI = scorepart()
 
                     scorePartI.ID = partlistC["id"]
 
