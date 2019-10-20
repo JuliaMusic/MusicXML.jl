@@ -155,6 +155,17 @@ function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midi
     xml["id"] = string(ID)
     return Scorepart(name = name, scoreinstrument = scoreinstrument, mididevice = mididevice, midiinstrument = midiinstrument, ID = ID, xml = xml)
 end
+
+# xml extractor
+function Scorepart(;xml::Node)
+
+    name = findfirst("/part-name", xml).content
+    scoreinstrument = Scoreinstrument(findfirst("/score-instrument", xml))
+    mididevice = Mididevice(findfirst("/midi-device", xml))
+    midiinstrument = Midiinstrument(findfirst("/midi-instrument", xml))
+    ID = xml["id"]
+    return Scorepart(name = name, scoreinstrument = scoreinstrument, mididevice = mididevice, midiinstrument = midiinstrument, ID = ID, xml = xml)
+end
 ################################################################
 """
     Partlist
