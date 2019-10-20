@@ -113,7 +113,7 @@ end
 Scorepart() = Scorepart(name = "Piano", midiinstrument = midiinstrument(), ID = "P1")
 
 # xml constructor
-function Scorepart(; name, scoreinstrument, mididevice, midiinstrument, ID)
+function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midiinstrument, ID)
     xml = ElementNode("score-part")
     addelement!(xml, "part-name", string(name))
     scoreinstrument == nothing ?  : addelement!(xml, "score-instrument", scoreinstrument)
@@ -129,7 +129,7 @@ end
 Holds scoreparts and partgroup.
 """
 mutable struct Partlist
-    # partgroup
+    # TODO partgroup
     scoreparts::Vector{Scorepart}
     xml::Node
 end
