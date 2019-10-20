@@ -2,9 +2,10 @@ module MusicXML
 
 using EzXML, MIDI, MusicManipulations
 
+################################################################
 """
     midiinstrument
-    midiinstrument(midichannel, midiprogram, volume, pan)
+    midiinstrument(channel, program, volume, pan)
 
 midiinstrument type holds information about the sound of a midi instrument.
 
@@ -18,15 +19,15 @@ midiinstrument(0,1,127,0)
 ```
 """
 mutable struct midiinstrument
-    midichannel::UInt8 # 0 to 15
-    midiprogram::UInt8
+    channel::UInt8 # 0 to 15
+    program::UInt8
     volume::UInt8
     pan::Int8
 end
 
 """
     part
-    part(partID, partName, midiinstrument)
+    part(ID, name, midiinstrument)
 
 Holds information about one part in a score
 # Examples
@@ -35,10 +36,11 @@ part("P1","Violin",midiinstrument(0,1,127,0))
 ```
 """
 mutable struct part
-    partID::String      # e.g. P1
-    partName::String    # e.g. Violin
+    ID::String      # e.g. P1
+    name::String    # e.g. Violin
     midiinstrument::midiinstrument
 end
+################################################################
 
 
 end
