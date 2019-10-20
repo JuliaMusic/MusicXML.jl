@@ -136,7 +136,7 @@ end
 
 # xml constructor
 function Partlist(scoreparts)
-    xml = ElementNode("part-list>")
+    xml = ElementNode("part-list")
     numScoreparts = length(scoreparts)
     for i = 1:numScoreparts
         addelement!(xml, "score-part", scoreparts[i])
@@ -144,6 +144,33 @@ function Partlist(scoreparts)
     return Partlist(scoreparts, xml)
 end
 
+################################################################
+"""
+    Key
+
+A type to hold key information for a measure in musicxml file.
+
+The key element represents a key signature. Both traditional and non-traditional key signatures are supported. The optional number attribute refers to staff numbers. If absent, the key signature applies to all staves in the part.
+
+fifth: number of flats or sharps in a traditional key signature. Negative numbers are used for flats and positive numbers for sharps, reflecting the key's placement within the circle of fifths
+
+mode:  major, minor, dorian, phrygian, lydian, mixolydian, aeolian, ionian, locrian, none
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-key.htm)
+"""
+@kwdef mutable struct Key
+    fifth::Int8
+    mode::Union{Nothing,String} = nothing
+    xml::Node
+end
+
+# xml constructor
+function Key(; fifth, mode = nothing)
+    xml = ElementNode("key")
+    addelement!(xml, "fifths", string(fifth))
+    mididevice == nothing ?  : addelement!(xml, "mode", mode)
+    return Key(fifth, mode, xml)
+end
 ################################################################
 ################################################################
 ################################################################
