@@ -829,9 +829,13 @@ function extractdata(doc::EzXML.Document)
     end
 
     musicxml = Musicxml(scorepartwise)
-    # partlist = Partlist(musicxml.partlist)
-    #
-    # return data
+    partlist = Partlist(musicxml.partlist)
+    parts = Part.(musicxml.parts)
+
+    # for part in parts
+    #     measures = Measure.(part.measures)
+    # end
+    return partlist, parts
 end
 ################################################################
 """
