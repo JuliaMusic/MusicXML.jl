@@ -342,6 +342,41 @@ function pitch2name(j)
     return step, alter, octave
 end
 ################################################################
+"""
+    Pitch
+
+Holds both midi pitch and musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
+"""
+@kwdef mutable struct Pitch
+    pitch::UInt8  # midi pitch
+    step::String
+    alter::Int8
+    octave::Int8
+    xml::Node
+end
+
+# xml constructor
+function Pitch(;pitch)
+    xml = ElementNode("pitch")
+
+    step, alter, octave = pitch2name(pitch)
+
+    addelement!(xml, "step", step)
+    addelement!(xml, "alter", string(alter))
+    addelement!(xml, "octave", string(octave))
+
+    return Pitch(pitch = pitch, step = step, alter = alter, octave = octave, xml = xml)
+end
+
+# xml constructor
+function Pitch(;step, alter, octave)
+    xml = ElementNode("pitch")
+    addelement!(xml, "step", step)
+    addelement!(xml, "alter", string(alter))
+    addelement!(xml, "octave", string(octave))
+    return Pitch(signature, xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
