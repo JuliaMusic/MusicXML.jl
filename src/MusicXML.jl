@@ -172,6 +172,32 @@ function Key(; fifth, mode = nothing)
     return Key(fifth, mode, xml)
 end
 ################################################################
+"""
+    Clef
+
+A type to hold clef information for a measure in musicxml file.
+
+Clefs are represented by a combination of sign, line, and clef-octave-change elements. Clefs appear at the start of each system unless the print-object attribute has been set to "no" or the additional attribute has been set to "yes".
+
+sign: The sign element represents the clef symbol: G, F, C, percussion, TAB, jianpu, none. [More info](https://usermanuals.musicxml.com/MusicXML/Content/ST-MusicXML-clef-sign.htm)
+
+line: Line numbers are counted from the bottom of the staff. Standard values are 2 for the G sign (treble clef), 4 for the F sign (bass clef), 3 for the C sign (alto clef) and 5 for TAB (on a 6-line staff).
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-clef.htm)
+"""
+mutable struct Clef
+    sign::String
+    line::Int16
+    xml::Node
+end
+
+# xml constructor
+function Clef(sign, line)
+    xml = ElementNode("clef")
+    addelement!(xml, "sign", sign)
+    addelement!(xml, "line", string(line))
+    return Clef(sign, line, xml)
+end
 ################################################################
 ################################################################
 """
