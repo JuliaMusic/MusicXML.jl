@@ -462,6 +462,34 @@ function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, t
     return Note(pitch = pitch, rest = rest, unpitched = unpitched, duration = duration, type = type, accidental = accidental, xml = xml)
 end
 ################################################################
+"""
+    Measure
+
+A type to hold the data for a musicxml measure
+
+attributes: See [`Attributes`](@ref) doc
+notes: See [`Note`](@ref) doc
+
+"""
+@kwdef mutable struct Measure
+    attributes::Union{Nothing,Attributes} = nothing
+    notes::Vector{Note}
+    xml::Node
+end
+
+# xml constructor
+function Measure(;attributes = nothing, notes)
+    xml = ElementNode("measure")
+
+    attributes == nothing ?  : addelement!(xml, "attributes", attributes)
+
+    numNotes = length(notes)
+    for i = 1:numNotes
+        addelement!(xml, "note", notes[i])
+    end
+    return Measure(attributes = attributes, notes = notes, xml = xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
