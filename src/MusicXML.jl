@@ -573,7 +573,7 @@ end
 # xml extractor
 function Rest(xml::Node)
 
-    rest = isnothing(findfirstcontent("/rest", xml))
+    rest = xml.name == "rest"
 
     return Rest(rest, xml)
 end
@@ -598,7 +598,7 @@ end
 # xml extractor
 function Unpitched(xml::Node)
 
-    rest = isnothing(findfirstcontent("/unpitched", xml))
+    unpitched = xml.name == "unpitched"
 
     return Unpitched(rest, xml)
 end
