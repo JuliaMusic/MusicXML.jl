@@ -56,7 +56,7 @@ end
 
 # xml extractor
 function Mididevice(xml::Node)
-    port = xml["port"]
+    port = parse(Int16, xml["port"])
     ID = xml["id"][end-3:end]
     return Mididevice(port, ID, xml)
 end
