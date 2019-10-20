@@ -45,11 +45,19 @@ mutable struct Mididevice
     ID::String
     xml::Node
 end
+
 # xml constructor
 function Mididevice(port,ID)
     xml = ElementNode("midi-device")
     xml["port"] = string(port)
     xml["id"] = ID * "-I1"
+    return Mididevice(port, ID, xml)
+end
+
+# xml extractor
+function Mididevice(xml::Node)
+    port = xml["port"]
+    ID = xml["id"][end-3:end]
     return Mididevice(port, ID, xml)
 end
 ################################################################
