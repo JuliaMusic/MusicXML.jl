@@ -58,5 +58,21 @@ function readmusicxml(filepath::String)
     data = extractdata(doc)
     return data
 end
+################################################################
+"""
+    parsemusicxml(s)
+
+Parses musicxml from a string.
+
+# Examples
+```julia
+data = parsemusicxml(s)
+```
+"""
+function parsemusicxml(s::String)
+    doc = parsexml(s) # Parse an XML string
+    data = extractdata(doc)
+    return data
+end
 
 end
