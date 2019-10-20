@@ -265,6 +265,14 @@ function Clef(sign, line)
     addelement!(xml, "line", string(line))
     return Clef(sign, line, xml)
 end
+
+# xml extractor
+function Clef(xml::Node)
+
+    sign = findfirst("/sign", xml).content
+    line = parse(Int16, findfirst("/line", xml).content)
+    return Clef(sign, line, xml)
+end
 ################################################################
 """
     Transpose
