@@ -41,7 +41,77 @@ mutable struct part
     midiinstrument::midiinstrument
 end
 ################################################################
+"""
+    extractdata(doc)
 
+Helper internal function which extract musicxml data. This function is not exported. Use readmusicxml and parsemusicxml instead.
+
+# Examples
+```julia
+data = extractdata(doc)
+```
+"""
+function extractdata(doc::EzXML.Document)
+
+    # Get the root element from `doc`.
+    scorepartwise = root(doc)
+
+    if scorepartwise.name != "score-partwise"
+        error("Only score-partwise musicxml files are supported")
+    end
+
+    # Score Partwise
+    for scorepartwiseC in eachelement(scorepartwise)
+
+        # Part List
+        if scorepartwiseC.name == "part-list"
+            partlist = scorepartwiseC
+
+            scoreParts = Any[]
+
+            iPart = 1
+            for partlistC in eachelement(partlist)
+
+                # TODO part-group
+
+                # Score Part
+                if partlistC.name == "score-part"
+
+                    scorePartI = part()
+
+                    scorePartI.ID = partlistC["id"]
+
+                    for scorepartC in eachelement(partlistC)
+                        if scorepartC == "part-name"
+                            scorePartI.name = scorepartC.content
+                        end
+                        # TODO score-instrument
+                        # TODO midi-device
+                        if scorepartC == "midi-instrument"
+                            midiinstrumentI = midiinstrument()
+                            # TODO scorepartC["id"]
+                            midiinstrumentI.channel = findfirst("/midi-channel",scorepartC)
+                            midiinstrumentI.program = findfirst("/midi-program",scorepartC)
+                            midiinstrumentI.volume = findfirst("/volume",scorepartC)
+                            midiinstrumentI.pan = findfirst("/pan", scorepartC)
+                            scorePartI.midiinstrument = midiinstrumentI
+                        end
+                    end
+                    push!(scoreParts, scorePartI)
+                    iPart = +1
+                end  # Score Part
+
+
+            end
+        end # Part List
+        data.scoreParts = scoreParts
+
+
+    end # Score Partwise
+
+
+    return data
+end
 ################################################################
 """
     readmusicxml(filepath)
