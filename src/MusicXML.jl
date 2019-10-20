@@ -360,6 +360,22 @@ function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothin
     double == nothing ?  : addelement!(xml, "double", double)
     return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
 end
+
+# xml extractor
+function Transpose(;xml::Node)
+
+    diatonic = findfirstcontent(Int8, "/diatonic", xml)
+    # diatonic = parse(Int8, findfirst("/diatonic", xml).content)
+    chromatic = findfirstcontent(Int8, "/chromatic", xml)
+    # chromatic = parse(Int8, findfirst("/chromatic", xml).content)
+    octaveChange = findfirstcontent(Int8, "/octave-change", xml)
+    # octaveChange = parse(Int8, findfirst("/octave-change", xml).content)
+    double = findfirstcontent("/double", xml)
+    # double = findfirst("/double", xml).content
+
+    return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
+end
+Transpose(n::Nothing) = nothing
 ################################################################
 """
     Time
