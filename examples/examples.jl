@@ -7,7 +7,7 @@ if developing
     end
     push!(LOAD_PATH, ".")
     using Revise
-    using MusicXML, EzXML, MIDI
+    using MusicXML
 else
     using MusicXML
 end
