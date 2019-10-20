@@ -453,6 +453,21 @@ function Attributes(;divisions, key, time, staves = nothing, instruments = nothi
     transpose == nothing ?  : addelement!(xml, "transpose", transpose)
     return Attributes(divisions = divisions, key = key, time = time, staves = staves, instruments = instruments, clef = clef, transpose = transpose, xml = xml)
 end
+
+# xml extractor
+function Attributes(;xml::Node)
+
+    divisions = findfirstcontent(Int16, "/divisions", xml)
+    key = Key(findfirst("/key", xml))
+    time = Time(findfirst("/time", xml))
+    staves = findfirstcontent(UInt16, "/staves", xml)
+    instruments = findfirstcontent(UInt16, "/instruments", xml)
+    clef = Clef(findfirst("/clef", xml))
+    transpose = Transpose(findfirst("/transpose", xml))
+
+    return Attributes(divisions = divisions, key = key, time = time, staves = staves, instruments = instruments, clef = clef, transpose = transpose, xml = xml)
+end
+Attributes(n::Nothing) = nothing
 ################################################################
 using Base.Meta, Base.Unicode
 const PITCH_TO_NAME = Dict(
