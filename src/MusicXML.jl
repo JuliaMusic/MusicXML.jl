@@ -29,6 +29,24 @@ function Scoreinstrument(name,ID)
     return Scoreinstrument(name, ID, xml)
 end
 ################################################################
+"""
+    Mididevice
+
+The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
+"""
+mutable struct Mididevice
+    port::Int16
+    ID::String
+    xml::Node
+end
+# xml constructor
+function Mididevice(port,ID)
+    xml = ElementNode("midi-device")
+    xml["port"] = string(port)
+    xml["id"] = ID * "-I1"
+    return Mididevice(port, ID, xml)
+end
+################################################################
 
 # http://www.music-software-development.com/midi-tutorial.html - Part 4
 # Status byte : 1100 CCCC
