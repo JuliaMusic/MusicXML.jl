@@ -7,6 +7,7 @@ export readmusicxml, parsemusicxml
 """
     midiinstrument
     midiinstrument(channel, program, volume, pan)
+    midiinstrument()
 
 midiinstrument type holds information about the sound of a midi instrument.
 
@@ -26,14 +27,18 @@ mutable struct midiinstrument
     pan::Int8
 end
 
-"""
-    part
-    part(ID, name, midiinstrument)
+# default constructor
+midiinstrument() = midiinstrument(0, 1, 127, 0)
 
-Holds information about one part in a score
+"""
+    scorepart
+    scorepart(ID, name, midiinstrument)
+    scorepart()
+
+Holds information about one scorepart in a score
 # Examples
 ```julia
-part("P1","Violin",midiinstrument(0,1,127,0))
+scorepart("P1","Violin",midiinstrument(0,1,127,0))
 ```
 """
 mutable struct scorepart
@@ -41,6 +46,10 @@ mutable struct scorepart
     name::String    # e.g. Violin
     midiinstrument::midiinstrument
 end
+
+# default constructor
+scorepart() = scorepart("P1", "Piano", midiinstrument())
+################################################################
 ################################################################
 """
     extractdata(doc)
