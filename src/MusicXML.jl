@@ -395,6 +395,23 @@ function Rest(rest, octave)
 end
 ################################################################
 """
+    Unpitched
+
+The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
+"""
+mutable struct Unpitched
+    unpitched::Bool
+    xml::Node
+end
+
+# xml constructor
+function Unpitched(rest, octave)
+    xml = ElementNode("unpitched")
+    return Unpitched(rest, xml)
+end
+################################################################
+################################################################
+"""
     extractdata(doc)
 
 Helper internal function which extract musicxml data. This function is not exported. Use readmusicxml and parsemusicxml instead.
