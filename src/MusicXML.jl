@@ -569,6 +569,15 @@ function Rest(rest, octave)
     xml = ElementNode("rest")
     return Rest(rest, xml)
 end
+
+# xml extractor
+function Rest(xml::Node)
+
+    rest = isnothing(findfirstcontent("/rest", xml))
+
+    return Rest(rest, xml)
+end
+Rest(n::Nothing) = nothing
 ################################################################
 """
     Unpitched
