@@ -121,7 +121,7 @@ Reads musicxml file and extracts the data.
 
 # Examples
 ```julia
-data = readxml(joinpath("examples", "musescore.musicxml"))
+data = readmusicxml(joinpath("examples", "musescore.musicxml"))
 ```
 """
 function readmusicxml(filepath::String)
