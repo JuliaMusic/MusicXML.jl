@@ -62,10 +62,12 @@ end
 # xml extractor
 function Scoreinstrument(xml::Node)
 
-    name = findfirst("/instrument-name", xml).content
+    name = findfirstcontent("/instrument-name",xml)
+    # name = findfirst("/instrument-name", xml).content
     ID = xml["id"][end-3:end]
     return Scoreinstrument(name, ID, xml)
 end
+Scoreinstrument(n::Nothing) = nothing
 ################################################################
 """
     Mididevice
@@ -92,6 +94,7 @@ function Mididevice(xml::Node)
     ID = xml["id"][end-3:end]
     return Mididevice(port, ID, xml)
 end
+Mididevice(n::Nothing) = nothing
 ################################################################
 """
     Midiinstrument
@@ -136,13 +139,18 @@ end
 # xml extractor
 function Midiinstrument(xml::Node)
 
-    channel = parse(UInt8,findfirst("/midi-channel", xml).content)
-    program = parse(UInt8,findfirst("/midi-program", xml).content)
-    volume = parse(UInt8,findfirst("/volume", xml).content)
-    pan = parse(UInt8,findfirst("/pan", xml).content)
+    channel = findfirstcontent(UInt8, "/midi-channel",xml)
+    # channel = parse(UInt8,findfirst("/midi-channel", xml).content)
+    program = findfirstcontent(UInt8, "/midi-program",xml)
+    # program = parse(UInt8,findfirst("/midi-program", xml).content)
+    volume = findfirstcontent(UInt8, "/volume",xml)
+    # volume = parse(UInt8,findfirst("/volume", xml).content)
+    pan = findfirstcontent(UInt8, "/pan",xml)
+    # pan = parse(UInt8,findfirst("/pan", xml).content)
     ID = xml["id"][end-3:end]
     return Midiinstrument(channel, program, volume, pan, ID, xml)
 end
+Midiinstrument(n::Nothing) = nothing
 ################################################################
 """
     Scorepart
@@ -191,13 +199,15 @@ end
 # xml extractor
 function Scorepart(;xml::Node)
 
-    name = findfirst("/part-name", xml).content
+    name = findfirstcontent("/part-name",xml)
+    # name = findfirst("/part-name", xml).content
     scoreinstrument = Scoreinstrument(findfirst("/score-instrument", xml))
     mididevice = Mididevice(findfirst("/midi-device", xml))
     midiinstrument = Midiinstrument(findfirst("/midi-instrument", xml))
     ID = xml["id"]
     return Scorepart(name = name, scoreinstrument = scoreinstrument, mididevice = mididevice, midiinstrument = midiinstrument, ID = ID, xml = xml)
 end
+Scorepart(n::Nothing) = nothing
 ################################################################
 """
     Partlist
@@ -227,14 +237,19 @@ end
 function Partlist(xml::Node)
 
     elms = findall("/score-part", xml)
-    scoreparts = Vector{Scorepart}(undef, length(elms))
-    i=1
-    for elm in eachelement(elms)
-        scoreparts[i]=Scorepart(elm)
-        i=+1
+    if isnothing(elms)
+        return Partlist(nothing)
+    else
+        scoreparts = Vector{Scorepart}(undef, length(elms))
+        i=1
+        for elm in eachelement(elms)
+            scoreparts[i]=Scorepart(elm)
+            i=+1
+        end
+        return Partlist(scoreparts, xml)
     end
-    return Partlist(scoreparts, xml)
 end
+Partlist(n::Nothing) = nothing
 ################################################################
 """
     Key
@@ -265,11 +280,13 @@ end
 
 # xml extractor
 function Key(;xml::Node)
-
-    fifth = parse(Int8, findfirst("/fifth", xml).content)
-    mode = findfirst("/mode", xml).content
+    fifth = findfirstcontent(Int8, "/fifth", xml)
+    # fifth = parse(Int8, findfirst("/fifth", xml).content)
+    mode = findfirstcontent("/mode", xml)
+    # mode = findfirstcontent("/mode", xml).content
     return Key(fifth = fifth, mode = mode, xml = xml)
 end
+Key(n::Nothing) = nothing
 ################################################################
 """
     Clef
@@ -301,10 +318,13 @@ end
 # xml extractor
 function Clef(xml::Node)
 
-    sign = findfirst("/sign", xml).content
-    line = parse(Int16, findfirst("/line", xml).content)
+    sign = findfirstcontent("/sign", xml)
+    # sign = findfirst("/sign", xml).content
+    line = findfirstcontent(Int16, "/line", xml)
+    # line = parse(Int16, findfirst("/line", xml).content)
     return Clef(sign, line, xml)
 end
+Clef(n::Nothing) = nothing
 ################################################################
 """
     Transpose
