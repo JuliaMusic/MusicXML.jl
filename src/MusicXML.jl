@@ -168,8 +168,8 @@ end
 function Key(; fifth, mode = nothing)
     xml = ElementNode("key")
     addelement!(xml, "fifths", string(fifth))
-    mididevice == nothing ?  : addelement!(xml, "mode", mode)
-    return Key(fifth, mode, xml)
+    mode == nothing ?  : addelement!(xml, "mode", mode)
+    return Key(fifth = fifth, mode = mode, xml = xml)
 end
 ################################################################
 """
