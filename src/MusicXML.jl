@@ -490,6 +490,31 @@ function Measure(;attributes = nothing, notes)
     return Measure(attributes = attributes, notes = notes, xml = xml)
 end
 ################################################################
+"""
+    Part
+
+A type to hold the data for a part in musicxml file.
+
+measures: See [`Measure`](@ref) doc
+
+"""
+mutable struct Part
+    measures::Vector{Measure}
+    ID::String
+    xml::Node
+end
+
+function Part(measures, ID)
+    xml = ElementNode("part")
+
+    numMeasures = length(measures)
+    for i = 1:numMeasures
+        addelement!(xml, "measure", measures[i])
+    end
+    xml["id"] = ID
+    return Part(measures, ID, xml)
+end
+################################################################
 ################################################################
 """
     extractdata(doc)
