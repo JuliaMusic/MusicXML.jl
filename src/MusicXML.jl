@@ -255,7 +255,7 @@ end
 function Partlist(xml::Node)
 
     scoreparts = findallcontent(Scorepart,"/score-part", xml)
-    isnothing(scoreparts) ? Partlist(nothing) else Partlist(scoreparts, xml)
+    isnothing(scoreparts) ? Partlist(nothing) : Partlist(scoreparts, xml)
 end
 Partlist(n::Nothing) = nothing
 ################################################################
@@ -704,7 +704,7 @@ function Measure(;xml::Node)
     attributes = Attributes(findfirstcontent("/attributes", xml))
 
     notes = findallcontent(Note,"/note", xml)
-    isnothing(notes) ? Measure(nothing) else Measure(attributes = attributes, notes = notes, xml = xml)
+    isnothing(notes) ? Measure(nothing) : Measure(attributes = attributes, notes = notes, xml = xml)
 
 end
 Measure(n::Nothing) = nothing
@@ -740,7 +740,7 @@ function Part(xml::Node)
 
      ID = xml["id"]
     measures = findallcontent(Measure,"/measure", xml)
-    isnothing(measures) ? Part(nothing) else Part(measures, ID, xml)
+    isnothing(measures) ? Part(nothing) : Part(measures, ID, xml)
 end
 Part(n::Nothing) = nothing
 ################################################################
@@ -776,7 +776,7 @@ function Musicxml(xml::Node)
     partlist = Partlist(findfirstcontent("partlist", xml))
 
     parts = findallcontent(Part,"/part", xml)
-    isnothing(parts) ? Musicxml(nothing) else Musicxml(partlist, parts, xml)
+    isnothing(parts) ? Musicxml(nothing) : Musicxml(partlist, parts, xml)
 
 end
 Musicxml(n::Nothing) = nothing
