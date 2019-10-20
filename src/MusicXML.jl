@@ -42,5 +42,21 @@ mutable struct part
 end
 ################################################################
 
+################################################################
+"""
+    readmusicxml(filepath)
+
+Reads musicxml file and extracts the data.
+
+# Examples
+```julia
+data = readxml(joinpath("examples", "musescore.musicxml"))
+```
+"""
+function readmusicxml(filepath::String)
+    doc = readxml(filepath) # read an XML document from a file
+    data = extractdata(doc)
+    return data
+end
 
 end
