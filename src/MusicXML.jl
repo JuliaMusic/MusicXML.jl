@@ -104,8 +104,8 @@ function extractdata(doc::EzXML.Document)
 
 
             end
+            data.scoreParts = scoreParts
         end # Part List
-        data.scoreParts = scoreParts
 
 
     end # Score Partwise
