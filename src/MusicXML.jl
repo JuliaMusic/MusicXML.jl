@@ -532,7 +532,7 @@ end
 function Pitch(;pitch)
     xml = ElementNode("pitch")
 
-    step, alter, octave = pitch2name(pitch)
+    step, alter, octave = pitch2xml(pitch)
 
     addelement!(xml, "step", step)
     addelement!(xml, "alter", string(alter))
@@ -541,14 +541,18 @@ function Pitch(;pitch)
     return Pitch(pitch = pitch, step = step, alter = alter, octave = octave, xml = xml)
 end
 
-# xml constructor
-function Pitch(;step, alter, octave)
-    xml = ElementNode("pitch")
-    addelement!(xml, "step", step)
-    addelement!(xml, "alter", string(alter))
-    addelement!(xml, "octave", string(octave))
-    return Pitch(signature, xml)
+# xml extractor
+function Pitch(;xml::Node)
+
+    step = findfirstcontent("/step", xml)
+    alter = findfirstcontent(Float16,"/alter", xml)
+    octave = findfirstcontent(Int8,"/octave", xml)
+
+    pitch = xml2pitch(step, alter, octave)
+
+    return Pitch(pitch = pitch, step = step, alter = alter, octave = octave, xml = xml)
 end
+Pitch(n::Nothing) = nothing
 ################################################################
 """
     Rest
