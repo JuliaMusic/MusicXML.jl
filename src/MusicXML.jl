@@ -515,6 +515,31 @@ function Part(measures, ID)
     return Part(measures, ID, xml)
 end
 ################################################################
+"""
+    Musicxml
+
+A type to hold the data for a musicxml file.
+"""
+mutable struct Musicxml
+    # TODO identification
+    # TODO defaults
+    partlist::Partlist
+    parts::Vector{Part}
+    xml::Node
+end
+
+function Musicxml(partlist, parts)
+    xml = ElementNode("score-partwise")
+
+    addelement!(xml, "partlist", measures[i])
+
+    numParts = length(parts)
+    for i = 1:numParts
+        addelement!(xml, "part", parts[i])
+    end
+    return Musicxml(partlist, parts, xml)
+end
+
 ################################################################
 """
     extractdata(doc)
