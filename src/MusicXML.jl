@@ -101,6 +101,16 @@ function Midiinstrument(channel, program, volume, pan, ID)
     return Midiinstrument(channel, program, volume, pan, ID, xml)
 end
 
+# xml extractor
+function Midiinstrument(xml::Node)
+
+    channel = parse(UInt8,findfirst("/midi-channel", xml).content)
+    program = parse(UInt8,findfirst("/midi-program", xml).content)
+    volume = parse(UInt8,findfirst("/volume", xml).content)
+    pan = parse(UInt8,findfirst("/pan", xml).content)
+    ID = xml["id"][end-3:end]
+    return Midiinstrument(channel, program, volume, pan, ID, xml)
+end
 ################################################################
 """
     Scorepart
