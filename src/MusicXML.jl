@@ -625,7 +625,7 @@ tie:
     pitch::Pitch = nothing
     rest::Rest = nothing
     unpitched::Unpitched = nothing
-    duration::UInt = nothing
+    duration::UInt
     # voice
     type::String = nothing
     accidental::String = nothing
@@ -655,6 +655,20 @@ function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, t
 
     return Note(pitch = pitch, rest = rest, unpitched = unpitched, duration = duration, type = type, accidental = accidental, xml = xml)
 end
+
+# xml extractor
+function Note(;xml::Node)
+
+    pitch = Pitch(findfirstcontent("/pitch", xml))
+    rest = Rest(findfirstcontent("/rest", xml))
+    unpitched = Unpitched(findfirstcontent("/unpitched", xml))
+    duration = findfirstcontent(UInt,"/duration", xml)
+    type = findfirstcontent("/type", xml)
+    accidental = findfirstcontent("/accidental", xml)
+
+    return Note(pitch = pitch, rest = rest, unpitched = unpitched, duration = duration, type = type, accidental = accidental, xml = xml)
+end
+Note(n::Nothing) = nothing
 ################################################################
 """
     Measure
