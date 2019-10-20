@@ -754,57 +754,10 @@ function extractdata(doc::EzXML.Document)
         error("Only score-partwise musicxml files are supported")
     end
 
-    # Score Partwise
-    for scorepartwiseC in eachelement(scorepartwise)
-
-        # Part List
-        if scorepartwiseC.name == "part-list"
-            partlist = scorepartwiseC
-
-            scoreParts = Any[]
-
-            iPart = 1
-            for partlistC in eachelement(partlist)
-
-                # TODO part-group
-
-                # Score Part
-                if partlistC.name == "score-part"
-
-                    scorePartI = scorepart()
-
-                    scorePartI.ID = partlistC["id"]
-
-                    for scorepartC in eachelement(partlistC)
-                        if scorepartC == "part-name"
-                            scorePartI.name = scorepartC.content
-                        end
-                        # TODO score-instrument
-                        # TODO midi-device
-                        if scorepartC == "midi-instrument"
-                            midiinstrumentI = midiinstrument()
-                            # TODO scorepartC["id"]
-                            midiinstrumentI.channel = findfirst("/midi-channel",scorepartC)
-                            midiinstrumentI.program = findfirst("/midi-program",scorepartC)
-                            midiinstrumentI.volume = findfirst("/volume",scorepartC)
-                            midiinstrumentI.pan = findfirst("/pan", scorepartC)
-                            scorePartI.midiinstrument = midiinstrumentI
-                        end
-                    end
-                    push!(scoreParts, scorePartI)
-                    iPart = +1
-                end  # Score Part
-
-
-            end
-            data.scoreParts = scoreParts
-        end # Part List
-
-
-    end # Score Partwise
-
-
-    return data
+    musicxml = Musicxml(scorepartwise)
+    # partlist = Partlist(musicxml.partlist)
+    #
+    # return data
 end
 ################################################################
 """
