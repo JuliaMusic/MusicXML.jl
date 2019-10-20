@@ -18,11 +18,20 @@ mutable struct Scoreinstrument
     ID::String
     xml::Node
 end
+
 # xml constructor
 function Scoreinstrument(name,ID)
     xml = ElementNode("score-instrument")
     addelement!(xml, "instrument-name", string(name))
     xml["id"] = ID * "-I1"
+    return Scoreinstrument(name, ID, xml)
+end
+
+# xml extractor
+function Scoreinstrument(xml::Node)
+
+    name = findfirst("/instrument-name", xml).content
+    ID = xml["id"][end-3:end]
     return Scoreinstrument(name, ID, xml)
 end
 ################################################################
