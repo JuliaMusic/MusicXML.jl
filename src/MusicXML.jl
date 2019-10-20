@@ -175,7 +175,7 @@ Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
 """
 @kwdef mutable struct Scorepart
     name::String
-    scoreinstrument::Union{Nothing,ScoreInstrument} = nothing
+    scoreinstrument::Union{Nothing,Scoreinstrument} = nothing
     mididevice::Union{Nothing,Mididevice} = nothing
     midiinstrument::Midiinstrument
     ID::String
@@ -189,8 +189,8 @@ Scorepart() = Scorepart(name = "Piano", midiinstrument = midiinstrument(), ID = 
 function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midiinstrument, ID)
     xml = ElementNode("score-part")
     addelement!(xml, "part-name", string(name))
-    scoreinstrument == nothing ?  : addelement!(xml, "score-instrument", scoreinstrument)
-    mididevice == nothing ?  : addelement!(xml, "midi-device", mididevice)
+    if !isnothing(scoreinstrument)  addelement!(xml, "score-instrument", scoreinstrument) end
+    if !isnothing(mididevice) addelement!(xml, "midi-device", mididevice) end
     addelement!(xml, "midi-instrument", string(midiinstrument))
     xml["id"] = string(ID)
     return Scorepart(name = name, scoreinstrument = scoreinstrument, mididevice = mididevice, midiinstrument = midiinstrument, ID = ID, xml = xml)
@@ -274,7 +274,7 @@ end
 function Key(; fifth, mode = nothing)
     xml = ElementNode("key")
     addelement!(xml, "fifths", string(fifth))
-    mode == nothing ?  : addelement!(xml, "mode", mode)
+    if !isnothing(mode) addelement!(xml, "mode", mode) end
     return Key(fifth = fifth, mode = mode, xml = xml)
 end
 
@@ -356,8 +356,8 @@ function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothin
     xml = ElementNode("transpose")
     addelement!(xml, "diatonic", string(diatonic))
     addelement!(xml, "chromatic", string(chromatic))
-    octaveChange == nothing ?  : addelement!(xml, "octave-change", octaveChange)
-    double == nothing ?  : addelement!(xml, "double", double)
+    if !isnothing(octaveChange) addelement!(xml, "octave-change", octaveChange) end
+    if !isnothing(double) addelement!(xml, "double", double) end
     return Transpose(diatonic = diatonic, chromatic = chromatic, octaveChange = octaveChange, double = double, xml = xml)
 end
 
@@ -447,10 +447,10 @@ function Attributes(;divisions, key, time, staves = nothing, instruments = nothi
     addelement!(xml, "divisions", string(divisions))
     addelement!(xml, "key", key)
     addelement!(xml, "time", time)
-    staves == nothing ?  : addelement!(xml, "staves", staves)
-    instruments == nothing ?  : addelement!(xml, "instruments", instruments)
-    clef == nothing ?  : addelement!(xml, "clef", clef)
-    transpose == nothing ?  : addelement!(xml, "transpose", transpose)
+    if !isnothing(staves) addelement!(xml, "staves", staves) end
+    if !isnothing(instruments) addelement!(xml, "instruments", instruments) end
+    if !isnothing(clef) addelement!(xml, "clef", clef) end
+    if !isnothing(transpose) addelement!(xml, "transpose", transpose) end
     return Attributes(divisions = divisions, key = key, time = time, staves = staves, instruments = instruments, clef = clef, transpose = transpose, xml = xml)
 end
 
@@ -649,8 +649,8 @@ function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, t
     end
 
     addelement!(xml, "duration", string(duration))
-    type == nothing ?  : addelement!(xml, "type", type)
-    accidental == nothing ?  : addelement!(xml, "accidental", accidental)
+    if !isnothing(type) addelement!(xml, "type", type) end
+    if !isnothing(accidental) addelement!(xml, "accidental", accidental) end
     # tie == nothing ?  : addelement!(xml, "tie", tie)
 
     return Note(pitch = pitch, rest = rest, unpitched = unpitched, duration = duration, type = type, accidental = accidental, xml = xml)
@@ -689,7 +689,7 @@ end
 function Measure(;attributes = nothing, notes)
     xml = ElementNode("measure")
 
-    attributes == nothing ?  : addelement!(xml, "attributes", attributes)
+    if !isnothing(attributes) addelement!(xml, "attributes", attributes) end
 
     numNotes = length(notes)
     for i = 1:numNotes
