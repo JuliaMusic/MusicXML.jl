@@ -230,6 +230,14 @@ function Key(; fifth, mode = nothing)
     mode == nothing ?  : addelement!(xml, "mode", mode)
     return Key(fifth = fifth, mode = mode, xml = xml)
 end
+
+# xml extractor
+function Key(;xml::Node)
+
+    fifth = parse(Int8, findfirst("/fifth", xml).content)
+    mode = findfirst("/mode", xml).content
+    return Key(fifth = fifth, mode = mode, xml = xml)
+end
 ################################################################
 """
     Clef
