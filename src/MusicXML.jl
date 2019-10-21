@@ -404,6 +404,15 @@ Clef(n::Nothing) = nothing
 """
     Transpose
 
+...
+# Arguments
+- diatonic::Int8
+- chromatic::Int8
+- octaveChange::Union{Nothing,Int8}
+- double::Union{Nothing,Bool}
+- xml::Node
+...
+
 A type to hold transpose information for a measure in musicxml file.
 
 If the part is being encoded for a transposing instrument in written vs. concert pitch, the transposition must be encoded in the transpose element using the transpose type.
