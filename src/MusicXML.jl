@@ -90,6 +90,8 @@ function Scoreinstrument(xml::Node)
     ID = xml["id"][end-3:end]
     return Scoreinstrument(name, ID, xml)
 end
+Scoreinstrument(x::Scoreinstrument) = Scoreinstrument(x.xml)
+
 Scoreinstrument(n::Nothing) = nothing
 ################################################################
 """
@@ -117,6 +119,8 @@ function Mididevice(xml::Node)
     ID = xml["id"][end-3:end]
     return Mididevice(port, ID, xml)
 end
+Mididevice(x::Mididevice) = Mididevice(x.xml)
+
 Mididevice(n::Nothing) = nothing
 ################################################################
 """
@@ -169,6 +173,8 @@ function Midiinstrument(xml::Node)
     ID = xml["id"][end-3:end]
     return Midiinstrument(channel, program, volume, pan, ID, xml)
 end
+Midiinstrument(x::Midiinstrument) = Midiinstrument(x.xml)
+
 Midiinstrument(n::Nothing) = nothing
 ################################################################
 """
@@ -225,6 +231,8 @@ function Scorepart(xml::Node)
     ID = xml["id"]
     return Scorepart(name, scoreinstrument, mididevice, midiinstrument, ID, xml)
 end
+Scorepart(x::Scorepart) = Scorepart(x.xml)
+
 Scorepart(n::Nothing) = nothing
 ################################################################
 """
@@ -257,6 +265,8 @@ function Partlist(xml::Node)
     scoreparts = findallcontent(Scorepart,"/score-part", xml)
     isnothing(scoreparts) ? Partlist(nothing) : Partlist(scoreparts, xml)
 end
+Partlist(x::Partlist) = Partlist(x.xml)
+
 Partlist(n::Nothing) = nothing
 ################################################################
 """
@@ -292,6 +302,8 @@ function Key(xml::Node)
     mode = findfirstcontent("/mode", xml)
     return Key(fifth, mode, xml)
 end
+Key(x::Key) = Key(x.xml)
+
 Key(n::Nothing) = nothing
 ################################################################
 """
@@ -328,6 +340,8 @@ function Clef(xml::Node)
     line = findfirstcontent(Int16, "/line", xml)
     return Clef(sign, line, xml)
 end
+Clef(x::Clef) = Clef(x.xml)
+
 Clef(n::Nothing) = nothing
 ################################################################
 """
@@ -375,6 +389,8 @@ function Transpose(xml::Node)
 
     return Transpose(diatonic, chromatic, octaveChange, double, xml)
 end
+Transpose(x::Transpose) = Transpose(x.xml)
+
 Transpose(n::Nothing) = nothing
 ################################################################
 """
@@ -407,6 +423,8 @@ function Time(xml::Node)
 
     return Time(signature, xml)
 end
+Time(x::Time) = Time(x.xml)
+
 Time(n::Nothing) = nothing
 ################################################################
 """
@@ -467,6 +485,8 @@ function Attributes(xml::Node)
 
     return Attributes(divisions, key, time, staves, instruments, clef, transpose, xml)
 end
+Attributes(x::Attributes) = Attributes(x.xml)
+
 Attributes(n::Nothing) = nothing
 ################################################################
 using Base.Meta, Base.Unicode
@@ -552,6 +572,8 @@ function Pitch(xml::Node)
 
     return Pitch(pitch = pitch, step = step, alter = alter, octave = octave, xml = xml)
 end
+Pitch(x::Pitch) = Pitch(x.xml)
+
 Pitch(n::Nothing) = nothing
 ################################################################
 """
@@ -581,6 +603,8 @@ function Rest(xml::Node)
 
     return Rest(rest, xml)
 end
+Rest(x::Rest) = Rest(x.xml)
+
 Rest(n::Nothing) = nothing
 ################################################################
 """
@@ -610,6 +634,8 @@ function Unpitched(xml::Node)
 
     return Unpitched(rest, xml)
 end
+Unpitched(x::Unpitched) = Unpitched(x.xml)
+
 Unpitched(n::Nothing) = nothing
 ################################################################
 """
@@ -676,6 +702,8 @@ function Note(xml::Node)
 
     return Note(pitch, rest, unpitched, duration, type, accidental, xml)
 end
+Note(x::Note) = Note(x.xml)
+
 Note(n::Nothing) = nothing
 ################################################################
 """
@@ -715,6 +743,8 @@ function Measure(xml::Node)
     isnothing(notes) ? Measure(nothing) : Measure(attributes, notes, xml)
 
 end
+Measure(x::Measure) = Measure(x.xml)
+
 Measure(n::Nothing) = nothing
 ################################################################
 """
@@ -750,6 +780,8 @@ function Part(xml::Node)
     measures = findallcontent(Measure,"/measure", xml)
     isnothing(measures) ? Part(nothing) : Part(measures, ID, xml)
 end
+Part(x::Part) = Part(x.xml)
+
 Part(n::Nothing) = nothing
 ################################################################
 """
@@ -787,6 +819,8 @@ function Musicxml(xml::Node)
     isnothing(parts) ? Musicxml(nothing) : Musicxml(partlist, parts, xml)
 
 end
+Musicxml(x::Musicxml) = Musicxml(x.xml)
+
 Musicxml(n::Nothing) = nothing
 ################################################################
 """
