@@ -462,6 +462,12 @@ Transpose(n::Nothing) = nothing
 """
     Time
 
+...
+# Arguments
+- signature::Array{Int8,1}
+- xml::Node
+...
+
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
 """
 mutable struct Time
