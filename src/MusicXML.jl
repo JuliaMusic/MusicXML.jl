@@ -502,6 +502,18 @@ Time(n::Nothing) = nothing
 """
     Attributes
 
+...
+# Arguments
+- divisions::Int16
+- key::Key
+- time::Time
+- staves::Union{Nothing, UInt16}
+- instruments::Union{Nothing,UInt16}
+- clef::Union{Nothing,Clef}
+- transpose::Union{Nothing,Transpose}
+- xml::Node
+...
+
 A type to hold the data for the attributes of a musicxml measure
 
 The attributes element contains musical information that typically changes on measure boundaries. This includes key and time signatures, clefs, transpositions, and staving. When attributes are changed mid-measure, it affects the music in score order, not in MusicXML document order.
