@@ -2,7 +2,6 @@
 
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://aminya.github.io/MusicXML.jl/dev)
 [![Build Status](https://travis-ci.com/aminya/MusicXML.jl.svg?branch=master)](https://travis-ci.com/aminya/MusicXML.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/aminya/MusicXML.jl?svg=true)](https://ci.appveyor.com/project/aminya/MusicXML-jl)
 
 Powerful MusicXML reading and writing package for Julia.
 
