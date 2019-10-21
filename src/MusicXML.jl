@@ -708,6 +708,12 @@ Rest(n::Nothing) = nothing
 """
     Unpitched
 
+...
+# Arguments
+- unpitched::Bool
+- xml::Node
+...
+
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
 mutable struct Unpitched
