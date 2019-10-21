@@ -671,6 +671,12 @@ Pitch(n::Nothing) = nothing
 """
     Rest
 
+...
+# Arguments
+- rest::Bool
+- xml::Node
+...
+
 The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
 """
 mutable struct Rest
