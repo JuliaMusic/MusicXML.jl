@@ -359,6 +359,13 @@ Key(n::Nothing) = nothing
 """
     Clef
 
+...
+# Arguments
+- sign::String
+- line::Int16
+- xml::Node
+...
+
 A type to hold clef information for a measure in musicxml file.
 
 Clefs are represented by a combination of sign, line, and clef-octave-change elements. Clefs appear at the start of each system unless the print-object attribute has been set to "no" or the additional attribute has been set to "yes".
