@@ -745,6 +745,20 @@ Unpitched(n::Nothing) = nothing
 """
     Note
 
+...
+# Arguments
+- pitch::Pitch
+- rest::Rest
+- unpitched::Unpitched
+- duration::UInt
+- # voice
+- type::String
+- accidental::String
+- # tie::Union{Nothing,Tie} # start, stop, nothing TODO
+- # TODO lyric
+- xml::Node
+...
+
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
 
 pitch: See [`Pitch`](@ref) doc
