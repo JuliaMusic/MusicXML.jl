@@ -621,6 +621,14 @@ end
 ################################################################
 """
     Pitch
+...
+# Arguments
+- pitch::UInt8  # midi pitch
+- step::String
+- alter::Float16
+- octave::Int8
+- xml::Node
+...
 
 Holds both midi pitch and musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
 """
