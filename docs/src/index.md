@@ -23,25 +23,26 @@ data = readmusicxml(joinpath(Pkg.dir("MusicXML"), "examples", "musescore.musicxm
 
 You can use among these exported types and functions:
 
-# I/O functions
+## I/O functions
 ```julia
 readmusicxml, parsemusicxml
 ```
 
-# Types:
+## Types:
 ```julia
 MusicXML, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 ```
 
-# Utilities
+## Utilities
 ```julia
 pitch2xml, xml2pitch
 ```
 
-# XML utilities
+## XML utilities
 ```julia
 findfirstcontent, findallcontent
 ```
+
 
 ```@index
 ```
