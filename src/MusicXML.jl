@@ -110,6 +110,13 @@ Scoreinstrument(n::Nothing) = nothing
 """
     Mididevice
 
+...
+# Arguments
+- port::Int16
+- ID::String
+- xml::Node
+...
+
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 """
 mutable struct Mididevice
