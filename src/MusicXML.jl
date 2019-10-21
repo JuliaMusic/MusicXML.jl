@@ -1,12 +1,18 @@
 module MusicXML
 
 using EzXML
-import MIDI, MusicManipulations
-import Base.@kwdef
 import EzXML.Node
 
-export readmusicxml, parsemusicxml
+import MIDI, MusicManipulations
 
+# I/O functions
+export readmusicxml, parsemusicxml
+# Types:
+export MusicXML, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+# Utilities
+export pitch2xml, xml2pitch
+# XML utilities
+export findfirstcontent, findallcontent
 
 # overloading nothing (not recommended):
 Base.getproperty(::Nothing, sym::Symbol) = nothing
