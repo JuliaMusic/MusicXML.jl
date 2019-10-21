@@ -145,8 +145,16 @@ Mididevice(n::Nothing) = nothing
 ################################################################
 """
     Midiinstrument
-    Midiinstrument(channel, program, volume, pan)
-    Midiinstrument()
+
+...
+# Arguments
+- channel::UInt8 # 0 to 15
+- program::UInt8
+- volume::UInt8
+- pan::Int8
+- ID::String
+- xml::Node
+...
 
 Midiinstrument type holds information about the sound of a midi instrument.
 
