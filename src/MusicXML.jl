@@ -876,6 +876,13 @@ Measure(n::Nothing) = nothing
 """
     Part
 
+...
+# Arguments
+- measures::Vector{Measure}
+- ID::String
+- xml::Node
+...
+
 A type to hold the data for a part in musicxml file.
 
 measures: See [`Measure`](@ref) doc
