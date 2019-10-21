@@ -667,9 +667,9 @@ end
 # xml extractor
 function Note(xml::Node)
 
-    pitch = Pitch(findfirstcontent("/pitch", xml))
-    rest = Rest(findfirstcontent("/rest", xml))
-    unpitched = Unpitched(findfirstcontent("/unpitched", xml))
+    pitch = Pitch(findfirst("/pitch", xml))
+    rest = Rest(findfirst("/rest", xml))
+    unpitched = Unpitched(findfirst("/unpitched", xml))
     duration = findfirstcontent(UInt,"/duration", xml)
     type = findfirstcontent("/type", xml)
     accidental = findfirstcontent("/accidental", xml)
@@ -709,7 +709,7 @@ end
 # xml extractor
 function Measure(xml::Node)
 
-    attributes = Attributes(findfirstcontent("/attributes", xml))
+    attributes = Attributes(findfirst("/attributes", xml))
 
     notes = findallcontent(Note,"/note", xml)
     isnothing(notes) ? Measure(nothing) : Measure(attributes, notes, xml)
