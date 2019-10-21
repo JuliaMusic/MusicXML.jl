@@ -315,6 +315,13 @@ Partlist(n::Nothing) = nothing
 """
     Key
 
+...
+# Arguments
+- fifth::Int8
+- mode::Union{Nothing,String}
+- xml::Node
+...
+
 A type to hold key information for a measure in musicxml file.
 
 The key element represents a key signature. Both traditional and non-traditional key signatures are supported. The optional number attribute refers to staff numbers. If absent, the key signature applies to all staves in the part.
