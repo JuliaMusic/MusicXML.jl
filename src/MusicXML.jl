@@ -920,6 +920,16 @@ Part(n::Nothing) = nothing
 """
     Musicxml
 
+...
+# Arguments
+- # TODO identification
+- # TODO defaults
+- partlist::Partlist
+- parts::Vector{Part}
+- xml::Node
+...
+
+
 A type to hold the data for a musicxml file.
 """
 mutable struct Musicxml
