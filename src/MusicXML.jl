@@ -827,6 +827,14 @@ Note(n::Nothing) = nothing
 """
     Measure
 
+...
+# Arguments
+- attributes::Union{Nothing,Attributes}
+- notes::Vector{Note}
+- xml::Node
+...
+
+
 A type to hold the data for a musicxml measure
 
 attributes: See [`Attributes`](@ref) doc
