@@ -396,56 +396,17 @@ tie:
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
-mutable struct Note
-    pitch::Pitch
-    rest::Rest
-    unpitched::Unpitched
-    duration::UInt
+mutable struct Note "note"
+    pitch::Union{Pitch,Nothing} = nothing, "pitch"
+    rest::Union{Rest, Noting} = nothing, "rest"
+    unpitched::Union{Unpitched, Nothing} = nothing, "unpitched"
+    duration::UInt, "duration"
     # voice
-    type::String
-    accidental::String
-    # tie::Union{Nothing,Tie} # start, stop, nothing TODO
+    type::Union{String, Nothing} = nothing, "type"
+    accidental::Union{String,Nothing} = nothing, "accidental"
+    tie::Union{Nothing,String} = nothing # start, stop, nothing TODO
     # TODO lyric
-    xml::Node
 end
-
-# xml constructor
-function Note(;pitch = nothing, rest = nothing, unpitched = nothing, duration, type = nothing, accidental = nothing)
-    xml = ElementNode("note")
-
-    if pitch != nothing
-        addelement!(xml, "pitch", pitch)
-    elseif rest != nothing
-        addelement!(xml, "rest", rest)
-    elseif unpitched != nothing
-        addelement!(xml, "unpitched", unpitched)
-    else
-        error("one of the pitch, rest or unpitched should be given")
-    end
-
-    addelement!(xml, "duration", string(duration))
-    if !isnothing(type) addelement!(xml, "type", type) end
-    if !isnothing(accidental) addelement!(xml, "accidental", accidental) end
-    # tie == nothing ?  : addelement!(xml, "tie", tie)
-
-    return Note(pitch, rest, unpitched, duration, type, accidental, xml)
-end
-
-# xml extractor
-function Note(xml::Node)
-
-    pitch = Pitch(findfirst("/pitch", xml))
-    rest = Rest(findfirst("/rest", xml))
-    unpitched = Unpitched(findfirst("/unpitched", xml))
-    duration = findfirstcontent(UInt,"/duration", xml)
-    type = findfirstcontent("/type", xml)
-    accidental = findfirstcontent("/accidental", xml)
-
-    return Note(pitch, rest, unpitched, duration, type, accidental, xml)
-end
-Note(x::Note) = Note(x.xml)
-
-Note(n::Nothing) = nothing
 ################################################################
 """
     Measure
