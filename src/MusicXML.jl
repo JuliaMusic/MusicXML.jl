@@ -45,7 +45,6 @@ end
 """
     Midiinstrument
 
-...
 # Arguments
 - channel::UInt8 # 0 to 15
 - program::UInt8
@@ -53,7 +52,6 @@ end
 - pan::Int8
 - ID::String
 - xml::Node
-...
 
 Midiinstrument type holds information about the sound of a midi instrument.
 
@@ -66,43 +64,13 @@ Midiinstrument type holds information about the sound of a midi instrument.
 Midiinstrument(0,1,127,0)
 ```
 """
-mutable struct Midiinstrument
-    channel::UInt8 # 0 to 15
-    program::UInt8
-    volume::UInt8
-    pan::Int8
-    ID::String
-    xml::Node
+@aml mutable struct Midiinstrument "midi-instrument"
+    channel::UInt8 = 0, "midi-channel" # 0 to 15
+    program::UInt8 = 1, "midi-program"
+    volume::UInt8 = 127, "volume"
+    pan::Int8 = 0, "pan"
+    ID::String = "P1-I1", a"id"
 end
-
-# default constructor
-# Midiinstrument() = Midiinstrument(0, 1, 127, 0, "P1")
-# Midiinstrument(channel, program, volume, pan) = Midiinstrument(channel, program, volume, pan, "P1")
-
-# xml constructor
-function Midiinstrument(channel, program, volume, pan, ID)
-    xml = ElementNode("midi-instrument")
-    addelement!(xml, "midi-channel", string(channel))
-    addelement!(xml, "midi-program", string(program))
-    addelement!(xml, "volume", string(volume))
-    addelement!(xml, "pan", string(pan))
-    xml["id"] = ID * "-I1"
-    return Midiinstrument(channel, program, volume, pan, ID, xml)
-end
-
-# xml extractor
-function Midiinstrument(xml::Node)
-
-    channel = findfirstcontent(UInt8, "/midi-channel",xml)
-    program = findfirstcontent(UInt8, "/midi-program",xml)
-    volume = findfirstcontent(UInt8, "/volume",xml)
-    pan = findfirstcontent(UInt8, "/pan",xml)
-    ID = xml["id"][end-3:end]
-    return Midiinstrument(channel, program, volume, pan, ID, xml)
-end
-Midiinstrument(x::Midiinstrument) = Midiinstrument(x.xml)
-
-Midiinstrument(n::Nothing) = nothing
 ################################################################
 """
     Scorepart
