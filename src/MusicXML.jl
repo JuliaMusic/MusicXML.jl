@@ -398,14 +398,13 @@ tie:
 """
 @aml mutable struct Note "note"
     pitch::Union{Pitch,Nothing} = nothing, "pitch"
-    rest::Union{Rest, Noting} = nothing, "rest"
+    rest::Union{Rest, Nothing} = nothing, "rest"
     unpitched::Union{Unpitched, Nothing} = nothing, "unpitched"
     duration::UInt, "duration"
     # voice
     type::Union{String, Nothing} = nothing, "type"
     accidental::Union{String,Nothing} = nothing, "accidental"
-    tie::Union{Nothing,String} = nothing # start, stop, nothing TODO
-    # TODO lyric
+    tie::Union{Nothing,String} = nothing, "tie" # start, stop, nothing TODO
 end
 ################################################################
 """
