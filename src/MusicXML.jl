@@ -507,46 +507,20 @@ end
 """
     Part
 
-...
 # Arguments
 - measures::Vector{Measure}
 - ID::String
 - xml::Node
-...
 
 A type to hold the data for a part in musicxml file.
 
 measures: See [`Measure`](@ref) doc
 
 """
-mutable struct Part
-    measures::Vector{Measure}
-    ID::String
-    xml::Node
+@aml mutable struct Part, "part"
+    measures::Vector{Measure}, "measure"
+    ID::String, a"id"
 end
-
-# xml constructor
-function Part(measures, ID)
-    xml = ElementNode("part")
-
-    numMeasures = length(measures)
-    for i = 1:numMeasures
-        addelement!(xml, "measure", measures[i])
-    end
-    xml["id"] = ID
-    return Part(measures, ID, xml)
-end
-
-# xml extractor
-function Part(xml::Node)
-
-     ID = xml["id"]
-    measures = findallcontent(Measure,"/measure", xml)
-    isnothing(measures) ? Part(nothing) : Part(measures, ID, xml)
-end
-Part(x::Part) = Part(x.xml)
-
-Part(n::Nothing) = nothing
 ################################################################
 """
     Musicxml
