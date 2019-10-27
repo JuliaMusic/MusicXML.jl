@@ -39,7 +39,7 @@ The midi-device type corresponds to the DeviceName meta event in Standard MIDI F
 """
 @aml mutable struct Mididevice "midi-device"
     port::Int16, "port"
-    ID::String, "id"
+    ID::String, a"id"
 end
 ################################################################
 """
@@ -211,7 +211,7 @@ end
 
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
 """
-@aml mutable struct Time, "time"
+@aml mutable struct Time "time"
     beats::Int8 = 4, "beats"
     beattype::Int8 = 4, "beat-type"
 end
@@ -247,7 +247,7 @@ clef: See [`Clef`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
-mutable struct Attributes, "attributes"
+@aml mutable struct Attributes "attributes"
     divisions::Int16, "divisions"
     key::Key, "key"
     time::Time, "time"
@@ -396,7 +396,7 @@ tie:
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
-mutable struct Note "note"
+@aml mutable struct Note "note"
     pitch::Union{Pitch,Nothing} = nothing, "pitch"
     rest::Union{Rest, Noting} = nothing, "rest"
     unpitched::Union{Unpitched, Nothing} = nothing, "unpitched"
@@ -423,7 +423,7 @@ attributes: See [`Attributes`](@ref) doc
 notes: See [`Note`](@ref) doc
 
 """
-@aml mutable struct Measure, "measure"
+@aml mutable struct Measure "measure"
     attributes::Union{Nothing,Attributes}, "attributes"
     notes::Vector{Note}, "note"
 end
@@ -441,7 +441,7 @@ A type to hold the data for a part in musicxml file.
 measures: See [`Measure`](@ref) doc
 
 """
-@aml mutable struct Part, "part"
+@aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
     ID::String, a"id"
 end
@@ -458,7 +458,7 @@ end
 
 A type to hold the data for a musicxml file.
 """
-mutable struct scorePartwise "score-partwise"
+@aml mutable struct scorePartwise "score-partwise"
     # TODO identification
     # TODO defaults
     partlist::Partlist, "part-list"
