@@ -183,7 +183,6 @@ end
 - octaveChange::Union{Nothing,Int8}
 - double::Union{Nothing,Bool}
 - xml::Node
-...
 
 A type to hold transpose information for a measure in musicxml file.
 
@@ -199,37 +198,12 @@ double: If the double element is present, it indicates that the music is doubled
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-transpose.htm)
 """
-mutable struct Transpose
-    diatonic::Int8
-    chromatic::Int8
-    octaveChange::Union{Nothing,Int8}
-    double::Union{Nothing,Bool}
-    xml::Node
+@aml mutable struct Transpose "transpose"
+    diatonic::Int8 = 0, "diatonic"
+    chromatic::Int8 = 0, "chromatic"
+    octaveChange::Union{Nothing,Int8} = nothing, "octave-change"
+    double::Union{Nothing,Bool} = nothing, "double"
 end
-
-# xml constructor
-function Transpose(;diatonic=0, chromatic=0, octaveChange=nothing, double=nothing)
-    xml = ElementNode("transpose")
-    addelement!(xml, "diatonic", string(diatonic))
-    addelement!(xml, "chromatic", string(chromatic))
-    if !isnothing(octaveChange) addelement!(xml, "octave-change", octaveChange) end
-    if !isnothing(double) addelement!(xml, "double", double) end
-    return Transpose(diatonic, chromatic, octaveChange, double, xml)
-end
-
-# xml extractor
-function Transpose(xml::Node)
-
-    diatonic = findfirstcontent(Int8, "/diatonic", xml)
-    chromatic = findfirstcontent(Int8, "/chromatic", xml)
-    octaveChange = findfirstcontent(Int8, "/octave-change", xml)
-    double = findfirstcontent("/double", xml)
-
-    return Transpose(diatonic, chromatic, octaveChange, double, xml)
-end
-Transpose(x::Transpose) = Transpose(x.xml)
-
-Transpose(n::Nothing) = nothing
 ################################################################
 """
     Time
