@@ -145,29 +145,10 @@ mode:  major, minor, dorian, phrygian, lydian, mixolydian, aeolian, ionian, locr
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-key.htm)
 """
-mutable struct Key
-    fifth::Int8
-    mode::Union{Nothing,String}
-    xml::Node
+@aml mutable struct Key "key"
+    fifth::Int8, "fifths"
+    mode::Union{Nothing,String} = nothing, "mode"
 end
-
-# xml constructor
-function Key(; fifth, mode = nothing)
-    xml = ElementNode("key")
-    addelement!(xml, "fifths", string(fifth))
-    if !isnothing(mode) addelement!(xml, "mode", mode) end
-    return Key(fifth, mode, xml)
-end
-
-# xml extractor
-function Key(xml::Node)
-    fifth = findfirstcontent(Int8, "/fifth", xml)
-    mode = findfirstcontent("/mode", xml)
-    return Key(fifth, mode, xml)
-end
-Key(x::Key) = Key(x.xml)
-
-Key(n::Nothing) = nothing
 ################################################################
 """
     Clef
