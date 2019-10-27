@@ -361,31 +361,11 @@ end
 
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
-mutable struct Unpitched
-    unpitched::Bool
-    xml::Node
+@aml mutable struct Unpitched sc"unpitched"
+    measure::Union{Bool,Nothing} = nothing, a"measure"
+    dispStep::Union{String,Nothing} = nothing, "display-step"
+    dispOctave::Union{Int8,Nothing} = nothing, "display-octave"
 end
-
-# xml constructor
-function Unpitched(unpitched)
-    if unpitched
-        xml = ElementNode("unpitched")
-    else
-        xml = nothing
-    end
-    return Unpitched(unpitched, xml)
-end
-
-# xml extractor
-function Unpitched(xml::Node)
-
-    unpitched = xml.name == "unpitched"
-
-    return Unpitched(rest, xml)
-end
-Unpitched(x::Unpitched) = Unpitched(x.xml)
-
-Unpitched(n::Nothing) = nothing
 ################################################################
 """
     Note
