@@ -342,32 +342,15 @@ end
 - xml::Node
 
 The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
+
+The display-step-octave group contains the sequence of elements used by both the rest and unpitched elements. This group is used to place rests and unpitched elements on the staff without implying that these elements have pitch. Positioning follows the current clef. If percussion clef is used, the display-step and display-octave elements are interpreted as if in treble clef, with a G in octave 4 on line 2. If not present, the note is placed on the middle line of the staff, generally used for a one-line staff.
+
 """
-mutable struct Rest
-    rest::Bool
-    xml::Node
+@aml mutable struct Rest sc"rest"
+    measure::Union{Bool,Nothing} = nothing, a"measure"
+    dispStep::Union{String,Nothing} = nothing, "display-step"
+    dispOctave::Union{Int8,Nothing} = nothing, "display-octave"
 end
-
-# xml constructor
-function Rest(rest)
-    if unpitched
-        xml = ElementNode("rest")
-    else
-        xml = nothing
-    end
-    return Rest(rest, xml)
-end
-
-# xml extractor
-function Rest(xml::Node)
-
-    rest = xml.name == "rest"
-
-    return Rest(rest, xml)
-end
-Rest(x::Rest) = Rest(x.xml)
-
-Rest(n::Nothing) = nothing
 ################################################################
 """
     Unpitched
