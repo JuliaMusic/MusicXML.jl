@@ -551,7 +551,7 @@ Helper internal function which extract musicxml data. This function is not expor
 data = extractdata(doc)
 ```
 """
-function extractdata(doc::EzXML.Document)
+function extractdata(doc::Document)
 
     # Get the root element from `doc`.
     scorepartwise = root(doc)
