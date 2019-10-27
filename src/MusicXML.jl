@@ -300,6 +300,11 @@ end
 Return the pitch value of the given note
 
 Modified from MIDI.jl
+
+# Examples:
+```julia
+step, alter, octave = pitch2xml(pitch)
+```
 """
 function xml2pitch(step, alter, octave)
 
