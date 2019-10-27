@@ -219,7 +219,6 @@ end
 """
     Attributes
 
-...
 # Arguments
 - divisions::Int16
 - key::Key
@@ -229,7 +228,6 @@ end
 - clef::Union{Nothing,Clef}
 - transpose::Union{Nothing,Transpose}
 - xml::Node
-...
 
 A type to hold the data for the attributes of a musicxml measure
 
@@ -249,46 +247,15 @@ clef: See [`Clef`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
-mutable struct Attributes
-    divisions::Int16
-    key::Key
-    time::Time
-    staves::Union{Nothing, UInt16}
-    instruments::Union{Nothing,UInt16}
-    clef::Union{Nothing,Clef}
-    transpose::Union{Nothing,Transpose}
-    xml::Node
+mutable struct Attributes, "attributes"
+    divisions::Int16, "divisions"
+    key::Key, "key"
+    time::Time, "time"
+    staves::Union{Nothing, UInt16} = nothing, "staves"
+    instruments::Union{Nothing,UInt16} = nothing, "instruments"
+    clef::Union{Nothing,Clef} = nothing, "clef"
+    transpose::Union{Nothing,Transpose} = nothing, "transpose"
 end
-
-# xml constructor
-function Attributes(;divisions, key, time, staves = nothing, instruments = nothing, clef = nothing, transpose = nothing)
-    xml = ElementNode("transpose")
-    addelement!(xml, "divisions", string(divisions))
-    addelement!(xml, "key", key)
-    addelement!(xml, "time", time)
-    if !isnothing(staves) addelement!(xml, "staves", staves) end
-    if !isnothing(instruments) addelement!(xml, "instruments", instruments) end
-    if !isnothing(clef) addelement!(xml, "clef", clef) end
-    if !isnothing(transpose) addelement!(xml, "transpose", transpose) end
-    return Attributes(divisions, key, time, staves, instruments, clef, transpose, xml)
-end
-
-# xml extractor
-function Attributes(xml::Node)
-
-    divisions = findfirstcontent(Int16, "/divisions", xml)
-    key = Key(findfirst("/key", xml))
-    time = Time(findfirst("/time", xml))
-    staves = findfirstcontent(UInt16, "/staves", xml)
-    instruments = findfirstcontent(UInt16, "/instruments", xml)
-    clef = Clef(findfirst("/clef", xml))
-    transpose = Transpose(findfirst("/transpose", xml))
-
-    return Attributes(divisions, key, time, staves, instruments, clef, transpose, xml)
-end
-Attributes(x::Attributes) = Attributes(x.xml)
-
-Attributes(n::Nothing) = nothing
 ################################################################
 using Base.Meta, Base.Unicode
 const PITCH_TO_NAME = Dict(
