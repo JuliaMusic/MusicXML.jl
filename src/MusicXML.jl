@@ -110,43 +110,20 @@ end
 """
     Partlist
 
-...
 # Arguments
 - # TODO partgroup
 - scoreparts::Vector{Scorepart}
 - xml::Node
-...
 
 Holds scoreparts and partgroup.
 
 See [`Scorepart`](@ref) doc
 
 """
-mutable struct Partlist
+@aml mutable struct Partlist "part-list"
     # TODO partgroup
-    scoreparts::Vector{Scorepart}
-    xml::Node
+    scoreparts::Vector{Scorepart}, "score-part"
 end
-
-# xml constructor
-function Partlist(scoreparts::Vector{Scorepart})
-    xml = ElementNode("part-list")
-    numScoreparts = length(scoreparts)
-    for i = 1:numScoreparts
-        addelement!(xml, "score-part", scoreparts[i])
-    end
-    return Partlist(scoreparts, xml)
-end
-
-# xml extractor
-function Partlist(xml::Node)
-
-    scoreparts = findallcontent(Scorepart,"/score-part", xml)
-    isnothing(scoreparts) ? Partlist(nothing) : Partlist(scoreparts, xml)
-end
-Partlist(x::Partlist) = Partlist(x.xml)
-
-Partlist(n::Nothing) = nothing
 ################################################################
 """
     Key
