@@ -153,12 +153,10 @@ end
 """
     Clef
 
-...
 # Arguments
 - sign::String
 - line::Int16
 - xml::Node
-...
 
 A type to hold clef information for a measure in musicxml file.
 
@@ -170,30 +168,10 @@ line: Line numbers are counted from the bottom of the staff. Standard values are
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-clef.htm)
 """
-mutable struct Clef
-    sign::String
-    line::Int16
-    xml::Node
+@aml mutable struct Clef "clef"
+    sign::String, "sign"
+    line::Int16, "line"
 end
-
-# xml constructor
-function Clef(sign, line)
-    xml = ElementNode("clef")
-    addelement!(xml, "sign", sign)
-    addelement!(xml, "line", string(line))
-    return Clef(sign, line, xml)
-end
-
-# xml extractor
-function Clef(xml::Node)
-
-    sign = findfirstcontent("/sign", xml)
-    line = findfirstcontent(Int16, "/line", xml)
-    return Clef(sign, line, xml)
-end
-Clef(x::Clef) = Clef(x.xml)
-
-Clef(n::Nothing) = nothing
 ################################################################
 """
     Transpose
