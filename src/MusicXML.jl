@@ -75,7 +75,6 @@ end
 """
     Scorepart
 
-...
 # Arguments
 - name::String
 - scoreinstrument::Union{Nothing,Scoreinstrument}
@@ -83,7 +82,6 @@ end
 - midiinstrument::Midiinstrument
 - ID::String
 - xml::Node
-...
 
 Holds information about one Scorepart in a score
 
@@ -101,42 +99,13 @@ midiinstrument: See [`Midiinstrument`](@ref) doc
 Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
 ```
 """
-mutable struct Scorepart
-    name::String
-    scoreinstrument::Union{Nothing,Scoreinstrument}
-    mididevice::Union{Nothing,Mididevice}
-    midiinstrument::Midiinstrument
-    ID::String
-    xml::Node
+@aml mutable struct Scorepart "score-part"
+    name::String, "part-name"
+    scoreinstrument::Union{Nothing,Scoreinstrument} = nothing, "score-instrument"
+    mididevice::Union{Nothing,Mididevice} = nothing, "midi-device"
+    midiinstrument::Midiinstrument, "midi-instrument"
+    ID::String, a"id"
 end
-
-# default constructor
-# Scorepart() = Scorepart(name = "Piano", midiinstrument = midiinstrument(), ID = "P1")
-
-# xml constructor
-function Scorepart(; name, scoreinstrument = nothing, mididevice = nothing, midiinstrument, ID)
-    xml = ElementNode("score-part")
-    addelement!(xml, "part-name", string(name))
-    if !isnothing(scoreinstrument)  addelement!(xml, "score-instrument", scoreinstrument) end
-    if !isnothing(mididevice) addelement!(xml, "midi-device", mididevice) end
-    addelement!(xml, "midi-instrument", string(midiinstrument))
-    xml["id"] = string(ID)
-    return Scorepart(name, scoreinstrument, mididevice, midiinstrument, ID, xml)
-end
-
-# xml extractor
-function Scorepart(xml::Node)
-
-    name = findfirstcontent("/part-name",xml)
-    scoreinstrument = Scoreinstrument(findfirst("/score-instrument", xml))
-    mididevice = Mididevice(findfirst("/midi-device", xml))
-    midiinstrument = Midiinstrument(findfirst("/midi-instrument", xml))
-    ID = xml["id"]
-    return Scorepart(name, scoreinstrument, mididevice, midiinstrument, ID, xml)
-end
-Scorepart(x::Scorepart) = Scorepart(x.xml)
-
-Scorepart(n::Nothing) = nothing
 ################################################################
 """
     Partlist
