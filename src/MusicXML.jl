@@ -315,52 +315,24 @@ end
 ################################################################
 """
     Pitch
-...
+
 # Arguments
-- pitch::UInt8  # midi pitch
 - step::String
 - alter::Float16
 - octave::Int8
 - xml::Node
-...
 
-Holds both midi pitch and musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
+Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
+
+Use step, alter, octave = pitch2xml(pitch) and  pitch = xml2pitch(step, alter, octave)
+for conversions between midi pitch and musicxml pitch
+
 """
-mutable struct Pitch
-    pitch::UInt8  # midi pitch
-    step::String
-    alter::Float16
-    octave::Int8
-    xml::Node
+@aml mutable struct Pitch "pitch"
+    step::String, "step"
+    alter::Float16, "alter"
+    octave::Int8, "octave"
 end
-
-# xml constructor
-function Pitch(;pitch)
-    xml = ElementNode("pitch")
-
-    step, alter, octave = pitch2xml(pitch)
-
-    addelement!(xml, "step", step)
-    addelement!(xml, "alter", string(alter))
-    addelement!(xml, "octave", string(octave))
-
-    return Pitch(pitch, step, alter, octave, xml)
-end
-
-# xml extractor
-function Pitch(xml::Node)
-
-    step = findfirstcontent("/step", xml)
-    alter = findfirstcontent(Float16,"/alter", xml)
-    octave = findfirstcontent(Int8,"/octave", xml)
-
-    pitch = xml2pitch(step, alter, octave)
-
-    return Pitch(pitch = pitch, step = step, alter = alter, octave = octave, xml = xml)
-end
-Pitch(x::Pitch) = Pitch(x.xml)
-
-Pitch(n::Nothing) = nothing
 ################################################################
 """
     Rest
