@@ -271,6 +271,11 @@ v => k for (v, k) in zip(values(PITCH_TO_NAME), keys(PITCH_TO_NAME)))
 Return the musicxmls values of the given pitch
 
 Modified from MIDI.jl
+
+# Examples:
+```julia
+pitch = xml2pitch(step, alter, octave)
+```
 """
 function pitch2xml(j)
     i = Int(j)
