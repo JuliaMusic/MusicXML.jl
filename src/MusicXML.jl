@@ -30,38 +30,17 @@ end
 """
     Mididevice
 
-...
 # Arguments
 - port::Int16
 - ID::String
 - xml::Node
-...
 
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 """
-mutable struct Mididevice
-    port::Int16
-    ID::String
-    xml::Node
+@aml mutable struct Mididevice "midi-device"
+    port::Int16, "port"
+    ID::String, "id"
 end
-
-# xml constructor
-function Mididevice(port,ID)
-    xml = ElementNode("midi-device")
-    xml["port"] = string(port)
-    xml["id"] = ID * "-I1"
-    return Mididevice(port, ID, xml)
-end
-
-# xml extractor
-function Mididevice(xml::Node)
-    port = parse(Int16, xml["port"])
-    ID = xml["id"][end-3:end]
-    return Mididevice(port, ID, xml)
-end
-Mididevice(x::Mididevice) = Mididevice(x.xml)
-
-Mididevice(n::Nothing) = nothing
 ################################################################
 """
     Midiinstrument
