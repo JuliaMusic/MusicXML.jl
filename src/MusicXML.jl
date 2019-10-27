@@ -337,11 +337,9 @@ end
 """
     Rest
 
-...
 # Arguments
 - rest::Bool
 - xml::Node
-...
 
 The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
 """
@@ -374,11 +372,9 @@ Rest(n::Nothing) = nothing
 """
     Unpitched
 
-...
 # Arguments
 - unpitched::Bool
 - xml::Node
-...
 
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
@@ -411,7 +407,6 @@ Unpitched(n::Nothing) = nothing
 """
     Note
 
-...
 # Arguments
 - pitch::Pitch
 - rest::Rest
@@ -423,7 +418,6 @@ Unpitched(n::Nothing) = nothing
 - # tie::Union{Nothing,Tie} # start, stop, nothing TODO
 - # TODO lyric
 - xml::Node
-...
 
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
 
@@ -493,12 +487,10 @@ Note(n::Nothing) = nothing
 """
     Measure
 
-...
 # Arguments
 - attributes::Union{Nothing,Attributes}
 - notes::Vector{Note}
 - xml::Node
-...
 
 
 A type to hold the data for a musicxml measure
@@ -507,37 +499,10 @@ attributes: See [`Attributes`](@ref) doc
 notes: See [`Note`](@ref) doc
 
 """
-mutable struct Measure
-    attributes::Union{Nothing,Attributes}
-    notes::Vector{Note}
-    xml::Node
+@aml mutable struct Measure, "measure"
+    attributes::Union{Nothing,Attributes}, "attributes"
+    notes::Vector{Note}, "note"
 end
-
-# xml constructor
-function Measure(;attributes = nothing, notes)
-    xml = ElementNode("measure")
-
-    if !isnothing(attributes) addelement!(xml, "attributes", attributes) end
-
-    numNotes = length(notes)
-    for i = 1:numNotes
-        addelement!(xml, "note", notes[i])
-    end
-    return Measure(attributes, notes, xml)
-end
-
-# xml extractor
-function Measure(xml::Node)
-
-    attributes = Attributes(findfirst("/attributes", xml))
-
-    notes = findallcontent(Note,"/note", xml)
-    isnothing(notes) ? Measure(nothing) : Measure(attributes, notes, xml)
-
-end
-Measure(x::Measure) = Measure(x.xml)
-
-Measure(n::Nothing) = nothing
 ################################################################
 """
     Part
