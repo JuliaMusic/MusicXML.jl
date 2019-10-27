@@ -15,39 +15,17 @@ export pitch2xml, xml2pitch
 """
     Scoreinstrument
 
-...
 # Arguments
 - name::String
 - ID::String
 - xml::Node
-...
 
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required ID attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 """
-mutable struct Scoreinstrument
-    name::String
-    ID::String
-    xml::Node
+@aml mutable struct Scoreinstrument "score-instrument"
+    name::String, "instrument-name"
+    ID::String, a"id"
 end
-
-# xml constructor
-function Scoreinstrument(name,ID)
-    xml = ElementNode("score-instrument")
-    addelement!(xml, "instrument-name", string(name))
-    xml["id"] = ID * "-I1"
-    return Scoreinstrument(name, ID, xml)
-end
-
-# xml extractor
-function Scoreinstrument(xml::Node)
-
-    name = findfirstcontent("/instrument-name",xml)
-    ID = xml["id"][end-3:end]
-    return Scoreinstrument(name, ID, xml)
-end
-Scoreinstrument(x::Scoreinstrument) = Scoreinstrument(x.xml)
-
-Scoreinstrument(n::Nothing) = nothing
 ################################################################
 """
     Mididevice
