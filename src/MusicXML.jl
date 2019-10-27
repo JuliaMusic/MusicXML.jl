@@ -128,12 +128,10 @@ end
 """
     Key
 
-...
 # Arguments
 - fifth::Int8
 - mode::Union{Nothing,String}
 - xml::Node
-...
 
 A type to hold key information for a measure in musicxml file.
 
@@ -176,7 +174,6 @@ end
 """
     Transpose
 
-...
 # Arguments
 - diatonic::Int8
 - chromatic::Int8
@@ -208,42 +205,16 @@ end
 """
     Time
 
-...
 # Arguments
 - signature::Array{Int8,1}
 - xml::Node
-...
 
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
 """
-mutable struct Time
-    signature::Array{Int8,1}
-    xml::Node
+@aml mutable struct Time, "time"
+    beats::Int8 = 4, "beats"
+    beattype::Int8 = 4, "beat-type"
 end
-
-# default constructor
-# Time() = Time([4,4])
-
-# xml constructor
-function Time(signature::Array{Int8,1})
-    xml = ElementNode("time")
-    addelement!(xml, "beats", string(signature[1]))
-    addelement!(xml, "beat-type", string(signature[2]))
-    return Time(signature, xml)
-end
-
-# xml extractor
-function Time(xml::Node)
-
-    signature = [4, 4]
-    signature[1] = findfirstcontent(Int8, "/beats", xml)
-    signature[2] = findfirstcontent(Int8, "/beat-type", xml)
-
-    return Time(signature, xml)
-end
-Time(x::Time) = Time(x.xml)
-
-Time(n::Nothing) = nothing
 ################################################################
 """
     Attributes
