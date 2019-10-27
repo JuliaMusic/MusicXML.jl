@@ -523,53 +523,23 @@ measures: See [`Measure`](@ref) doc
 end
 ################################################################
 """
-    Musicxml
+    scorePartwise
 
-...
 # Arguments
 - # TODO identification
 - # TODO defaults
 - partlist::Partlist
 - parts::Vector{Part}
 - xml::Node
-...
-
 
 A type to hold the data for a musicxml file.
 """
-mutable struct Musicxml
+mutable struct scorePartwise "score-partwise"
     # TODO identification
     # TODO defaults
-    partlist::Partlist
-    parts::Vector{Part}
-    xml::Node
+    partlist::Partlist, "part-list"
+    parts::Vector{Part}, "part"
 end
-
-# xml constructor
-function Musicxml(partlist, parts)
-    xml = ElementNode("score-partwise")
-
-    addelement!(xml, "part-list", measures[i])
-
-    numParts = length(parts)
-    for i = 1:numParts
-        addelement!(xml, "part", parts[i])
-    end
-    return Musicxml(partlist, parts, xml)
-end
-
-# xml extractor
-function Musicxml(xml::Node)
-
-    partlist = Partlist(findfirst("part-list", xml))
-
-    parts = findallcontent(Part,"/part", xml)
-    isnothing(parts) ? Musicxml(nothing) : Musicxml(partlist, parts, xml)
-
-end
-Musicxml(x::Musicxml) = Musicxml(x.xml)
-
-Musicxml(n::Nothing) = nothing
 ################################################################
 """
     extractdata(doc)
