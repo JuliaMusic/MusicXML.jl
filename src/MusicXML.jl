@@ -1,7 +1,6 @@
 module MusicXML
 
-using EzXML
-import EzXML.Node
+using AML
 
 import MIDI, MusicManipulations
 
@@ -11,64 +10,7 @@ export readmusicxml, parsemusicxml
 export MusicXML, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 # Utilities
 export pitch2xml, xml2pitch
-# XML utilities
-export findfirstcontent, findallcontent
 
-# overloading nothing (not recommended):
-Base.getproperty(::Nothing, sym::Symbol) = nothing
-# Base.getproperty(::Nothing, sym::Symbol) = sym === :content ? nothing : Core.getfield(nothing, sym)
-################################################################
-"""
-    findfirstcontent(element,node)
-    findfirstcontent(type,element,node)
-
-
-Returns first element content. It also convert to the desired format by passing type. element is given as string.
-```julia
-findfirstcontent("/instrument-name",node)
-findfirstcontent(UInt8,"/midi-channel",node)
-```
-"""
-function findfirstcontent(s::String,node::Node)
-    elm = findfirst(s,node)
-    if isnothing(elm)
-        return nothing
-    else
-        return elm.content
-    end
-end
-
-function findfirstcontent(::Type{T},s::String,node::Node) where {T}
-    elm = findfirst(s,node)
-    if isnothing(elm)
-        return nothing
-    else
-        return parse(T, elm.content)
-    end
-end
-
-################################################################
-"""
-    findallcontent(type, string, node)
-
-Finds all the elements with the address of string in the node, and converts the elements to Type object.
-"""
-function findallcontent(::Type{T}, s::String, node::Node) where{T}
-
-    elmsNode = findall(s, node) # a vector of Node elements
-    if isnothing(elmsNode)
-        return nothing
-    else
-        elmsType = Vector{T}(undef, length(elmsNode)) # a vector of Type elements
-        i=1
-        for elm in elmsNode
-            elmsType[i]=T(elm)
-            i=+1
-        end
-        return elmsType
-    end
-
-end
 ################################################################
 """
     Scoreinstrument
