@@ -330,7 +330,7 @@ for conversions between midi pitch and musicxml pitch
 """
 @aml mutable struct Pitch "pitch"
     step::String, "step"
-    alter::Float16, "alter"
+    alter::UN{Float16} = nothing, "alter"
     octave::Int8, "octave"
 end
 ################################################################
@@ -347,7 +347,7 @@ The display-step-octave group contains the sequence of elements used by both the
 
 """
 @aml mutable struct Rest sc"rest"
-    measure::UN{Bool} = nothing, a"measure"
+    measure::UN{YN} = nothing, a"measure"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
@@ -362,7 +362,7 @@ end
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
 @aml mutable struct Unpitched sc"unpitched"
-    measure::UN{Bool} = nothing, a"measure"
+    measure::UN{YN} = nothing, a"measure"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
@@ -423,7 +423,7 @@ notes: See [`Note`](@ref) doc
 
 """
 @aml mutable struct Measure "measure"
-    attributes::Attributes, "attributes"
+    attributes::UN{Attributes} = nothing, "attributes"
     notes::Vector{Note}, "note"
 end
 ################################################################
