@@ -10,7 +10,39 @@ export readmusicxml, parsemusicxml
 export Doc, Scorepartwise, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 # Utilities
 export pitch2xml, xml2pitch
+################################################################
+# musicxml yes-no type
+struct YN
+    yn::String
+    bool::Bool
 
+    function YN(bool::Bool)
+        if bool
+            yn = "yes"
+        else
+            yn = "no"
+        end
+        new(yn, bool)
+    end
+
+    function YN(yn::String)
+        if yn == "yes"
+            bool = true
+        elseif yn == "no"
+            bool = false
+        end
+        new(yn, bool)
+    end
+
+    function YN(yn::String, bool::Bool)
+        if (yn == "yes" && bool == true) || (yn == "no" && bool == false)
+            new(yn, bool)
+        else
+            error("invalid YN definition")
+        end
+    end
+end
+YN(::Nothing) = nothing
 ################################################################
 """
     Scoreinstrument
