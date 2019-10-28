@@ -482,8 +482,8 @@ function extractdata(doc::Document)
 
 
     D = Doc(doc)
-    scorepartwise = Scorepartwise(D.scorepartwise)
-    partlist = Partlist(scorepartwise.partlist)
+    # scorepartwise = Scorepartwise(D.scorepartwise)
+    # partlist = Partlist(scorepartwise.partlist)
     # parts = Part.(scorepartwise.parts)
 
     # for part in parts
