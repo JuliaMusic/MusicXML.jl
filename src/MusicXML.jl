@@ -457,7 +457,7 @@ end
 
 A type to hold the data for a musicxml file.
 """
-@aml mutable struct scorePartwise "score-partwise"
+@aml mutable struct Scorepartwise "score-partwise"
     # TODO identification
     # TODO defaults
     partlist::Partlist, "part-list"
