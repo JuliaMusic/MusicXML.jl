@@ -67,8 +67,8 @@ Midiinstrument(0,1,127,0)
 @aml mutable struct Midiinstrument "midi-instrument"
     channel::UInt8 = 0, "midi-channel" # 0 to 15
     program::UInt8 = 1, "midi-program"
-    volume::UInt8 = 127, "volume"
-    pan::Int8 = 0, "pan"
+    volume::Float64 = 127, "volume"
+    pan::Float64 = 0, "pan"
     ID::String = "P1-I1", a"id"
 end
 ################################################################
