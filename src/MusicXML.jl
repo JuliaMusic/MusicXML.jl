@@ -503,7 +503,7 @@ end
 """
     extractdata(doc)
 
-Extract musicxml data, builds all the types and stores them in proper format
+Extracts musicxml data, builds all the types and stores them in proper format.
 
 This function is not exported. Use readmusicxml and parsemusicxml instead.
 
@@ -517,7 +517,8 @@ extractdata(doc::Document) = Doc(doc)
 """
     readmusicxml(filepath)
 
-Reads musicxml file and extracts the data.
+Reads musicxml file and then extracts the data, builds all the types and stores them in proper format.
+
 
 # Examples
 ```julia
@@ -533,7 +534,7 @@ end
 """
     parsemusicxml(s)
 
-Parses musicxml from a string.
+Parses musicxml from a string and then extracts the data, builds all the types and stores them in proper format.
 
 # Examples
 ```julia
