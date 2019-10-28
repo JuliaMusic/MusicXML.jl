@@ -2,9 +2,9 @@
 
 [[AML]]
 deps = ["EzXML"]
-git-tree-sha1 = "b7e23ce34743b00b2a9fee4aa0fd50156d960d0f"
+git-tree-sha1 = "6f995fd8fc490a116779741f3b96e60dadf1ef48"
 repo-rev = "master"
-repo-url = "https://github.com/aminya/AML.jl"
+repo-url = "https://github.com/aminya/AML.jl.git"
 uuid = "6b84a0a3-a11a-41fa-a417-e600528de108"
 version = "0.2.0"
 
@@ -30,9 +30,9 @@ version = "1.1.0"
 
 [[DataStructures]]
 deps = ["InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "2103e504f427e54ffa19af9ada225733a21f951f"
+git-tree-sha1 = "6ffb2c3f04458e21abc5d7fdd8a1ffbe71e399d1"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.17.3"
+version = "0.17.4"
 
 [[Dates]]
 deps = ["Printf"]
