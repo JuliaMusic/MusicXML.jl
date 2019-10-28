@@ -503,26 +503,16 @@ end
 """
     extractdata(doc)
 
-Helper internal function which extract musicxml data. This function is not exported. Use readmusicxml and parsemusicxml instead.
+Extract musicxml data, builds all the types and stores them in proper format
+
+This function is not exported. Use readmusicxml and parsemusicxml instead.
 
 # Examples
 ```julia
 data = extractdata(doc)
 ```
 """
-function extractdata(doc::Document)
-
-
-    D = Doc(doc)
-    # scorepartwise = Scorepartwise(D.scorepartwise)
-    # partlist = Partlist(scorepartwise.partlist)
-    # parts = Part.(scorepartwise.parts)
-
-    # for part in parts
-    #     measures = Measure.(part.measures)
-    # end
-    return D
-end
+extractdata(doc::Document) = Doc(doc)
 ################################################################
 """
     readmusicxml(filepath)
