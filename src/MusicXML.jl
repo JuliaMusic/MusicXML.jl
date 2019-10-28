@@ -48,10 +48,11 @@ YN(::Nothing) = nothing
     Scoreinstrument
 
 # Arguments
+```julia
 - name::String
 - ID::String
-- xml::Node
-
+- aml::Node
+```
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required ID attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 """
 @aml mutable struct Scoreinstrument "score-instrument"
@@ -65,7 +66,7 @@ end
 # Arguments
 - port::Int16
 - ID::String
-- xml::Node
+- aml::Node
 
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 """
@@ -78,12 +79,14 @@ end
     Midiinstrument
 
 # Arguments
+```julia
 - channel::UInt8 # 0 to 15
 - program::UInt8
 - volume::UInt8
 - pan::Int8
 - ID::String
-- xml::Node
+- aml::Node
+```
 
 Midiinstrument type holds information about the sound of a midi instrument.
 
@@ -108,12 +111,14 @@ end
     Scorepart
 
 # Arguments
+```julia
 - name::String
 - scoreinstrument::Scoreinstrument
 - mididevice::Mididevice
 - midiinstrument::Midiinstrument
 - ID::String
-- xml::Node
+- aml::Node
+```
 
 Holds information about one Scorepart in a score
 
@@ -143,9 +148,11 @@ end
     Partlist
 
 # Arguments
+```julia
 - TODO partgroup
 - scoreparts::Vector{Scorepart}
-- xml::Node
+- aml::Node
+```
 
 Holds scoreparts and partgroup.
 
@@ -161,9 +168,10 @@ end
     Key
 
 # Arguments
+```julia
 - fifth::Int8
 - mode::Union{Nothing,String}
-- xml::Node
+- aml::Node
 
 A type to hold key information for a measure in musicxml file.
 
@@ -184,9 +192,11 @@ end
     Clef
 
 # Arguments
+```julia
 - sign::String
 - line::Int16
-- xml::Node
+- aml::Node
+```
 
 A type to hold clef information for a measure in musicxml file.
 
@@ -207,11 +217,13 @@ end
     Transpose
 
 # Arguments
+```julia
 - diatonic::Int8
 - chromatic::Int8
 - octaveChange::Union{Nothing,Int8}
 - double::Union{Nothing,Bool}
-- xml::Node
+- aml::Node
+```
 
 A type to hold transpose information for a measure in musicxml file.
 
@@ -238,8 +250,10 @@ end
     Time
 
 # Arguments
+```julia
 - signature::Array{Int8,1}
-- xml::Node
+- aml::Node
+```
 
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
 """
@@ -252,6 +266,7 @@ end
     Attributes
 
 # Arguments
+```julia
 - divisions::Int16
 - key::Key
 - time::Time
@@ -259,7 +274,8 @@ end
 - instruments::Union{Nothing,UInt16}
 - clef::Union{Nothing,Clef}
 - transpose::Union{Nothing,Transpose}
-- xml::Node
+- aml::Node
+```
 
 A type to hold the data for the attributes of a musicxml measure
 
@@ -349,10 +365,12 @@ end
     Pitch
 
 # Arguments
+```julia
 - step::String
 - alter::Float16
 - octave::Int8
-- xml::Node
+- aml::Node
+```
 
 Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
 
@@ -370,8 +388,10 @@ end
     Rest
 
 # Arguments
+```julia
 - rest::Bool
-- xml::Node
+- aml::Node
+```
 
 The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
 
@@ -388,8 +408,10 @@ end
     Unpitched
 
 # Arguments
+```julia
 - unpitched::Bool
-- xml::Node
+- aml::Node
+```
 
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
@@ -403,6 +425,7 @@ end
     Note
 
 # Arguments
+```julia
 - pitch::Pitch
 - rest::Rest
 - unpitched::Unpitched
@@ -412,7 +435,8 @@ end
 - accidental::String
 - TODO tie::Union{Nothing,Tie} # start, stop, nothing TODO
 - TODO lyric
-- xml::Node
+- aml::Node
+```
 
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
 
@@ -443,10 +467,11 @@ end
     Measure
 
 # Arguments
+```julia
 - attributes::Union{Nothing,Attributes}
 - notes::Vector{Note}
-- xml::Node
-
+- aml::Node
+```
 
 A type to hold the data for a musicxml measure
 
@@ -463,9 +488,11 @@ end
     Part
 
 # Arguments
+```julia
 - measures::Vector{Measure}
 - ID::String
-- xml::Node
+- aml::Node
+```
 
 A type to hold the data for a part in musicxml file.
 
@@ -481,11 +508,13 @@ end
     scorePartwise
 
 # Arguments
+```julia
 - TODO identification
 - TODO defaults
 - partlist::Partlist
 - parts::Vector{Part}
-- xml::Node
+- aml::Node
+```
 
 A type to hold the data for a musicxml file.
 """
