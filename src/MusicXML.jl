@@ -119,7 +119,7 @@ Holds information about one Scorepart in a score
 
 Each MusicXML part corresponds to a track in a Standard MIDI Format 1 file. The score-instrument elements are used when there are multiple instruments per track. The midi-device element is used to make a MIDI device or port assignment for the given track or specific MIDI instruments. Initial midi-instrument assignments may be made here as well.
 
-scoreinstrument: See [`ScoreInstrument`](@ref) doc
+scoreinstrument: See [`Scoreinstrument`](@ref) doc
 mididevice: See [`Mididevice`](@ref) doc
 midiinstrument: See [`Midiinstrument`](@ref) doc
 
@@ -143,7 +143,7 @@ end
     Partlist
 
 # Arguments
-- # TODO partgroup
+- TODO partgroup
 - scoreparts::Vector{Scorepart}
 - xml::Node
 
@@ -407,11 +407,11 @@ end
 - rest::Rest
 - unpitched::Unpitched
 - duration::UInt
-- # voice
+- TODO voice
 - type::String
 - accidental::String
-- # tie::Union{Nothing,Tie} # start, stop, nothing TODO
-- # TODO lyric
+- TODO tie::Union{Nothing,Tie} # start, stop, nothing TODO
+- TODO lyric
 - xml::Node
 
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
@@ -481,8 +481,8 @@ end
     scorePartwise
 
 # Arguments
-- # TODO identification
-- # TODO defaults
+- TODO identification
+- TODO defaults
 - partlist::Partlist
 - parts::Vector{Part}
 - xml::Node
