@@ -521,7 +521,7 @@ function extractdata(doc::Document)
     # for part in parts
     #     measures = Measure.(part.measures)
     # end
-    return partlist
+    return D
 end
 ################################################################
 """

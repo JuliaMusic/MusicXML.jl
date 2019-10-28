@@ -2,7 +2,7 @@
 
 [[AML]]
 deps = ["EzXML"]
-git-tree-sha1 = "6f995fd8fc490a116779741f3b96e60dadf1ef48"
+git-tree-sha1 = "90e40d40347c91b9ebd146e5a99466e8538895cd"
 repo-rev = "master"
 repo-url = "https://github.com/aminya/AML.jl.git"
 uuid = "6b84a0a3-a11a-41fa-a417-e600528de108"
