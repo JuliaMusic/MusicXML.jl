@@ -1,6 +1,10 @@
 using MusicXML
 using Documenter
 
+# using Pkg
+# pkg"activate .."
+# push!(LOAD_PATH,"../src/")
+
 makedocs(;
     modules=[MusicXML],
     authors="Amin Yahyaabadi",

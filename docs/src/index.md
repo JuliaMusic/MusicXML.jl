@@ -8,7 +8,7 @@ Powerful MusicXML reading and writing package for Julia.
 
 # Installation
 ```julia
-] add https://github.com/aminya/MusicXML.jl
+] add https://github.com/JuliaMusic/MusicXML.jl
 ```
 
 # Usage Example
