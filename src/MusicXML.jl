@@ -7,7 +7,7 @@ import MIDI, MusicManipulations
 # I/O functions
 export readmusicxml, parsemusicxml
 # Types:
-export MusicXML, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+export Doc, Scorepartwise, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 # Utilities
 export pitch2xml, xml2pitch
 
@@ -462,6 +462,10 @@ A type to hold the data for a musicxml file.
     # TODO defaults
     partlist::Partlist, "part-list"
     parts::Vector{Part}, "part"
+end
+
+@macroexpand @aml mutable struct Doc xd""
+    scorepartwise::Scorepartwise, "score-partwise"
 end
 ################################################################
 """
