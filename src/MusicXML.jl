@@ -464,7 +464,7 @@ A type to hold the data for a musicxml file.
     parts::Vector{Part}, "part"
 end
 
-@macroexpand @aml mutable struct Doc xd""
+@aml mutable struct Doc xd""
     scorepartwise::Scorepartwise, "score-partwise"
 end
 ################################################################
