@@ -77,8 +77,8 @@ end
 
 # Arguments
 - name::String
-- scoreinstrument::Union{Nothing,Scoreinstrument}
-- mididevice::Union{Nothing,Mididevice}
+- scoreinstrument::Scoreinstrument
+- mididevice::Mididevice
 - midiinstrument::Midiinstrument
 - ID::String
 - xml::Node
@@ -101,8 +101,8 @@ Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
 """
 @aml mutable struct Scorepart "score-part"
     name::String, "part-name"
-    scoreinstrument::Union{Nothing,Scoreinstrument} = nothing, "score-instrument"
-    mididevice::Union{Nothing,Mididevice} = nothing, "midi-device"
+    scoreinstrument::Scoreinstrument = nothing, "score-instrument"
+    mididevice::Mididevice = nothing, "midi-device"
     midiinstrument::Midiinstrument, "midi-instrument"
     ID::String, a"id"
 end
@@ -253,8 +253,8 @@ clef: See [`Clef`](@ref) doc
     time::Time, "time"
     staves::Union{Nothing, UInt16} = nothing, "staves"
     instruments::Union{Nothing,UInt16} = nothing, "instruments"
-    clef::Union{Nothing,Clef} = nothing, "clef"
-    transpose::Union{Nothing,Transpose} = nothing, "transpose"
+    clef::Clef = nothing, "clef"
+    transpose::Transpose = nothing, "transpose"
 end
 ################################################################
 using Base.Meta, Base.Unicode
@@ -397,9 +397,9 @@ tie:
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
 @aml mutable struct Note "note"
-    pitch::Union{Pitch,Nothing} = nothing, "pitch"
-    rest::Union{Rest, Nothing} = nothing, "rest"
-    unpitched::Union{Unpitched, Nothing} = nothing, "unpitched"
+    pitch::Pitch = nothing, "pitch"
+    rest::Rest = nothing, "rest"
+    unpitched::Unpitched = nothing, "unpitched"
     duration::UInt, "duration"
     # voice
     type::Union{String, Nothing} = nothing, "type"
@@ -423,7 +423,7 @@ notes: See [`Note`](@ref) doc
 
 """
 @aml mutable struct Measure "measure"
-    attributes::Union{Nothing,Attributes}, "attributes"
+    attributes::Attributes, "attributes"
     notes::Vector{Note}, "note"
 end
 ################################################################
