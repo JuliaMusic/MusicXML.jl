@@ -480,21 +480,16 @@ data = extractdata(doc)
 """
 function extractdata(doc::Document)
 
-    # Get the root element from `doc`.
-    scorepartwise = root(doc)
 
-    if scorepartwise.name != "score-partwise"
-        error("Only score-partwise musicxml files are supported")
-    end
-
-    musicxml = Musicxml(scorepartwise)
-    partlist = Partlist(musicxml.partlist)
-    parts = Part.(musicxml.parts)
+    D = Doc(doc)
+    scorepartwise = Scorepartwise(D.scorepartwise)
+    partlist = Partlist(scorepartwise.partlist)
+    # parts = Part.(scorepartwise.parts)
 
     # for part in parts
     #     measures = Measure.(part.measures)
     # end
-    return partlist, parts
+    return partlist
 end
 ################################################################
 """
