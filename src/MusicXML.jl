@@ -101,8 +101,8 @@ Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
 """
 @aml mutable struct Scorepart "score-part"
     name::String, "part-name"
-    scoreinstrument::Scoreinstrument = nothing, "score-instrument"
-    mididevice::Mididevice = nothing, "midi-device"
+    scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
+    mididevice::UN{Mididevice} = nothing, "midi-device"
     midiinstrument::Midiinstrument, "midi-instrument"
     ID::String, a"id"
 end
@@ -145,7 +145,7 @@ mode:  major, minor, dorian, phrygian, lydian, mixolydian, aeolian, ionian, locr
 """
 @aml mutable struct Key "key"
     fifth::Int8, "fifths"
-    mode::Union{Nothing,String} = nothing, "mode"
+    mode::UN{String} = nothing, "mode"
 end
 ################################################################
 """
@@ -198,8 +198,8 @@ double: If the double element is present, it indicates that the music is doubled
 @aml mutable struct Transpose "transpose"
     diatonic::Int8 = 0, "diatonic"
     chromatic::Int8 = 0, "chromatic"
-    octaveChange::Union{Nothing,Int8} = nothing, "octave-change"
-    double::Union{Nothing,Bool} = nothing, "double"
+    octaveChange::UN{Int8} = nothing, "octave-change"
+    double::UN{Bool} = nothing, "double"
 end
 ################################################################
 """
@@ -251,10 +251,10 @@ clef: See [`Clef`](@ref) doc
     divisions::Int16, "divisions"
     key::Key, "key"
     time::Time, "time"
-    staves::Union{Nothing, UInt16} = nothing, "staves"
-    instruments::Union{Nothing,UInt16} = nothing, "instruments"
-    clef::Clef = nothing, "clef"
-    transpose::Transpose = nothing, "transpose"
+    staves::UN{UInt16} = nothing, "staves"
+    instruments::UN{UInt16} = nothing, "instruments"
+    clef::UN{Clef} = nothing, "clef"
+    transpose::UN{Transpose} = nothing, "transpose"
 end
 ################################################################
 using Base.Meta, Base.Unicode
@@ -347,9 +347,9 @@ The display-step-octave group contains the sequence of elements used by both the
 
 """
 @aml mutable struct Rest sc"rest"
-    measure::Union{Bool,Nothing} = nothing, a"measure"
-    dispStep::Union{String,Nothing} = nothing, "display-step"
-    dispOctave::Union{Int8,Nothing} = nothing, "display-octave"
+    measure::UN{Bool} = nothing, a"measure"
+    dispStep::UN{String} = nothing, "display-step"
+    dispOctave::UN{Int8} = nothing, "display-octave"
 end
 ################################################################
 """
@@ -362,9 +362,9 @@ end
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
 @aml mutable struct Unpitched sc"unpitched"
-    measure::Union{Bool,Nothing} = nothing, a"measure"
-    dispStep::Union{String,Nothing} = nothing, "display-step"
-    dispOctave::Union{Int8,Nothing} = nothing, "display-octave"
+    measure::UN{Bool} = nothing, a"measure"
+    dispStep::UN{String} = nothing, "display-step"
+    dispOctave::UN{Int8} = nothing, "display-octave"
 end
 ################################################################
 """
@@ -397,14 +397,14 @@ tie:
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
 @aml mutable struct Note "note"
-    pitch::Pitch = nothing, "pitch"
-    rest::Rest = nothing, "rest"
-    unpitched::Unpitched = nothing, "unpitched"
+    pitch::UN{Pitch} = nothing, "pitch"
+    rest::UN{Rest} = nothing, "rest"
+    unpitched::UN{Unpitched} = nothing, "unpitched"
     duration::UInt, "duration"
     # voice
-    type::Union{String, Nothing} = nothing, "type"
-    accidental::Union{String,Nothing} = nothing, "accidental"
-    tie::Union{Nothing,String} = nothing, "tie" # start, stop, nothing TODO
+    type::UN{String} = nothing, "type"
+    accidental::UN{String} = nothing, "accidental"
+    tie::UN{String} = nothing, "tie" # start, stop, nothing TODO
 end
 ################################################################
 """
