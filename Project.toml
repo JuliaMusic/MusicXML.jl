@@ -10,6 +10,9 @@ MusicManipulations = "274955c0-c284-5bf7-b122-5ecd51c559de"
 
 [compat]
 julia = "1"
+AML = "< 0.3"
+MIDI = "^1.4.3"
+MusicManipulations = "^0.9.0"
 
 [extras]
 Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
