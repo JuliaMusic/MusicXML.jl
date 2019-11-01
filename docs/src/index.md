@@ -30,7 +30,7 @@ prts = doc.scorepartwise.parts
 # Extracting each part
 for prt in prts
 
-    ind = findfirst(x -> prt.ID == x.ID, scprts) # returns the index of scorepart that matches the ID of part
+    ind = findfirst(x -> prt.id == x.id, scprts) # returns the index of scorepart that matches the id of part
 
     # printing the instrument name
     println(scprts[ind].name)

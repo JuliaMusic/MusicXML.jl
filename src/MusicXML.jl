@@ -50,14 +50,14 @@ YN(::Nothing) = nothing
 # Arguments
 ```julia
 - name::String
-- ID::String
+- id::String
 - aml::Node
 ```
-The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required ID attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
+The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 """
 @aml mutable struct Scoreinstrument "score-instrument"
     name::String, "instrument-name"
-    ID::String, a"id"
+    id::String, a"id"
 end
 ################################################################
 """
@@ -65,14 +65,14 @@ end
 
 # Arguments
 - port::Int16
-- ID::String
+- id::String
 - aml::Node
 
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 """
 @aml mutable struct Mididevice "midi-device"
     port::Int16, a"port"
-    ID::String, a"id"
+    id::String, a"id"
 end
 ################################################################
 """
@@ -84,7 +84,7 @@ end
 - program::UInt8
 - volume::UInt8
 - pan::Int8
-- ID::String
+- id::String
 - aml::Node
 ```
 
@@ -104,7 +104,7 @@ Midiinstrument(0,1,127,0)
     program::UInt8 = 1, "midi-program"
     volume::Float64 = 127, "volume"
     pan::Float64 = 0, "pan"
-    ID::String = "P1-I1", a"id"
+    id::String = "P1-I1", a"id"
 end
 ################################################################
 """
@@ -116,7 +116,7 @@ end
 - scoreinstrument::Scoreinstrument
 - mididevice::Mididevice
 - midiinstrument::Midiinstrument
-- ID::String
+- id::String
 - aml::Node
 ```
 
@@ -133,7 +133,7 @@ midiinstrument: See [`Midiinstrument`](@ref) doc
 
 # Examples
 ```julia
-Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
+Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), id = "P1")
 ```
 """
 @aml mutable struct Scorepart "score-part"
@@ -141,7 +141,7 @@ Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), ID = "P1")
     scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
     mididevice::UN{Mididevice} = nothing, "midi-device"
     midiinstrument::Midiinstrument, "midi-instrument"
-    ID::String, a"id"
+    id::String, a"id"
 end
 ################################################################
 """
@@ -251,8 +251,8 @@ end
 
 # Arguments
 ```julia
-- signature::Array{Int8,1}
-- aml::Node
+- beats::Int8 = 4, "beats"
+- beattype::Int8 = 4, "beat-type"
 ```
 
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
@@ -490,7 +490,7 @@ end
 # Arguments
 ```julia
 - measures::Vector{Measure}
-- ID::String
+- id::String
 - aml::Node
 ```
 
@@ -501,7 +501,7 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
-    ID::String, a"id"
+    id::String, a"id"
 end
 ################################################################
 """
