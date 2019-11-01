@@ -7,7 +7,7 @@ import MIDI, MusicManipulations
 # I/O functions
 export readmusicxml, parsemusicxml
 # Types:
-export Doc, Scorepartwise, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+export Doc, Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 # Utilities
 export pitch2xml, xml2pitch
 ################################################################
@@ -422,7 +422,7 @@ The unpitched type represents musical elements that are notated on the staff but
 end
 ################################################################
 """
-    Note
+    NoteX
 
 # Arguments
 ```julia
@@ -452,7 +452,7 @@ tie:
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
-@aml mutable struct Note "note"
+@aml mutable struct NoteX "note"
     pitch::UN{Pitch} = nothing, "pitch"
     rest::UN{Rest} = nothing, "rest"
     unpitched::UN{Unpitched} = nothing, "unpitched"
@@ -469,19 +469,19 @@ end
 # Arguments
 ```julia
 - attributes::Union{Nothing,Attributes}
-- notes::Vector{Note}
+- notes::Vector{NoteX}
 - aml::Node
 ```
 
 A type to hold the data for a musicxml measure
 
 attributes: See [`Attributes`](@ref) doc
-notes: See [`Note`](@ref) doc
+notes: See [`NoteX`](@ref) doc
 
 """
 @aml mutable struct Measure "measure"
     attributes::UN{Attributes} = nothing, "attributes"
-    notes::Vector{Note}, "note"
+    notes::Vector{NoteX}, "note"
 end
 ################################################################
 """
