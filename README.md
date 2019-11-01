@@ -71,9 +71,66 @@ readmusicxml, parsemusicxml
 ```
 
 ## Types:
-```julia
-Doc, Scorepartwise, Part, Measure, Note, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+
 ```
+Doc
+	scorepartwise
+		partlist
+			scoreparts
+				name
+				id
+				scoreinstrument
+					name
+					id
+				mididevice
+					port
+					id
+				midiinstrument
+					channel
+					program
+					volume
+					pan
+					id
+		parts
+			id
+			measures
+				attributes
+					divisions
+					key
+						fifth
+						mode
+					time
+						beats
+						beattype
+					staves
+					instruments
+					clef
+						sign
+						line
+					transpose
+						diatonic
+						chromatic
+						octaveChange
+						double
+				notes
+					pitch
+						step
+						alter
+						octave
+					rest
+					unpitched
+					duration
+					type
+					accidental
+```
+
+For naming, If the fieldname is a Vector it has `s` at the end of the word.
+
+For naming, types are first letter captalized of the field names:
+```
+Doc, Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+```
+
 
 ## Utilities
 ```julia
