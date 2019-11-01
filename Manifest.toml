@@ -1,12 +1,12 @@
 # This file is machine-generated - editing it directly is not advised
 
-[[AML]]
+[[AcuteML]]
 deps = ["EzXML"]
-git-tree-sha1 = "afb6843eb9246229b823eb0d0f2e7eacc4b7a451"
+git-tree-sha1 = "febd75706bd051f75fb915c44b7954427406e524"
 repo-rev = "master"
-repo-url = "https://github.com/aminya/AML.jl"
+repo-url = "https://github.com/aminya/AcuteML.jl.git"
 uuid = "6b84a0a3-a11a-41fa-a417-e600528de108"
-version = "0.2.0"
+version = "0.1.0"
 
 [[Base64]]
 uuid = "2a0f44e3-6c83-55bd-87e4-b1978d98bd5f"
