@@ -404,10 +404,9 @@ end
 
 # Arguments
 ```julia
-- step::String
-- alter::Float16
-- octave::Int8
-- aml::Node
+- step::String, "~"
+- alter::UN{Float16} = nothing, "~"
+- octave::Int8, "~"
 ```
 
 Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
@@ -417,9 +416,9 @@ for conversions between midi pitch and musicxml pitch
 
 """
 @aml mutable struct Pitch "pitch"
-    step::String, "step"
-    alter::UN{Float16} = nothing, "alter"
-    octave::Int8, "octave"
+    step::String, "~"
+    alter::UN{Float16} = nothing, "~"
+    octave::Int8, "~"
 end
 ################################################################
 """
