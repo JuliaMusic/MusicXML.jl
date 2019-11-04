@@ -526,9 +526,8 @@ end
 
 # Arguments
 ```julia
-- measures::Vector{Measure}
-- id::String
-- aml::Node
+- measures::Vector{Measure}, "measure"
+- id::String, a"~"
 ```
 
 A type to hold the data for a part in musicxml file.
@@ -538,7 +537,7 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
-    id::String, a"id"
+    id::String, a"~"
 end
 ################################################################
 """
