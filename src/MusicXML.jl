@@ -362,14 +362,13 @@ end
 
 # Arguments
 ```julia
-- divisions::Int16
-- key::Key
-- time::Time
-- staves::Union{Nothing, UInt16}
-- instruments::Union{Nothing,UInt16}
-- clef::Union{Nothing,Clef}
-- transpose::Union{Nothing,Transpose}
-- aml::Node
+- divisions::Int16, "~"
+- key::Key, "~"
+- time::Time, "~"
+- staves::UN{UInt16} = nothing, "~"
+- instruments::UN{UInt16} = nothing, "~"
+- clef::UN{Clef} = nothing, "~"
+- transpose::UN{Transpose} = nothing, "~"
 ```
 
 A type to hold the data for the attributes of a musicxml measure
@@ -391,13 +390,13 @@ clef: See [`Clef`](@ref) doc
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
 @aml mutable struct Attributes "attributes"
-    divisions::Int16, "divisions"
-    key::Key, "key"
-    time::Time, "time"
-    staves::UN{UInt16} = nothing, "staves"
-    instruments::UN{UInt16} = nothing, "instruments"
-    clef::UN{Clef} = nothing, "clef"
-    transpose::UN{Transpose} = nothing, "transpose"
+    divisions::Int16, "~"
+    key::Key, "~"
+    time::Time, "~"
+    staves::UN{UInt16} = nothing, "~"
+    instruments::UN{UInt16} = nothing, "~"
+    clef::UN{Clef} = nothing, "~"
+    transpose::UN{Transpose} = nothing, "~"
 end
 ################################################################
 """
@@ -563,6 +562,7 @@ A type to hold the data for a musicxml file.
     partlist::Partlist, "part-list"
     parts::Vector{Part}, "part"
 end
+################################################################
 
 @aml mutable struct Doc xd""
     scorepartwise::Scorepartwise, "score-partwise"
