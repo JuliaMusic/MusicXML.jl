@@ -252,9 +252,9 @@ modeCheck(x) = in(x, Ref("major", "minor", "dorian", "phrygian", "lydian", "mixo
 
 # Arguments
 ```julia
-- sign::String
-- line::Int16
-- aml::Node
+- sign::String, "sign"
+- line::Int16, "line"
+- octave::UN{Int64} = nothing, "clef-octave-change"
 ```
 
 A type to hold clef information for a measure in musicxml file.
@@ -265,11 +265,33 @@ sign: The sign element represents the clef symbol: G, F, C, percussion, TAB, jia
 
 line: Line numbers are counted from the bottom of the staff. Standard values are 2 for the G sign (treble clef), 4 for the F sign (bass clef), 3 for the C sign (alto clef) and 5 for TAB (on a 6-line staff).
 
+octave: The clef-octave-change element is used for transposing clefs. A treble clef for tenors would have a value of -1.
+
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-clef.htm)
+
+# Example
+```julia
+Clef(sign = "TAB")
+```
 """
 @aml mutable struct Clef "clef"
     sign::String, "sign"
     line::Int16, "line"
+    octave::UN{Int64} = nothing, "clef-octave-change"
+end
+
+# Standard values
+function Clef(; sign::String)
+    if sign == "G"
+        line = 2
+    elseif sign == "F"
+        line = 4
+    elseif sign == "C"
+        line = 3
+    elseif sign == "TAB"
+        line = 5
+    end
+    return Clef(sign = sign, line = line)
 end
 ################################################################
 """
