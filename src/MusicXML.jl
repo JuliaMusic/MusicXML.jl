@@ -95,11 +95,14 @@ end
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm)
-
+# Example
+```julia
+Mididevice(port = 1, id = "P1-I1")
+```
 """
 @aml mutable struct Mididevice "midi-device"
-    port::Int64, a"port", midi16
-    id::String, a"id"
+    port::Int64 = 1, a"port", midi16
+    id::String = "P1-I1", a"id"
 end
 ################################################################
 """
