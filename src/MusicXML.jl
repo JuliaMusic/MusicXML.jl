@@ -299,11 +299,10 @@ end
 
 # Arguments
 ```julia
-- diatonic::Int8
-- chromatic::Int8
-- octaveChange::Union{Nothing,Int8}
-- double::Union{Nothing,Bool}
-- aml::Node
+- diatonic::Int8 = 0, "~"
+- chromatic::Int8 = 0, "~"
+- octaveChange::UN{Int8} = nothing, "octave-change"
+- double::UN{Bool} = nothing, "~"
 ```
 
 A type to hold transpose information for a measure in musicxml file.
@@ -319,12 +318,15 @@ octaveChange: The octave-change element indicates how many octaves to add to get
 double: If the double element is present, it indicates that the music is doubled one octave down from what is currently written (as is the case for mixed cello / bass parts in orchestral literature).
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-transpose.htm)
+
+# Example
+Transpose() # default values
 """
 @aml mutable struct Transpose "transpose"
-    diatonic::Int8 = 0, "diatonic"
-    chromatic::Int8 = 0, "chromatic"
+    diatonic::Int8 = 0, "~"
+    chromatic::Int8 = 0, "~"
     octaveChange::UN{Int8} = nothing, "octave-change"
-    double::UN{Bool} = nothing, "double"
+    double::UN{Bool} = nothing, "~"
 end
 ################################################################
 """
