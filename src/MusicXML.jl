@@ -87,30 +87,32 @@ end
 
 # Arguments
 ```julia
-- channel::UInt8 # 0 to 15
-- program::UInt8
-- volume::UInt8
-- pan::Int8
-- id::String
-- aml::Node
+- channel::Int64 = 0, "midi-channel",  midi16
+- name::UN{String} = nothing, "midi-name"
+- bank::UN{Int64} = nothing, "midi-bank", midi16384
+- program::Int64 = 1, "midi-program", midiCheck
+- unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
+- volume::Float64 = 127, "volume", percent
+- pan::Float64 = 0, "pan", rot180
+- elevation::UN{Float64} = nothing, "elevation", rot180
+- id::String = "P1-I1", a"id"
 ```
 
 Midiinstrument type holds information about the sound of a midi instrument.
 
-# http://www.music-software-development.com/midi-tutorial.html - Part 4
-# Status byte : 1100 CCCC
-# Data byte 1 : 0XXX XXXX
+Refer to https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm
 
-# Examples
-```julia
-Midiinstrument(0,1,127,0)
-```
+Pan: -90 is hard left, 0 is center, -180 is behind
 """
 @aml mutable struct Midiinstrument "midi-instrument"
-    channel::UInt8 = 0, "midi-channel" # 0 to 15
-    program::UInt8 = 1, "midi-program"
-    volume::Float64 = 127, "volume"
-    pan::Float64 = 0, "pan"
+    channel::Int64 = 0, "midi-channel",  midi16
+    name::UN{String} = nothing, "midi-name"
+    bank::UN{Int64} = nothing, "midi-bank", midi16384
+    program::Int64 = 1, "midi-program", midiCheck
+    unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
+    volume::Float64 = 127, "volume", percent
+    pan::Float64 = 0, "pan", rot180
+    elevation::UN{Float64} = nothing, "elevation", rot180
     id::String = "P1-I1", a"id"
 end
 ################################################################
