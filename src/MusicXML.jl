@@ -218,10 +218,11 @@ end
 
 # Arguments
 ```julia
-- fifth::Int8
-- mode::Union{Nothing,String}
-- aml::Node
-
+- # cancel
+- fifths::Int8, "~"
+- mode::UN{String} = nothing, "~", modeCheck
+- # key-octave
+```
 A type to hold key information for a measure in musicxml file.
 
 The key element represents a key signature. Both traditional and non-traditional key signatures are supported. The optional number attribute refers to staff numbers. If absent, the key signature applies to all staves in the part.
@@ -231,11 +232,20 @@ fifth: number of flats or sharps in a traditional key signature. Negative number
 mode:  major, minor, dorian, phrygian, lydian, mixolydian, aeolian, ionian, locrian, none
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-key.htm)
+
+# Example
+```julia
+Key(fifths = 0, mode = "major")
+```
 """
 @aml mutable struct Key "key"
-    fifth::Int8, "fifths"
-    mode::UN{String} = nothing, "mode"
+    # cancel
+    fifths::Int8 = 0, "~"
+    mode::UN{String} = nothing, "~", modeCheck
+    # key-octave
 end
+
+modeCheck(x) = in(x, Ref("major", "minor", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "ionian", "locrian", "none"))
 ################################################################
 """
     Clef
