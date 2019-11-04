@@ -71,14 +71,13 @@ end
     Mididevice
 
 # Arguments
-- port::Int16
-- id::String
-- aml::Node
+- port::Int16, a"port"
+- id::String, a"id"
 
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 """
 @aml mutable struct Mididevice "midi-device"
-    port::Int16, a"port"
+    port::Int64, a"port", midi16
     id::String, a"id"
 end
 ################################################################
