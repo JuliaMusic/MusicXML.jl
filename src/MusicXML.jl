@@ -463,16 +463,14 @@ end
 
 # Arguments
 ```julia
-- pitch::Pitch
-- rest::Rest
-- unpitched::Unpitched
-- duration::UInt
-- TODO voice
-- type::String
-- accidental::String
-- TODO tie::Union{Nothing,Tie} # start, stop, nothing TODO
-- TODO lyric
-- aml::Node
+- pitch::UN{Pitch} = nothing, "~"
+- rest::UN{Rest} = nothing, "~"
+- unpitched::UN{Unpitched} = nothing, "~"
+- duration::UInt, "~"
+- # voice
+- type::UN{String} = nothing, "~"
+- accidental::UN{String} = nothing, "~"
+- tie::UN{String} = nothing, "~" # start, stop, nothing TODO
 ```
 
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
@@ -490,14 +488,14 @@ tie:
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
 @aml mutable struct NoteX "note"
-    pitch::UN{Pitch} = nothing, "pitch"
-    rest::UN{Rest} = nothing, "rest"
-    unpitched::UN{Unpitched} = nothing, "unpitched"
-    duration::UInt, "duration"
+    pitch::UN{Pitch} = nothing, "~"
+    rest::UN{Rest} = nothing, "~"
+    unpitched::UN{Unpitched} = nothing, "~"
+    duration::UInt, "~"
     # voice
-    type::UN{String} = nothing, "type"
-    accidental::UN{String} = nothing, "accidental"
-    tie::UN{String} = nothing, "tie" # start, stop, nothing TODO
+    type::UN{String} = nothing, "~"
+    accidental::UN{String} = nothing, "~"
+    tie::UN{String} = nothing, "~" # start, stop, nothing TODO
 end
 ################################################################
 """
