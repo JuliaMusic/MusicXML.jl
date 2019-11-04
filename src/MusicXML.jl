@@ -172,7 +172,7 @@ midiinstrument: See [`Midiinstrument`](@ref) doc
 
 # Examples
 ```julia
-Scorepart(name = "Violin",midiinstrument = Midiinstrument(), id = "P1")
+Scorepart(name = "Piano",midiinstrument = Midiinstrument(), id = "P1")
 ```
 """
 @aml mutable struct Scorepart "score-part"
@@ -192,15 +192,21 @@ end
 
 # Arguments
 ```julia
-- TODO partgroup
-- scoreparts::Vector{Scorepart}
-- aml::Node
+- # TODO partgroup
+- scoreparts::Vector{Scorepart}, "score-part"
 ```
 
 Holds scoreparts and partgroup.
 
 See [`Scorepart`](@ref) doc
 
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-part-list.htm)
+
+# Example
+Partlist([
+    Scorepart(name = "Piano 1", midiinstrument = Midiinstrument(), id = "P1"),
+    Scorepart(name = "Piano 2", midiinstrument = Midiinstrument(), id = "P2"),
+])
 """
 @aml mutable struct Partlist "part-list"
     # TODO partgroup
