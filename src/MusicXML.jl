@@ -117,9 +117,14 @@ Midiinstrument type holds information about the sound of a midi instrument.
 Refer to https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm
 
 Pan: -90 is hard left, 0 is center, -180 is behind
+
+# Example
+```julia
+Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
+```
 """
 @aml mutable struct Midiinstrument "midi-instrument"
-    channel::Int64 = 0, "midi-channel",  midi16
+    channel::Int64 = 1, "midi-channel",  midi16
     name::UN{String} = nothing, "midi-name"
     bank::UN{Int64} = nothing, "midi-bank", midi16384
     program::Int64 = 1, "midi-program", midiCheck
