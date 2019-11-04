@@ -334,15 +334,24 @@ end
 
 # Arguments
 ```julia
-- beats::Int8 = 4, "beats"
-- beattype::Int8 = 4, "beat-type"
+- beats::Int8 = 4, "~"
+- beatType::Int8 = 4, "beat-type"
+- # interchangeable
 ```
 
 Time signatures are represented by the beats element for the numerator and the beat-type element for the denominator.
+
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-time.htm)
+
+
+```julia
+Time(beats=6, beattype = 8)
+```
 """
 @aml mutable struct Time "time"
-    beats::Int8 = 4, "beats"
+    beats::Int8 = 4, "~"
     beattype::Int8 = 4, "beat-type"
+    # interchangeable
 end
 ################################################################
 """
