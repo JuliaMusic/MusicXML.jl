@@ -505,9 +505,8 @@ end
 
 # Arguments
 ```julia
-- attributes::Union{Nothing,Attributes}
-- notes::Vector{NoteX}
-- aml::Node
+- attributes::UN{Attributes} = nothing, "~"
+- notes::Vector{NoteX}, "note"
 ```
 
 A type to hold the data for a musicxml measure
@@ -517,7 +516,7 @@ notes: See [`NoteX`](@ref) doc
 
 """
 @aml mutable struct Measure "measure"
-    attributes::UN{Attributes} = nothing, "attributes"
+    attributes::UN{Attributes} = nothing, "~"
     notes::Vector{NoteX}, "note"
 end
 ################################################################
