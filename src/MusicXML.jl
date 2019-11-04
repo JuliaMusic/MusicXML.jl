@@ -436,7 +436,7 @@ The display-step-octave group contains the sequence of elements used by both the
 
 """
 @aml mutable struct Rest sc"rest"
-    measure::UN{YN} = nothing, a"measure"
+    measure::UN{YN} = nothing, a"~"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
@@ -453,7 +453,7 @@ end
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
 @aml mutable struct Unpitched sc"unpitched"
-    measure::UN{YN} = nothing, a"measure"
+    measure::UN{YN} = nothing, a"~"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
