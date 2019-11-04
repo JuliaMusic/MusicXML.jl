@@ -2,9 +2,9 @@
 
 [[AcuteML]]
 deps = ["EzXML"]
-git-tree-sha1 = "febd75706bd051f75fb915c44b7954427406e524"
+git-tree-sha1 = "7d3306b783939221f5a3b0df7f1515f634b4ae5b"
 repo-rev = "master"
-repo-url = "https://github.com/aminya/AcuteML.jl.git"
+repo-url = "https://github.com/aminya/AcuteML.jl"
 uuid = "6b84a0a3-a11a-41fa-a417-e600528de108"
 version = "0.1.0"
 
@@ -30,9 +30,9 @@ version = "1.1.0"
 
 [[DataStructures]]
 deps = ["InteractiveUtils", "OrderedCollections"]
-git-tree-sha1 = "6ffb2c3f04458e21abc5d7fdd8a1ffbe71e399d1"
+git-tree-sha1 = "1fe8fad5fc84686dcbc674aa255bc867a64f8132"
 uuid = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
-version = "0.17.4"
+version = "0.17.5"
 
 [[Dates]]
 deps = ["Printf"]
@@ -59,7 +59,6 @@ deps = ["Markdown"]
 uuid = "b77e0a4c-d291-57a0-90e8-8db25a27a240"
 
 [[LibGit2]]
-deps = ["Printf"]
 uuid = "76f85450-5226-5b5a-8eaa-529ad045b433"
 
 [[Libdl]]
@@ -90,15 +89,15 @@ version = "0.4.3"
 
 [[MotifSequenceGenerator]]
 deps = ["Combinatorics", "Random", "StatsBase", "Test"]
-git-tree-sha1 = "281bd40b8971264621ad7e95fb6b6ccfb74894ba"
+git-tree-sha1 = "b3a234f4304b8ec548320cfdf1ed1681c2e74666"
 uuid = "7d228ccb-0fc9-53c8-a429-8c9b5b572bc3"
-version = "0.2.0"
+version = "1.0.0"
 
 [[MusicManipulations]]
 deps = ["DefaultApplication", "MIDI", "MotifSequenceGenerator", "Reexport", "Requires", "Statistics", "StatsBase", "Test"]
-git-tree-sha1 = "936559075ae087ce1ef0d1744846e0088418f33e"
+git-tree-sha1 = "b0df7f1650d5898e1afda73dc39107c3e52b1da1"
 uuid = "274955c0-c284-5bf7-b122-5ecd51c559de"
-version = "0.9.0"
+version = "0.10.0"
 
 [[OrderedCollections]]
 deps = ["Random", "Serialization", "Test"]
