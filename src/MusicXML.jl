@@ -542,15 +542,14 @@ measures: See [`Measure`](@ref) doc
 end
 ################################################################
 """
-    scorePartwise
+    Scorepartwise
 
 # Arguments
 ```julia
-- TODO identification
-- TODO defaults
-- partlist::Partlist
-- parts::Vector{Part}
-- aml::Node
+- # TODO identification
+- # TODO defaults
+- partlist::Partlist, "part-list"
+- parts::Vector{Part}, "part"
 ```
 
 A type to hold the data for a musicxml file.
