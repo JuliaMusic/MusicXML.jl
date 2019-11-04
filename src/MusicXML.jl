@@ -135,12 +135,15 @@ end
 
 # Arguments
 ```julia
-- name::String
-- scoreinstrument::Scoreinstrument
-- mididevice::Mididevice
-- midiinstrument::Midiinstrument
-- id::String
-- aml::Node
+- # identification
+- name::String, "part-name"
+- nameDisplay::UN{String} = nothing, "part-name-display"
+- abbreviation::UN{String} = nothing, "part-abbreviation"
+- abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
+- scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
+- mididevice::UN{Mididevice} = nothing, "midi-device"
+- midiinstrument::Midiinstrument, "midi-instrument"
+- id::String, a"id"
 ```
 
 Holds information about one Scorepart in a score
@@ -151,16 +154,19 @@ scoreinstrument: See [`Scoreinstrument`](@ref) doc
 mididevice: See [`Mididevice`](@ref) doc
 midiinstrument: See [`Midiinstrument`](@ref) doc
 
-
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-score-part.htm)
 
 # Examples
 ```julia
-Scorepart(name = "Violin",midiinstrument = midiinstrument(0,1,127,0), id = "P1")
+Scorepart(name = "Violin",midiinstrument = Midiinstrument(), id = "P1")
 ```
 """
 @aml mutable struct Scorepart "score-part"
+    # identification
     name::String, "part-name"
+    nameDisplay::UN{String} = nothing, "part-name-display"
+    abbreviation::UN{String} = nothing, "part-abbreviation"
+    abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
     scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
     mididevice::UN{Mididevice} = nothing, "midi-device"
     midiinstrument::Midiinstrument, "midi-instrument"
