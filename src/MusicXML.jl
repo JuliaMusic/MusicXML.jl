@@ -67,7 +67,7 @@ positive(x) = x>0
 ```
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 
-Refer to https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-score-instrument.htm.
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-score-instrument.htm)
 """
 @macroexpand @aml mutable struct Scoreinstrument "score-instrument"
     name::String, "instrument-name"
@@ -89,7 +89,8 @@ end
 ```
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
-Refer to https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm.
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm)
+
 """
 @aml mutable struct Mididevice "midi-device"
     port::Int64, a"port", midi16
@@ -114,7 +115,7 @@ end
 
 Midiinstrument type holds information about the sound of a midi instrument.
 
-Refer to https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm)
 
 Pan: -90 is hard left, 0 is center, -180 is behind
 
