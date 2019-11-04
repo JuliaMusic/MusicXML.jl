@@ -68,14 +68,19 @@ positive(x) = x>0
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-score-instrument.htm)
+
+# Example
+```julia
+Scoreinstrument(name = "Violin", id = "P1-I1")
+```
 """
-@macroexpand @aml mutable struct Scoreinstrument "score-instrument"
+@aml mutable struct Scoreinstrument "score-instrument"
     name::String, "instrument-name"
     abbreviation::UN{String} = nothing, "instrument-abbreviation"
     sound::UN{String} = nothing, "instrument-sound"
     # ensemble::UN{Int64} = nothing, sc"~", positive
     # solo::UN{Int64} = nothing, sc"~"
-    id::String, a"id"
+    id::String = "P1-I1", a"id"
     # VST::VST, "virtual-instrument"
 end
 ################################################################
