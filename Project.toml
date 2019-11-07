@@ -10,8 +10,6 @@ MusicManipulations = "274955c0-c284-5bf7-b122-5ecd51c559de"
 
 [compat]
 AcuteML = "0.1"
-MIDI = "< 2"
-MusicManipulations = "< 2"
 julia = "1"
 
 [extras]
