@@ -564,7 +564,7 @@ end
 ################################################################
 
 # precompile
-include("../deps/SnoopCompile/precompile/precompile_MusicXML.jl")
-_precompile_()
+# include("../deps/SnoopCompile/precompile/precompile_MusicXML.jl")
+# _precompile_()
 
 end

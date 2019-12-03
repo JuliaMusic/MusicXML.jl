@@ -1,8 +1,6 @@
-using SnoopCompile
-
-
+const package = :MusicXML
 ################################################################
-const packageName = "MusicXML"
+const packageName = string(package)
 const filePath = joinpath(pwd(),"src","$packageName.jl")
 
 function precompileDeactivator(packageName, filePath)
@@ -11,12 +9,21 @@ function precompileDeactivator(packageName, filePath)
     packageText = read(file, String)
     close(file)
 
-    packageEdited = foldl(replace,
-                 (
-                  "include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")" => "#include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")",
-                  "_precompile_()" => "#_precompile_()",
-                 ),
-                 init = packageText)
+    available = occursin("include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")", packageText)  && occursin("_precompile_()", packageText)
+
+    if available
+        packageEdited = foldl(replace,
+                     (
+                      "include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")" => "#include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")",
+                      "_precompile_()" => "#_precompile_()",
+                     ),
+                     init = packageText)
+    else
+        error(""" add the following codes into your package:
+         include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")
+         _precompile_()
+         """)
+    end
 
      file = open(filePath,"w")
      write(file, packageEdited)
@@ -29,12 +36,20 @@ function precompileActivator(packageName, filePath)
     packageText = read(file, String)
     close(file)
 
-    packageEdited = foldl(replace,
-                 (
-                  "#include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")" => "include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")",
-                  "#_precompile_()" => "_precompile_()",
-                 ),
-                 init = packageText)
+    available = occursin("#include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")", packageText)  && occursin("#_precompile_()", packageText)
+    if available
+        packageEdited = foldl(replace,
+                     (
+                      "#include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")" => "include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")",
+                      "#_precompile_()" => "_precompile_()",
+                     ),
+                     init = packageText)
+    else
+        error(""" add the following codes into your package:
+         include(\"../deps/SnoopCompile/precompile/precompile_$packageName.jl\")
+         _precompile_()
+         """)
+    end
 
      file = open(filePath,"w")
      write(file, packageEdited)
@@ -43,34 +58,28 @@ end
 
 ################################################################
 const rootPath = pwd()
-
 precompileDeactivator(packageName, filePath);
-
 cd(@__DIR__)
 ################################################################
+using SnoopCompile
 
 ### Log the compiles
-# This only needs to be run once (to generate log file)
-
-SnoopCompile.@snoopc "$(pwd())/Snoop.log" begin
-
-    # Use runtests.jl or your exmaples that uses package:
+data = @snoopi begin
 
     using MusicXML, Pkg
 
+    # Use runtests.jl
+    # include(joinpath(dirname(dirname(pathof(MusicXML))), "test","runtests.jl"))
+
+    # Ues examples
     include(joinpath(dirname(dirname(pathof(MusicXML))), "examples","examples.jl"))
+
 end
-
 ################################################################
-
 ### Parse the compiles and generate precompilation scripts
-# This can be run repeatedly to tweak the scripts
-
-data = SnoopCompile.read("$(pwd())/Snoop.log")
-
-pc = SnoopCompile.parcel(reverse!(data[2]))
-SnoopCompile.write("$(pwd())/precompile", pc)
-
+pc = SnoopCompile.parcel(data)
+onlypackage = Dict(package => sort(pc[package]))
+SnoopCompile.write("$(pwd())/precompile",onlypackage)
 ################################################################
 cd(rootPath)
 precompileActivator(packageName, filePath)
