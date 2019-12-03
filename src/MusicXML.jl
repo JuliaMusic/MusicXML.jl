@@ -116,7 +116,7 @@ end
 - channel::Int64 = 0, "midi-channel",  midi16
 - name::UN{String} = nothing, "midi-name"
 - bank::UN{Int64} = nothing, "midi-bank", midi16384
-- program::Int64 = 1, "midi-program", midiCheck
+- program::Int64 = 1, "midi-program", midi128
 - unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
 - volume::Float64 = 127, "volume", percent
 - pan::Float64 = 0, "pan", rot180
@@ -139,7 +139,7 @@ Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
     channel::Int64 = 1, "midi-channel",  midi16
     name::UN{String} = nothing, "midi-name"
     bank::UN{Int64} = nothing, "midi-bank", midi16384
-    program::Int64 = 1, "midi-program", midiCheck
+    program::Int64 = 1, "midi-program", midi128
     unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
     volume::Float64 = 127, "volume", percent
     pan::Float64 = 0, "pan", rot180
