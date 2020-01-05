@@ -9,7 +9,7 @@ MIDI = "f57c4921-e30c-5f49-b073-3f2f2ada663e"
 MusicManipulations = "274955c0-c284-5bf7-b122-5ecd51c559de"
 
 [compat]
-AcuteML = "0.1.1, 0.2"
+AcuteML = "0.1.1, 0.2, 0.3"
 MIDI = "1.5"
 MusicManipulations = "0.11, 1.1"
 julia = "1"
