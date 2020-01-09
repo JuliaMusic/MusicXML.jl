@@ -1,8 +1,8 @@
 using MusicXML
+cd(@__DIR__)
 
 # Reads musicxml file and then extracts the data, builds all the types and stores them in proper format.
-doc = readmusicxml(joinpath("examples", "musescore.musicxml"))
-
+doc = readmusicxml( "musescore.musicxml")
 # Example 1:
 # Prints Each instrument name and then the pitches
 
