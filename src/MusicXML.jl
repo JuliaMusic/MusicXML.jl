@@ -294,7 +294,7 @@ function Clef(; sign::String)
     elseif sign == "TAB"
         line = 5
     end
-    return Clef(sign = sign, line = line)
+    return Clef(sign = sign, line = line, octave = nothing)
 end
 ################################################################
 """
@@ -558,7 +558,7 @@ A type to hold the data for a musicxml file.
 end
 ################################################################
 
-@aml mutable struct Doc xd""
+@aml mutable struct Doc "xml"
     scorepartwise::Scorepartwise, "score-partwise"
 end
 ################################################################
