@@ -1,16 +1,16 @@
 using MusicXML
 cd(@__DIR__)
-
 # Reads musicxml file and then extracts the data, builds all the types and stores them in proper format.
-doc = readmusicxml( "musescore.musicxml")
+scorepartwise = readmusicxml( "musescore.musicxml")
+
 # Example 1:
 # Prints Each instrument name and then the pitches
 
 # Extracting each instrument information
-scprts = doc.scorepartwise.partlist.scoreparts
+scprts = scorepartwise.partlist.scoreparts
 
 # Extracting parts
-prts = doc.scorepartwise.parts
+prts = scorepartwise.parts
 
 # Extracting each part
 for prt in prts

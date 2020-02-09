@@ -63,9 +63,9 @@ positive(x) = x>0
 - name::String, "instrument-name"
 - abbreviation::UN{String} = nothing, "instrument-abbreviation"
 - sound::UN{String} = nothing, "instrument-sound"
-- # ensemble::UN{Int64} = nothing, sc"~", positive
-- # solo::UN{Int64} = nothing, sc"~"
-- id::String, a"id"
+- # ensemble::UN{Int64} = nothing, empty"~", positive
+- # solo::UN{Int64} = nothing, empty"~"
+- id::String, att"id"
 - # VST::VST, "virtual-instrument"
 ```
 The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
@@ -81,9 +81,9 @@ Scoreinstrument(name = "Violin", id = "P1-I1")
     name::String, "instrument-name"
     abbreviation::UN{String} = nothing, "instrument-abbreviation"
     sound::UN{String} = nothing, "instrument-sound"
-    # ensemble::UN{Int64} = nothing, sc"~", positive
-    # solo::UN{Int64} = nothing, sc"~"
-    id::String = "P1-I1", a"id"
+    # ensemble::UN{Int64} = nothing, empty"~", positive
+    # solo::UN{Int64} = nothing, empty"~"
+    id::String = "P1-I1", att"id"
     # VST::VST, "virtual-instrument"
 end
 ################################################################
@@ -92,8 +92,8 @@ end
 
 # Arguments
 ```julia
-- port::Int16, a"port"
-- id::String, a"id"
+- port::Int16, att"port"
+- id::String, att"id"
 ```
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
@@ -104,8 +104,8 @@ Mididevice(port = 1, id = "P1-I1")
 ```
 """
 @aml mutable struct Mididevice "midi-device"
-    port::Int64 = 1, a"port", midi16
-    id::String = "P1-I1", a"id"
+    port::Int64 = 1, att"port", midi16
+    id::String = "P1-I1", att"id"
 end
 ################################################################
 """
@@ -121,7 +121,7 @@ end
 - volume::Float64 = 127, "volume", percent
 - pan::Float64 = 0, "pan", rot180
 - elevation::UN{Float64} = nothing, "elevation", rot180
-- id::String = "P1-I1", a"id"
+- id::String = "P1-I1", att"id"
 ```
 
 Midiinstrument type holds information about the sound of a midi instrument.
@@ -144,7 +144,7 @@ Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
     volume::Float64 = 127, "volume", percent
     pan::Float64 = 0, "pan", rot180
     elevation::UN{Float64} = nothing, "elevation", rot180
-    id::String = "P1-I1", a"id"
+    id::String = "P1-I1", att"id"
 end
 ################################################################
 """
@@ -160,7 +160,7 @@ end
 - scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
 - mididevice::UN{Mididevice} = nothing, "midi-device"
 - midiinstrument::Midiinstrument, "midi-instrument"
-- id::String, a"id"
+- id::String, att"id"
 ```
 
 Holds information about one Scorepart in a score
@@ -187,7 +187,7 @@ Scorepart(name = "Piano",midiinstrument = Midiinstrument(), id = "P1")
     scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
     mididevice::UN{Mididevice} = nothing, "midi-device"
     midiinstrument::Midiinstrument, "midi-instrument"
-    id::String, a"id"
+    id::String, att"id"
 end
 ################################################################
 """
@@ -435,8 +435,8 @@ The rest element indicates notated rests or silences. Rest elements are usually 
 The display-step-octave group contains the sequence of elements used by both the rest and unpitched elements. This group is used to place rests and unpitched elements on the staff without implying that these elements have pitch. Positioning follows the current clef. If percussion clef is used, the display-step and display-octave elements are interpreted as if in treble clef, with a G in octave 4 on line 2. If not present, the note is placed on the middle line of the staff, generally used for a one-line staff.
 
 """
-@aml mutable struct Rest sc"rest"
-    measure::UN{YN} = nothing, a"~"
+@aml mutable struct Rest empty"rest"
+    measure::UN{YN} = nothing, att"~"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
@@ -452,8 +452,8 @@ end
 
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
 """
-@aml mutable struct Unpitched sc"unpitched"
-    measure::UN{YN} = nothing, a"~"
+@aml mutable struct Unpitched empty"unpitched"
+    measure::UN{YN} = nothing, att"~"
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
@@ -524,7 +524,7 @@ end
 # Arguments
 ```julia
 - measures::Vector{Measure}, "measure"
-- id::String, a"~"
+- id::String, att"~"
 ```
 
 A type to hold the data for a part in musicxml file.
@@ -534,7 +534,7 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
-    id::String, a"~"
+    id::String, att"~"
 end
 ################################################################
 """
@@ -550,16 +550,11 @@ end
 
 A type to hold the data for a musicxml file.
 """
-@aml mutable struct Scorepartwise "score-partwise"
+@aml mutable struct Scorepartwise doc"score-partwise"
     # TODO identification
     # TODO defaults
     partlist::Partlist, "part-list"
     parts::Vector{Part}, "part"
-end
-################################################################
-
-@aml mutable struct Doc "xml"
-    scorepartwise::Scorepartwise, "score-partwise"
 end
 ################################################################
 

@@ -13,7 +13,7 @@ This function is not exported. Use readmusicxml and parsemusicxml instead.
 data = extractdata(doc)
 ```
 """
-extractdata(doc::Document) = Doc(doc)
+extractdata(doc::Document) = Scorepartwise(doc)
 ################################################################
 """
     readmusicxml(filepath)

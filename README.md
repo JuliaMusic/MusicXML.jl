@@ -18,16 +18,16 @@ Powerful MusicXML reading and writing package for Julia.
 using MusicXML
 
 # Reads musicxml file and then extracts the data, builds all the types and stores them in proper format.
-doc = readmusicxml(joinpath("examples", "musescore.musicxml"))
+scorepartwise = readmusicxml( "musescore.musicxml")
 
 # Example 1:
 # Prints Each instrument name and then the pitches
 
 # Extracting each instrument information
-scprts = doc.scorepartwise.partlist.scoreparts
+scprts = scorepartwise.partlist.scoreparts
 
 # Extracting parts
-prts = doc.scorepartwise.parts
+prts = scorepartwise.parts
 
 # Extracting each part
 for prt in prts
@@ -58,7 +58,6 @@ for prt in prts
         iMsr+=1
     end
 end
-
 ```
 
 
@@ -74,62 +73,61 @@ readmusicxml, parsemusicxml
 ## Types:
 
 ```
-Doc
-	scorepartwise
-		partlist
-			scoreparts
+scorepartwise
+	partlist
+		scoreparts
+			name
+			id
+			scoreinstrument
 				name
 				id
-				scoreinstrument
-					name
-					id
-				mididevice
-					port
-					id
-				midiinstrument
-					channel
-					program
-					volume
-					pan
-					id
-		parts
-			id
-			measures
-				attributes
-					divisions
-					key
-						fifth
-						mode
-					time
-						beats
-						beattype
-					staves
-					instruments
-					clef
-						sign
-						line
-					transpose
-						diatonic
-						chromatic
-						octaveChange
-						double
-				notes
-					pitch
-						step
-						alter
-						octave
-					rest
-					unpitched
-					duration
-					type
-					accidental
+			mididevice
+				port
+				id
+			midiinstrument
+				channel
+				program
+				volume
+				pan
+				id
+	parts
+		id
+		measures
+			attributes
+				divisions
+				key
+					fifth
+					mode
+				time
+					beats
+					beattype
+				staves
+				instruments
+				clef
+					sign
+					line
+				transpose
+					diatonic
+					chromatic
+					octaveChange
+					double
+			notes
+				pitch
+					step
+					alter
+					octave
+				rest
+				unpitched
+				duration
+				type
+				accidental
 ```
 
 For naming, If the fieldname is a Vector it has `s` at the end of the word.
 
 For naming, types are first letter captalized of the field names:
 ```
-Doc, Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 ```
 
 
