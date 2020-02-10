@@ -426,8 +426,9 @@ end
 
 # Arguments
 ```julia
-- rest::Bool
-- aml::Node
+measure::UN{YN} = nothing, att"~"
+dispStep::UN{String} = nothing, "display-step"
+dispOctave::UN{Int8} = nothing, "display-octave"
 ```
 
 The rest element indicates notated rests or silences. Rest elements are usually empty, but placement on the staff can be specified using display-step and display-octave elements. If the measure attribute is set to yes, this indicates this is a complete measure rest.
@@ -446,8 +447,9 @@ end
 
 # Arguments
 ```julia
-- unpitched::Bool
-- aml::Node
+measure::UN{YN} = nothing, att"~"
+dispStep::UN{String} = nothing, "display-step"
+dispOctave::UN{Int8} = nothing, "display-octave"
 ```
 
 The unpitched type represents musical elements that are notated on the staff but lack definite pitch, such as unpitched percussion and speaking voice.
