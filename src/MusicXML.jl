@@ -284,7 +284,7 @@ Clef(sign = "TAB")
 end
 
 # Standard values
-function Clef(; sign::String)
+function Clef(sign::String) # ; needs KeywordDispatch
     if sign == "G"
         line = 2
     elseif sign == "F"
