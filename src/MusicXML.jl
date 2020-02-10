@@ -8,11 +8,10 @@ import MIDI, MusicManipulations
 include("io.jl")
 
 # Types:
-export Doc, Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+export Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
 
 # Utilities
 include("utilities.jl")
-
 ################################################################
 # musicxml yes-no type
 struct YN
@@ -559,6 +558,7 @@ A type to hold the data for a musicxml file.
     parts::Vector{Part}, "part"
 end
 ################################################################
+include("show.jl")
 
 # precompile
 # include("../deps/SnoopCompile/precompile/precompile_MusicXML.jl")
