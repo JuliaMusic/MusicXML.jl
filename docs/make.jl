@@ -11,6 +11,7 @@ makedocs(;
     repo="https://github.com/JuliaMusic/MusicXML.jl/blob/{commit}{path}#L{line}",
     sitename="MusicXML.jl",
     format=Documenter.HTML(;
+        prettyurls = prettyurls = get(ENV, "CI", nothing) == "true",
         canonical="https://JuliaMusic.github.io/MusicXML.jl",
         assets=String[],
     ),
