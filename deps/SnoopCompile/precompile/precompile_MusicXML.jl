@@ -12,4 +12,5 @@ function _precompile_()
     precompile(Tuple{typeof(println),Base.PipeEndpoint,Pitch})
     precompile(Tuple{typeof(println),Pitch})
     precompile(Tuple{typeof(readmusicxml),String})
+    precompile(Tuple{typeof(sizeof),Pitch})
 end
