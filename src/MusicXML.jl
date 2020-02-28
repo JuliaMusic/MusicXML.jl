@@ -558,7 +558,7 @@ A type to hold the data for a musicxml file.
     parts::Vector{Part}, "part"
 end
 ################################################################
-include("show.jl")
+# include("show.jl")
 
 # precompile
 include("../deps/SnoopCompile/precompile/precompile_MusicXML.jl")
