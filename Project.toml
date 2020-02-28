@@ -10,7 +10,7 @@ MusicManipulations = "274955c0-c284-5bf7-b122-5ecd51c559de"
 TreeViews = "a2a6695c-b41b-5b7d-aed9-dbfdeacea5d7"
 
 [compat]
-AcuteML = "0.8"
+AcuteML = "0.8.2"
 MIDI = "1.7"
 MusicManipulations = "1.2"
 TreeViews = "0.3"
