@@ -80,3 +80,10 @@ writemusicxml(args...) = pprint(args...)
 printmusicxml(args...) = pprint(args...)
 
 
+################################################################
+"""
+ fwritemusicxml(filename::AbstractString, x)
+
+Fast write
+"""
+fwritemusicxml(io_filename, score) = Base.write(io_filename, score.aml)
