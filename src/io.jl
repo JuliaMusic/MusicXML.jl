@@ -62,3 +62,21 @@ writemusicxml("myscore.musicxml", score)
 """
 function writemusicxml end
 
+################################################################
+"""
+    printmusicxml(x)
+    printmusicxml(io, x)
+
+Print musicxml score
+
+# Examples
+```julia
+printmusicxml(score)
+```
+"""
+function printmusicxml end
+
+writemusicxml(args...) = pprint(args...)
+printmusicxml(args...) = pprint(args...)
+
+
