@@ -48,12 +48,12 @@ positive(x) = x>0
 
 # Arguments
 ```julia
-- name::String, "instrument-name"
+- name::String = "Piano", "instrument-name"
 - abbreviation::UN{String} = nothing, "instrument-abbreviation"
 - sound::UN{String} = nothing, "instrument-sound"
 - # ensemble::UN{Int64} = nothing, empty"~", positive
 - # solo::UN{Int64} = nothing, empty"~"
-- id::String, att"id"
+- id::String = "P1-I1", att"id"
 - # VST::VST, "virtual-instrument"
 ```
 The score-instrument type represents a single instrument within a score-part.
@@ -82,8 +82,8 @@ end
 
 # Arguments
 ```julia
-- port::Int16, att"port"
-- id::String, att"id"
+- port::Int64 = 1, att"port", midi16
+- id::String = "P1-I1", att"id"
 ```
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
@@ -103,7 +103,7 @@ end
 
 # Arguments
 ```julia
-- channel::Int64 = 0, "midi-channel",  midi16
+- channel::Int64 = 1, "midi-channel",  midi16
 - name::UN{String} = nothing, "midi-name"
 - bank::UN{Int64} = nothing, "midi-bank", midi16384
 - program::Int64 = 1, "midi-program", midi128
@@ -143,14 +143,14 @@ end
 # Arguments
 ```julia
 - # identification
-- name::String, "part-name"
+- name::String = "Piano", "part-name"
 - nameDisplay::UN{String} = nothing, "part-name-display"
 - abbreviation::UN{String} = nothing, "part-abbreviation"
 - abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
 - scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
 - mididevice::UN{MidiDevice} = nothing, "midi-device"
-- midiinstrument::MidiInstrument, "midi-instrument"
-- id::String, att"id"
+- midiinstrument::MidiInstrument = = MidiInstrument(), "midi-instrument"
+- id::String = "P1", att"id"
 ```
 
 Holds information about one ScorePart in a score
@@ -176,7 +176,7 @@ ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
     abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
     scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
     mididevice::UN{MidiDevice} = nothing, "midi-device"
-    midiinstrument::MidiInstrument = = MidiInstrument(), "midi-instrument"
+    midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
     id::String = "P1", att"id"
 end
 ################################################################
@@ -186,7 +186,7 @@ end
 # Arguments
 ```julia
 - # TODO partgroup
-- scoreparts::Vector{ScorePart}, "score-part"
+- scoreparts::Vector{ScorePart} = [ScorePart()], "score-part"
 ```
 
 Holds scoreparts and partgroup.
@@ -203,7 +203,7 @@ PartList([
 """
 @aml mutable struct PartList "part-list"
     # TODO partgroup
-    scoreparts::Vector{ScorePart}, "score-part"
+    scoreparts::Vector{ScorePart} = [ScorePart()], "score-part"
 end
 ################################################################
 """
@@ -212,7 +212,7 @@ end
 # Arguments
 ```julia
 - # cancel
-- fifths::Int8, "~"
+- fifths::Int8 = 0, "~"
 - mode::UN{String} = nothing, "~", modeCheck
 - # key-octave
 ```
@@ -245,8 +245,8 @@ modeCheck(x) = in(x, Ref("major", "minor", "dorian", "phrygian", "lydian", "mixo
 
 # Arguments
 ```julia
-- sign::String, "sign"
-- line::Int16, "line"
+- sign::String = "G", "sign"
+- line::Int16 = 2, "line"
 - octave::UN{Int64} = nothing, "clef-octave-change"
 ```
 
@@ -268,8 +268,8 @@ Clef(sign = "TAB")
 ```
 """
 @aml mutable struct Clef "clef"
-    sign::String, "sign"
-    line::Int16, "line"
+    sign::String = "G", "sign"
+    line::Int16 = 2, "line"
     octave::UN{Int64} = nothing, "clef-octave-change"
 end
 
@@ -352,9 +352,9 @@ end
 
 # Arguments
 ```julia
-- divisions::Int16, "~"
-- key::Key, "~"
-- time::Time, "~"
+- divisions::Int16 = 1, "~"
+- key::Key = Key(), "~"
+- time::Time = Time(), "~"
 - staves::UN{UInt16} = nothing, "~"
 - instruments::UN{UInt16} = nothing, "~"
 - clef::UN{Clef} = nothing, "~"
@@ -367,7 +367,9 @@ The attributes element contains musical information that typically changes on me
 
 key: See [`Key`](@ref) doc
 
-divisions: Musical notation duration is commonly represented as fractions. The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. For example, if duration = 1 and divisions = 2, this is an eighth note duration. Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
+divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `1`, which means each `duration = 1` means a quarter note.
+
+Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
 
 time: See [`Time`](@ref) doc
 
@@ -380,9 +382,9 @@ clef: See [`Clef`](@ref) doc
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
 @aml mutable struct Attributes "attributes"
-    divisions::Int16, "~"
-    key::Key, "~"
-    time::Time, "~"
+    divisions::Int16 = 1, "~"
+    key::Key = Key(), "~"
+    time::Time = Time(), "~"
     staves::UN{UInt16} = nothing, "~"
     instruments::UN{UInt16} = nothing, "~"
     clef::UN{Clef} = nothing, "~"
@@ -394,9 +396,9 @@ end
 
 # Arguments
 ```julia
-- step::String, "~"
+- step::String = "C", "~"
 - alter::UN{Float16} = nothing, "~"
-- octave::Int8, "~"
+- octave::Int8 = 1, "~"
 ```
 
 Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
@@ -410,9 +412,9 @@ for conversions between midi pitch and musicxml pitch
 
 """
 @aml mutable struct Pitch "pitch"
-    step::String, "~"
+    step::String = "C", "~"
     alter::UN{Float16} = nothing, "~"
-    octave::Int8, "~"
+    octave::Int8 = 1, "~"
 end
 
 function Pitch(midipitch::UInt8)
@@ -493,7 +495,7 @@ tie:
     pitch::UN{Pitch} = nothing, "~"
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
-    duration::UInt, "~"
+    duration::UInt = 1, "~"
     # voice
     type::UN{String} = nothing, "~"
     accidental::UN{String} = nothing, "~"
@@ -526,7 +528,7 @@ end
 # Arguments
 ```julia
 - measures::Vector{Measure}, "measure"
-- id::String, att"~"
+- id::String = "P1", att"~"
 ```
 
 A type to hold the data for a part in musicxml file.
@@ -536,7 +538,7 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
-    id::String, att"~"
+    id::String = "P1", att"~"
 end
 ################################################################
 """
