@@ -365,13 +365,13 @@ end
 
 # Arguments
 ```julia
-- divisions::Int16 = 1, "~"
-- key::Key = Key(), "~"
 - time::Time = Time(), "~"
+- divisions::Int16 = 1, "~"
+- clef::UN{Vector{Clef}} = nothing, "~"
 - staves::UN{UInt16} = nothing, "~"
-- instruments::UN{UInt16} = nothing, "~"
-- clef::UN{Clef} = nothing, "~"
+- key::Key = Key(), "~"
 - transpose::UN{Transpose} = nothing, "~"
+- instruments::UN{UInt16} = nothing, "~"
 ```
 
 A type to hold the data for the attributes of a musicxml measure
@@ -395,13 +395,13 @@ clef: See [`Clef`](@ref) doc
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
 @aml mutable struct Attributes "attributes"
-    divisions::Int16 = 1, "~"
-    key::Key = Key(), "~"
     time::Time = Time(), "~"
+    divisions::Int16 = 1, "~"
+    clef::UN{Vector{Clef}} = nothing, "~"
     staves::UN{UInt16} = nothing, "~"
-    instruments::UN{UInt16} = nothing, "~"
-    clef::UN{Clef} = nothing, "~"
+    key::Key = Key(), "~"
     transpose::UN{Transpose} = nothing, "~"
+    instruments::UN{UInt16} = nothing, "~"
 end
 ################################################################
 """
