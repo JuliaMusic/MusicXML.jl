@@ -401,7 +401,7 @@ end
 
 Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
 
-Use step, alter, octave = pitch2xml(pitch) and  pitch = xml2pitch(step, alter, octave)
+Use step, alter, octave = pitch2xml(midipitch) and  midipitch = xml2pitch(step, alter, octave)
 for conversions between midi pitch and musicxml pitch
 
 """
@@ -410,6 +410,12 @@ for conversions between midi pitch and musicxml pitch
     alter::UN{Float16} = nothing, "~"
     octave::Int8, "~"
 end
+
+function Pitch(midipitch::UInt8)
+    step, alter, octave = pitch2xml(midipitch)
+    return Pitch(step = step, alter = alter, octave = octave)
+end
+
 ################################################################
 """
     Rest
