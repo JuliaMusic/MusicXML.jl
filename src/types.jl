@@ -380,7 +380,7 @@ The attributes element contains musical information that typically changes on me
 
 key: See [`Key`](@ref) doc
 
-divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. Should be given based on the shortest note in the measure. If you use 16th notes give `4`, and give duration for the notes as 1. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `1`, which means each `duration = 1` means a quarter note.
+divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. Should be given based on the shortest note in the measure. If you use 16th notes give `4`, and give duration for the notes as 1. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `4`, which means each `duration = 1` means a 16th note.
 
 Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
 
@@ -396,7 +396,7 @@ clef: See [`Clef`](@ref) doc
 """
 @aml mutable struct Attributes "attributes"
     time::Time = Time(), "~"
-    divisions::Int16 = 1, "~"
+    divisions::Int16 = 4, "~"
     clef::UN{Vector{Clef}} = nothing, "~"
     staves::UN{UInt16} = nothing, "~"
     key::Key = Key(), "~"
