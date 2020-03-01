@@ -278,9 +278,10 @@ Clef(sign = "TAB")
 ```
 """
 @aml mutable struct Clef "clef"
-    sign::String = "G", "sign"
-    line::Int16 = 2, "line"
+    sign::String = "G", "~"
+    line::Int16 = 2, "~"
     octave::UN{Int64} = nothing, "clef-octave-change"
+    number::UN{Int64} = nothing, att"number"
 end
 
 # Standard values
