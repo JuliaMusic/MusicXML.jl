@@ -150,12 +150,12 @@ end
 ```julia
 - # identification
 - name::String = "Piano", "part-name"
-- nameDisplay::UN{String} = nothing, "part-name-display"
+- nameDisplay::UN{String} = name, "part-name-display"
 - abbreviation::UN{String} = nothing, "part-abbreviation"
-- abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-- scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+- abbreviationDisplay::UN{String} = abbreviation, "part-abbreviation-display"
+- scoreinstrument::UN{ScoreInstrument} = ScoreInstrument(name = name, abbreviation = - abbreviation, id = id *"-I1"), "score-instrument"
 - mididevice::UN{MidiDevice} = nothing, "midi-device"
-- midiinstrument::MidiInstrument = = MidiInstrument(), "midi-instrument"
+- midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
 - id::String = "P1", att"id"
 ```
 
@@ -177,10 +177,10 @@ ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
 @aml mutable struct ScorePart "score-part"
     # identification
     name::String = "Piano", "part-name"
-    nameDisplay::UN{String} = nothing, "part-name-display"
+    nameDisplay::UN{String} = name, "part-name-display"
     abbreviation::UN{String} = nothing, "part-abbreviation"
-    abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-    scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+    abbreviationDisplay::UN{String} = abbreviation, "part-abbreviation-display"
+    scoreinstrument::UN{ScoreInstrument} = ScoreInstrument(name = name, abbreviation = abbreviation, id = id *"-I1"), "score-instrument"
     mididevice::UN{MidiDevice} = nothing, "midi-device"
     midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
     id::String = "P1", att"id"
