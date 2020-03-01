@@ -402,7 +402,7 @@ end
 # Arguments
 ```julia
 - step::String = "C", "~"
-- alter::UN{Float16} = nothing, "~"
+- alter::UN{Int16} = nothing, "~"
 - octave::Int8 = 1, "~"
 ```
 
@@ -418,7 +418,7 @@ for conversions between midi pitch and musicxml pitch
 """
 @aml mutable struct Pitch "pitch"
     step::String = "C", "~"
-    alter::UN{Float16} = nothing, "~"
+    alter::UN{Int16} = nothing, "~"
     octave::Int8 = 1, "~"
 end
 
