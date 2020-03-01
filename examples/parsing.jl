@@ -7,33 +7,33 @@ scorepartwise = readmusicxml( "musescore.musicxml")
 # Prints Each instrument name and then the pitches
 
 # Extracting each instrument information
-scprts = scorepartwise.partlist.scoreparts
+scoreparts = scorepartwise.partlist.scoreparts
 
 # Extracting parts
-prts = scorepartwise.parts
+parts = scorepartwise.parts
 
 # Extracting each part
-for prt in prts
+for part in parts
 
-    ind = findfirst(x -> prt.id == x.id, scprts) # returns the index of scorepart that matches the id of part
+    ind = findfirst(x -> part.id == x.id, scoreparts) # returns the index of scorepart that matches the id of part
 
     # printing the instrument name
-    println(scprts[ind].name)
+    println(scoreparts[ind].name)
 
     # Extracting each measure of the part
     iMsr=1
-    for msr in prt.measures
+    for measure in part.measures
         # Extracting notes of each measure
-        for nt in msr.notes
-            if !isnothing(nt.pitch)
+        for note in measure.notes
+            if !isnothing(note.pitch)
 
                 println("Measure no. $iMsr")    # print measure number
-                println(nt.pitch)     # print pitch of the note
-                println(nt.duration)  # print duration of the note
-            elseif !isnothing(nt.unpitched)
+                println(note.pitch)     # print pitch of the note
+                println(note.duration)  # print duration of the note
+            elseif !isnothing(note.unpitched)
                 println("Measure no. $iMsr")    # print measure number
-                println(nt.unpitched) # print unpitched of the note
-                println(nt.duration)  # print duration of the note
+                println(note.unpitched) # print unpitched of the note
+                println(note.duration)  # print duration of the note
             end
 
         end
