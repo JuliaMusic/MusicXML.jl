@@ -404,6 +404,10 @@ Holds musicxml pitch data. MusicXML pitch data is represented as a combination o
 Use step, alter, octave = pitch2xml(midipitch) and  midipitch = xml2pitch(step, alter, octave)
 for conversions between midi pitch and musicxml pitch
 
+![Step Alter Octave on Staff](../deps/pitchesonstaff.png)
+![Pitch on Guitar](../deps/pitchesonguitar.png)
+![Pitch on Full Keyboard](../deps/fullpiano.gif)
+
 """
 @aml mutable struct Pitch "pitch"
     step::String, "~"

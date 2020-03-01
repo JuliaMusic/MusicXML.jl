@@ -11,19 +11,27 @@ v => k for (v, k) in zip(values(PITCH_TO_NAME), keys(PITCH_TO_NAME)))
 """
     pitch2xml(pitch)
 
-Return the musicxmls values of the given pitch
+Return the musicxmls values of the given pitch (MIDI)
+
+pitch::UInt8 : starting from C-1 = 0, adding one per semitone.
+
+
+![Step Alter Octave on Staff](../deps/pitchesonstaff.png)
+![Pitch on Guitar](../deps/pitchesonguitar.png)
+![Pitch on Full Keyboard](../deps/fullpiano.gif)
 
 Modified from MIDI.jl
 
 # Examples:
 ```julia
-pitch = xml2pitch(step, alter, octave)
+pitch = 0 # for C-1
+step, alter, octave = pitch2xml()
 ```
 """
-function pitch2xml(j)
-    i = Int(j)
+function pitch2xml(pitch::UInt8)
+    intpitch = Int(pitch)
     # TODO: microtonals
-    rem = mod(i, 12)
+    rem = mod(intpitch, 12)
     notename = PITCH_TO_NAME[rem]
 
     if rem in SHARPS
@@ -34,7 +42,7 @@ function pitch2xml(j)
         alter = 0
     end
 
-    octave = (i÷12)-1
+    octave = (intpitch÷12)-1
     return step, alter, octave
 end
 ################################################################
@@ -42,11 +50,13 @@ end
     xml2pitch(step, alter, octave) -> Int
 Return the pitch value of the given note
 
+See [`Pitch`](@ref)
+
 Modified from MIDI.jl
 
 # Examples:
 ```julia
-step, alter, octave = pitch2xml(pitch)
+pitch = xml2pitch(step, alter, octave)
 ```
 """
 function xml2pitch(step, alter, octave)
