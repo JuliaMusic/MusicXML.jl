@@ -1,5 +1,5 @@
 # I/O functions
-export readmusicxml, parsemusicxml
+export readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml
 
 """
     extractdata(doc)
@@ -47,3 +47,43 @@ function parsemusicxml(s::String)
     data = extractdata(doc)
     return data
 end
+
+
+################################################################
+"""
+    writemusicxml(filename::AbstractString, x)
+
+Writes musicxml score into a file.
+
+# Examples
+```julia
+writemusicxml("myscore.musicxml", score)
+```
+"""
+function writemusicxml end
+
+################################################################
+"""
+    printmusicxml(x)
+    printmusicxml(io, x)
+
+Print musicxml score
+
+# Examples
+```julia
+printmusicxml(score)
+```
+"""
+function printmusicxml end
+
+writemusicxml(args...) = pprint(args...)
+printmusicxml(args...) = pprint(args...)
+
+
+################################################################
+"""
+ fwritemusicxml(filename::AbstractString, x)
+
+Fast write
+"""
+fwritemusicxml(io_filename, score) = Base.write(io_filename, score.aml)

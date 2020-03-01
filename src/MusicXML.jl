@@ -2,8 +2,6 @@ module MusicXML
 
 using AcuteML
 
-import MIDI, MusicManipulations
-
 # I/O functions
 include("io.jl")
 # Types:
