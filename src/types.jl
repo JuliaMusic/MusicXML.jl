@@ -48,12 +48,12 @@ positive(x) = x>0
 
 # Arguments
 ```julia
+- id::String = "P1-I1", att"id"
 - name::String = "Piano", "instrument-name"
 - abbreviation::UN{String} = nothing, "instrument-abbreviation"
 - sound::UN{String} = nothing, "instrument-sound"
 - # ensemble::UN{Int64} = nothing, empty"~", positive
 - # solo::UN{Int64} = nothing, empty"~"
-- id::String = "P1-I1", att"id"
 - # VST::VST, "virtual-instrument"
 ```
 
@@ -71,12 +71,12 @@ ScoreInstrument(name = "Violin", id = "P1-I1")
 ```
 """
 @aml mutable struct ScoreInstrument "score-instrument"
+    id::String = "P1-I1", att"id"
     name::String = "Piano", "instrument-name"
     abbreviation::UN{String} = nothing, "instrument-abbreviation"
     sound::UN{String} = nothing, "instrument-sound"
     # ensemble::UN{Int64} = nothing, empty"~", positive
     # solo::UN{Int64} = nothing, empty"~"
-    id::String = "P1-I1", att"id"
     # VST::VST, "virtual-instrument"
 end
 ################################################################
@@ -85,8 +85,8 @@ end
 
 # Arguments
 ```julia
-- port::String = "1", att"port"
 - id::String = "P1-I1", att"id"
+- port::String = "1", att"port"
 ```
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
@@ -98,8 +98,8 @@ MidiDevice(port = "1", id = "P1-I1")
 ```
 """
 @aml mutable struct MidiDevice "midi-device"
-    port::String = "1", att"port"
     id::String = "P1-I1", att"id"
+    port::String = "1", att"port"
 end
 ################################################################
 """
@@ -107,6 +107,7 @@ end
 
 # Arguments
 ```julia
+- id::String = "P1-I1", att"id"
 - channel::Int64 = 1, "midi-channel",  midi16
 - name::UN{String} = nothing, "midi-name"
 - bank::UN{Int64} = nothing, "midi-bank", midi16384
@@ -115,7 +116,6 @@ end
 - volume::Float64 = 100.0, "volume", percent
 - pan::Float64 = 0, "pan", rot180
 - elevation::UN{Float64} = nothing, "elevation", rot180
-- id::String = "P1-I1", att"id"
 ```
 
 MidiInstrument type holds information about the sound of a midi instrument.
@@ -132,6 +132,7 @@ MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = "P1-I1")
 ```
 """
 @aml mutable struct MidiInstrument "midi-instrument"
+    id::String = "P1-I1", att"id"
     channel::Int64 = 1, "midi-channel",  midi16
     name::UN{String} = nothing, "midi-name"
     bank::UN{Int64} = nothing, "midi-bank", midi16384
@@ -140,7 +141,6 @@ MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = "P1-I1")
     volume::Float64 = 100.0, "volume", percent
     pan::Float64 = 0, "pan", rot180
     elevation::UN{Float64} = nothing, "elevation", rot180
-    id::String = "P1-I1", att"id"
 end
 ################################################################
 """
@@ -148,6 +148,7 @@ end
 
 # Arguments
 ```julia
+- id::String = "P1", att"id"
 - # identification
 - name::String = "Piano", "part-name"
 - nameDisplay::UN{String} = name, "part-name-display"
@@ -156,7 +157,6 @@ end
 - scoreinstrument::UN{ScoreInstrument} = ScoreInstrument(name = name, abbreviation = - abbreviation, id = id *"-I1"), "score-instrument"
 - mididevice::UN{MidiDevice} = nothing, "midi-device"
 - midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
-- id::String = "P1", att"id"
 ```
 
 Holds information about one ScorePart in a score
@@ -175,6 +175,7 @@ ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
 ```
 """
 @aml mutable struct ScorePart "score-part"
+    id::String = "P1", att"id"
     # identification
     name::String = "Piano", "part-name"
     nameDisplay::UN{String} = name, "part-name-display"
@@ -183,7 +184,6 @@ ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
     scoreinstrument::UN{ScoreInstrument} = ScoreInstrument(name = name, abbreviation = abbreviation, id = id *"-I1"), "score-instrument"
     mididevice::UN{MidiDevice} = nothing, "midi-device"
     midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
-    id::String = "P1", att"id"
 end
 ################################################################
 """
@@ -561,8 +561,8 @@ end
 
 # Arguments
 ```julia
-- measures::Vector{Measure}, "measure"
 - id::String = "P1", att"~"
+- measures::Vector{Measure}, "measure"
 ```
 
 A type to hold the data for a part in musicxml file.
@@ -571,8 +571,8 @@ measures: See [`Measure`](@ref) doc
 
 """
 @aml mutable struct Part "part"
-    measures::Vector{Measure}, "measure"
     id::String = "P1", att"~"
+    measures::Vector{Measure}, "measure"
 end
 ################################################################
 """
