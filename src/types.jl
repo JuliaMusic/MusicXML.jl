@@ -514,7 +514,7 @@ Notes are the most common type of MusicXML data. The MusicXML format keeps the M
 
 pitch: See [`Pitch`](@ref) doc
 
-duration : See [`MIDI.Note`] (@ref) doc
+duration : See [`MIDI.Note`](https://juliamusic.github.io/JuliaMusic_documentation.jl/latest/midi/notes/) doc
 
 type: Type indicates the graphic note type, Valid values (from shortest to longest) are 1024th, 512th, 256th, 128th, 64th, 32nd, 16th, eighth, quarter, half, whole, breve, long, and maxima. The size attribute indicates full, cue, or large size, with full the default for regular notes and cue the default for cue and grace notes.
 
