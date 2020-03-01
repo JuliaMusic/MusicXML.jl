@@ -56,7 +56,10 @@ positive(x) = x>0
 - id::String = "P1-I1", att"id"
 - # VST::VST, "virtual-instrument"
 ```
+
 The score-instrument type represents a single instrument within a score-part.
+
+If you don't give scoreinstrument in ScorePart, it will automatically generate one.
 
 As with the score-part type, each score-instrument has a required id, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 
@@ -109,13 +112,15 @@ end
 - bank::UN{Int64} = nothing, "midi-bank", midi16384
 - program::Int64 = 1, "midi-program", midi128
 - unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
-- volume::Float64 = 127, "volume", percent
+- volume::Float64 = 100.0, "volume", percent
 - pan::Float64 = 0, "pan", rot180
 - elevation::UN{Float64} = nothing, "elevation", rot180
 - id::String = "P1-I1", att"id"
 ```
 
 MidiInstrument type holds information about the sound of a midi instrument.
+
+See https://en.wikipedia.org/wiki/General_MIDI#Program_change_events for different instrument programs in General Midi.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm)
 
@@ -257,11 +262,13 @@ A type to hold clef information for a measure in musicxml file.
 
 Clefs are represented by a combination of sign, line, and clef-octave-change elements. Clefs appear at the start of each system unless the print-object attribute has been set to "no" or the additional attribute has been set to "yes".
 
-sign: The sign element represents the clef symbol: G, F, C, percussion, TAB, jianpu, none. [More info](https://usermanuals.musicxml.com/MusicXML/Content/ST-MusicXML-clef-sign.htm)
+sign: The sign element represents the clef symbol: G (treble), F (bass), C, percussion, TAB, jianpu, none. [More info](https://usermanuals.musicxml.com/MusicXML/Content/ST-MusicXML-clef-sign.htm)
 
 line: Line numbers are counted from the bottom of the staff. Standard values are 2 for the G sign (treble clef), 4 for the F sign (bass clef), 3 for the C sign (alto clef) and 5 for TAB (on a 6-line staff).
 
 octave: The clef-octave-change element is used for transposing clefs. A treble clef for tenors would have a value of -1.
+
+number: For multi-clef instrument, give numbers for each clef.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-clef.htm)
 
@@ -372,7 +379,7 @@ The attributes element contains musical information that typically changes on me
 
 key: See [`Key`](@ref) doc
 
-divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `1`, which means each `duration = 1` means a quarter note.
+divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. Should be given based on the shortest note in the measure. If you use 16th notes give `4`, and give duration for the notes as 1. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `1`, which means each `duration = 1` means a quarter note.
 
 Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
 
@@ -414,6 +421,15 @@ for conversions between midi pitch and musicxml pitch
 ![Step Alter Octave on Staff](../pitchesonstaff.png)
 ![Pitch on Guitar](../pitchesonguitar.png)
 ![Pitch on Full Keyboard](../fullpiano.gif)
+
+
+step: The step type represents a step of the diatonic scale, represented using the English letters A through G.
+
+alter: The alter element represents chromatic alteration in number of semitones (e.g., -1 for flat, 1 for sharp). Decimal values like 0.5 (quarter tone sharp) are used for microtones. The octave element is represented by the numbers 0 to 9, where 4 indicates the octave started by middle C.  In the first example below, notice an accidental element is used for the third note, rather than the alter element, because the pitch is not altered from the the pitch designated to that staff position by the key signature.
+
+octave: Octaves are represented by the numbers 0 to 9, where 4 indicates the octave started by middle C.
+
+[MoreInfo](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-pitch.htm)
 
 """
 @aml mutable struct Pitch "pitch"
