@@ -1,5 +1,5 @@
 # I/O functions
-export readmusicxml, parsemusicxml
+export readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml
 
 """
     extractdata(doc)
@@ -47,3 +47,18 @@ function parsemusicxml(s::String)
     data = extractdata(doc)
     return data
 end
+
+
+################################################################
+"""
+    writemusicxml(filename::AbstractString, x)
+
+Writes musicxml score into a file.
+
+# Examples
+```julia
+writemusicxml("myscore.musicxml", score)
+```
+"""
+function writemusicxml end
+
