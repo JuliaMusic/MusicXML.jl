@@ -123,7 +123,7 @@ Pan: -90 is hard left, 0 is center, -180 is behind
 
 # Example
 ```julia
-MidiInstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
+MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = "P1-I1")
 ```
 """
 @aml mutable struct MidiInstrument "midi-instrument"
@@ -132,7 +132,7 @@ MidiInstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
     bank::UN{Int64} = nothing, "midi-bank", midi16384
     program::Int64 = 1, "midi-program", midi128
     unpitched::UN{Int64} = nothing, "midi-unpitched", midi16
-    volume::Float64 = 127, "volume", percent
+    volume::Float64 = 100.0, "volume", percent
     pan::Float64 = 0, "pan", rot180
     elevation::UN{Float64} = nothing, "elevation", rot180
     id::String = "P1-I1", att"id"
