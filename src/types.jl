@@ -88,6 +88,7 @@ end
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm)
+
 # Example
 ```julia
 MidiDevice(port = 1, id = "P1-I1")
@@ -196,10 +197,12 @@ See [`ScorePart`](@ref) doc
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-part-list.htm)
 
 # Example
+```
 PartList([
     ScorePart(name = "Piano 1", midiinstrument = MidiInstrument(), id = "P1"),
     ScorePart(name = "Piano 2", midiinstrument = MidiInstrument(), id = "P2"),
 ])
+```
 """
 @aml mutable struct PartList "part-list"
     # TODO partgroup
@@ -313,7 +316,9 @@ double: If the double element is present, it indicates that the music is doubled
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-transpose.htm)
 
 # Example
+```
 Transpose() # default values
+```
 """
 @aml mutable struct Transpose "transpose"
     diatonic::Int8 = 0, "~"
@@ -406,9 +411,9 @@ Holds musicxml pitch data. MusicXML pitch data is represented as a combination o
 Use step, alter, octave = pitch2xml(midipitch) and  midipitch = xml2pitch(step, alter, octave)
 for conversions between midi pitch and musicxml pitch
 
-![Step Alter Octave on Staff](../deps/pitchesonstaff.png)
-![Pitch on Guitar](../deps/pitchesonguitar.png)
-![Pitch on Full Keyboard](../deps/fullpiano.gif)
+![Step Alter Octave on Staff](../pitchesonstaff.png)
+![Pitch on Guitar](../pitchesonguitar.png)
+![Pitch on Full Keyboard](../fullpiano.gif)
 
 """
 @aml mutable struct Pitch "pitch"

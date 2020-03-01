@@ -70,62 +70,62 @@ You can use among these exported types and functions:
 readmusicxml, parsemusicxml
 ```
 
-## Types:
+## Typess:
 
 ```
-scorepartwise
-	partlist
-		scoreparts
+ScorePartwise
+	partlist (PartList)
+		scoreparts (Vector{ScorePart})
 			name
 			id
-			ScoreInstrument
+			scoreinstrument (ScoreInstrument)
 				name
 				id
-			MidiDevice
+			mididevice (MidiDevice)
 				port
 				id
-			MidiInstrument
+			midiinstrument (MidiInstrument)
 				channel
 				program
 				volume
 				pan
 				id
-	parts
+	part (Part)
 		id
-		measures
-			attributes
+		measures (Vector{Measure})
+			attributes (Attributes)
 				divisions
-				key
+				key (Key)
 					fifth
 					mode
-				time
+				time (Time)
 					beats
 					beattype
 				staves
 				instruments
-				clef
+				clef (Clef)
 					sign
 					line
-				transpose
+				transpose (Transpose)
 					diatonic
 					chromatic
 					octaveChange
 					double
-			notes
-				pitch
+			notes (Vector{NoteX})
+				pitch (Pitch)
 					step
 					alter
 					octave
-				rest
-				unpitched
+				rest (Rest)
+				unpitched (Unpitched)
 				duration
 				type
 				accidental
 ```
 
-For naming, If the fieldname is a Vector it has `s` at the end of the word.
+For fieldnames, if it is a Vector it has `s` at the end of the word.
 
-For naming, types are first letter captalized of the field names:
+For types, names are capitalized for each word (Camel convention):
 ```
 ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```

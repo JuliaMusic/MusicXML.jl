@@ -16,9 +16,9 @@ Return the musicxmls values of the given pitch (MIDI)
 pitch::UInt8 : starting from C-1 = 0, adding one per semitone.
 
 
-![Step Alter Octave on Staff](../deps/pitchesonstaff.png)
-![Pitch on Guitar](../deps/pitchesonguitar.png)
-![Pitch on Full Keyboard](../deps/fullpiano.gif)
+![Step Alter Octave on Staff](../pitchesonstaff.png)
+![Pitch on Guitar](../pitchesonguitar.png)
+![Pitch on Full Keyboard](../fullpiano.gif)
 
 Modified from MIDI.jl
 
