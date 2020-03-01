@@ -77,13 +77,13 @@ scorepartwise
 		scoreparts
 			name
 			id
-			scoreinstrument
+			ScoreInstrument
 				name
 				id
-			mididevice
+			MidiDevice
 				port
 				id
-			midiinstrument
+			MidiInstrument
 				channel
 				program
 				volume
@@ -126,7 +126,7 @@ For naming, If the fieldname is a Vector it has `s` at the end of the word.
 
 For naming, types are first letter captalized of the field names:
 ```
-Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```
 
 

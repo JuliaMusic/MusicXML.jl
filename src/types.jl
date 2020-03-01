@@ -1,5 +1,5 @@
 # Types:
-export Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+export ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 
 ################################################################
 # musicxml yes-no type
@@ -44,7 +44,7 @@ rot180(x) = -180 <= x <= 180
 positive(x) = x>0
 ################################################################
 """
-    Scoreinstrument
+    ScoreInstrument
 
 # Arguments
 ```julia
@@ -56,17 +56,19 @@ positive(x) = x>0
 - id::String, att"id"
 - # VST::VST, "virtual-instrument"
 ```
-The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
+The score-instrument type represents a single instrument within a score-part.
+
+As with the score-part type, each score-instrument has a required id, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-score-instrument.htm)
 
 # Example
 ```julia
-Scoreinstrument(name = "Violin", id = "P1-I1")
+ScoreInstrument(name = "Violin", id = "P1-I1")
 ```
 """
-@aml mutable struct Scoreinstrument "score-instrument"
-    name::String, "instrument-name"
+@aml mutable struct ScoreInstrument "score-instrument"
+    name::String = "Piano", "instrument-name"
     abbreviation::UN{String} = nothing, "instrument-abbreviation"
     sound::UN{String} = nothing, "instrument-sound"
     # ensemble::UN{Int64} = nothing, empty"~", positive
@@ -76,7 +78,7 @@ Scoreinstrument(name = "Violin", id = "P1-I1")
 end
 ################################################################
 """
-    Mididevice
+    MidiDevice
 
 # Arguments
 ```julia
@@ -88,16 +90,16 @@ The midi-device type corresponds to the DeviceName meta event in Standard MIDI F
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm)
 # Example
 ```julia
-Mididevice(port = 1, id = "P1-I1")
+MidiDevice(port = 1, id = "P1-I1")
 ```
 """
-@aml mutable struct Mididevice "midi-device"
+@aml mutable struct MidiDevice "midi-device"
     port::Int64 = 1, att"port", midi16
     id::String = "P1-I1", att"id"
 end
 ################################################################
 """
-    Midiinstrument
+    MidiInstrument
 
 # Arguments
 ```julia
@@ -112,7 +114,7 @@ end
 - id::String = "P1-I1", att"id"
 ```
 
-Midiinstrument type holds information about the sound of a midi instrument.
+MidiInstrument type holds information about the sound of a midi instrument.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm)
 
@@ -120,10 +122,10 @@ Pan: -90 is hard left, 0 is center, -180 is behind
 
 # Example
 ```julia
-Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
+MidiInstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
 ```
 """
-@aml mutable struct Midiinstrument "midi-instrument"
+@aml mutable struct MidiInstrument "midi-instrument"
     channel::Int64 = 1, "midi-channel",  midi16
     name::UN{String} = nothing, "midi-name"
     bank::UN{Int64} = nothing, "midi-bank", midi16384
@@ -136,7 +138,7 @@ Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
 end
 ################################################################
 """
-    Scorepart
+    ScorePart
 
 # Arguments
 ```julia
@@ -145,63 +147,63 @@ end
 - nameDisplay::UN{String} = nothing, "part-name-display"
 - abbreviation::UN{String} = nothing, "part-abbreviation"
 - abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-- scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
-- mididevice::UN{Mididevice} = nothing, "midi-device"
-- midiinstrument::Midiinstrument, "midi-instrument"
+- scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+- mididevice::UN{MidiDevice} = nothing, "midi-device"
+- midiinstrument::MidiInstrument, "midi-instrument"
 - id::String, att"id"
 ```
 
-Holds information about one Scorepart in a score
+Holds information about one ScorePart in a score
 
 Each MusicXML part corresponds to a track in a Standard MIDI Format 1 file. The score-instrument elements are used when there are multiple instruments per track. The midi-device element is used to make a MIDI device or port assignment for the given track or specific MIDI instruments. Initial midi-instrument assignments may be made here as well.
 
-scoreinstrument: See [`Scoreinstrument`](@ref) doc
-mididevice: See [`Mididevice`](@ref) doc
-midiinstrument: See [`Midiinstrument`](@ref) doc
+scoreinstrument: See [`ScoreInstrument`](@ref) doc
+mididevice: See [`MidiDevice`](@ref) doc
+midiinstrument: See [`MidiInstrument`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-score-part.htm)
 
 # Examples
 ```julia
-Scorepart(name = "Piano",midiinstrument = Midiinstrument(), id = "P1")
+ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
 ```
 """
-@aml mutable struct Scorepart "score-part"
+@aml mutable struct ScorePart "score-part"
     # identification
-    name::String, "part-name"
+    name::String = "Piano", "part-name"
     nameDisplay::UN{String} = nothing, "part-name-display"
     abbreviation::UN{String} = nothing, "part-abbreviation"
     abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-    scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
-    mididevice::UN{Mididevice} = nothing, "midi-device"
-    midiinstrument::Midiinstrument, "midi-instrument"
-    id::String, att"id"
+    scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+    mididevice::UN{MidiDevice} = nothing, "midi-device"
+    midiinstrument::MidiInstrument = = MidiInstrument(), "midi-instrument"
+    id::String = "P1", att"id"
 end
 ################################################################
 """
-    Partlist
+    PartList
 
 # Arguments
 ```julia
 - # TODO partgroup
-- scoreparts::Vector{Scorepart}, "score-part"
+- scoreparts::Vector{ScorePart}, "score-part"
 ```
 
 Holds scoreparts and partgroup.
 
-See [`Scorepart`](@ref) doc
+See [`ScorePart`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-part-list.htm)
 
 # Example
-Partlist([
-    Scorepart(name = "Piano 1", midiinstrument = Midiinstrument(), id = "P1"),
-    Scorepart(name = "Piano 2", midiinstrument = Midiinstrument(), id = "P2"),
+PartList([
+    ScorePart(name = "Piano 1", midiinstrument = MidiInstrument(), id = "P1"),
+    ScorePart(name = "Piano 2", midiinstrument = MidiInstrument(), id = "P2"),
 ])
 """
-@aml mutable struct Partlist "part-list"
+@aml mutable struct PartList "part-list"
     # TODO partgroup
-    scoreparts::Vector{Scorepart}, "score-part"
+    scoreparts::Vector{ScorePart}, "score-part"
 end
 ################################################################
 """
@@ -528,21 +530,21 @@ measures: See [`Measure`](@ref) doc
 end
 ################################################################
 """
-    Scorepartwise
+    ScorePartwise
 
 # Arguments
 ```julia
 - # TODO identification
 - # TODO defaults
-- partlist::Partlist, "part-list"
+- partlist::PartList, "part-list"
 - parts::Vector{Part}, "part"
 ```
 
 A type to hold the data for a musicxml file.
 """
-@aml mutable struct Scorepartwise doc"score-partwise"
+@aml mutable struct ScorePartwise doc"score-partwise"
     # TODO identification
     # TODO defaults
-    partlist::Partlist, "part-list"
+    partlist::PartList, "part-list"
     parts::Vector{Part}, "part"
 end
