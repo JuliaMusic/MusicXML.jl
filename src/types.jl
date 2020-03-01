@@ -241,7 +241,7 @@ Key(fifths = 0, mode = "major")
     # key-octave
 end
 
-modeCheck(x) = in(x, Ref("major", "minor", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "ionian", "locrian", "none"))
+modeCheck(x) = in(x, ["major", "minor", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "ionian", "locrian", "none"])
 ################################################################
 """
     Clef
