@@ -1,5 +1,5 @@
 # Types:
-export ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+export ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Chord, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 
 ################################################################
 # musicxml yes-no type
@@ -466,6 +466,16 @@ The unpitched type represents musical elements that are notated on the staff but
     dispStep::UN{String} = nothing, "display-step"
     dispOctave::UN{Int8} = nothing, "display-octave"
 end
+
+################################################################
+"""
+    Chord
+
+If become present shows a chord
+"""
+@aml mutable struct Chord empty"chord"
+end
+
 ################################################################
 """
     NoteX
@@ -476,6 +486,7 @@ end
 - rest::UN{Rest} = nothing, "~"
 - unpitched::UN{Unpitched} = nothing, "~"
 - duration::UInt, "~"
+- chord::UN{Chord} = nothing, "~"
 - # voice
 - type::UN{String} = nothing, "~"
 - accidental::UN{String} = nothing, "~"
@@ -501,6 +512,7 @@ tie:
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
     duration::UInt = 1, "~"
+    chord::UN{Chord} = nothing, "~"
     # voice
     type::UN{String} = nothing, "~"
     accidental::UN{String} = nothing, "~"
