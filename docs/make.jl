@@ -17,7 +17,8 @@ makedocs(;
     ),
     pages=[
         "Home" => "index.md",
-        "Example" => "parsing.md",
+        "Parsing Example" => "parsing.md",
+        "Creating Example" => "creating.md",
         "Types" => "types.md",
         "IO" => "io.md",
         "Utilities" => "utilities.md",
