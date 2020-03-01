@@ -1,5 +1,5 @@
 # Types:
-export Scorepartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, Partlist, Scorepart, Midiinstrument, Mididevice, Scoreinstrument
+export ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 
 ################################################################
 # musicxml yes-no type
@@ -44,29 +44,31 @@ rot180(x) = -180 <= x <= 180
 positive(x) = x>0
 ################################################################
 """
-    Scoreinstrument
+    ScoreInstrument
 
 # Arguments
 ```julia
-- name::String, "instrument-name"
+- name::String = "Piano", "instrument-name"
 - abbreviation::UN{String} = nothing, "instrument-abbreviation"
 - sound::UN{String} = nothing, "instrument-sound"
 - # ensemble::UN{Int64} = nothing, empty"~", positive
 - # solo::UN{Int64} = nothing, empty"~"
-- id::String, att"id"
+- id::String = "P1-I1", att"id"
 - # VST::VST, "virtual-instrument"
 ```
-The score-instrument type represents a single instrument within a score-part. As with the score-part type, each score-instrument has a required id attribute, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
+The score-instrument type represents a single instrument within a score-part.
+
+As with the score-part type, each score-instrument has a required id, a name, and an optional abbreviation. A score-instrument type is also required if the score specifies MIDI 1.0 channels, banks, or programs. An initial midi-instrument assignment can also be made here. MusicXML software should be able to automatically assign reasonable channels and instruments without these elements in simple cases, such as where part names match General MIDI instrument names.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-score-instrument.htm)
 
 # Example
 ```julia
-Scoreinstrument(name = "Violin", id = "P1-I1")
+ScoreInstrument(name = "Violin", id = "P1-I1")
 ```
 """
-@aml mutable struct Scoreinstrument "score-instrument"
-    name::String, "instrument-name"
+@aml mutable struct ScoreInstrument "score-instrument"
+    name::String = "Piano", "instrument-name"
     abbreviation::UN{String} = nothing, "instrument-abbreviation"
     sound::UN{String} = nothing, "instrument-sound"
     # ensemble::UN{Int64} = nothing, empty"~", positive
@@ -76,32 +78,32 @@ Scoreinstrument(name = "Violin", id = "P1-I1")
 end
 ################################################################
 """
-    Mididevice
+    MidiDevice
 
 # Arguments
 ```julia
-- port::Int16, att"port"
-- id::String, att"id"
+- port::Int64 = 1, att"port", midi16
+- id::String = "P1-I1", att"id"
 ```
 The midi-device type corresponds to the DeviceName meta event in Standard MIDI Files. Unlike the DeviceName meta event, there can be multiple midi-device elements per MusicXML part starting in MusicXML 3.0.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-device.htm)
 # Example
 ```julia
-Mididevice(port = 1, id = "P1-I1")
+MidiDevice(port = 1, id = "P1-I1")
 ```
 """
-@aml mutable struct Mididevice "midi-device"
+@aml mutable struct MidiDevice "midi-device"
     port::Int64 = 1, att"port", midi16
     id::String = "P1-I1", att"id"
 end
 ################################################################
 """
-    Midiinstrument
+    MidiInstrument
 
 # Arguments
 ```julia
-- channel::Int64 = 0, "midi-channel",  midi16
+- channel::Int64 = 1, "midi-channel",  midi16
 - name::UN{String} = nothing, "midi-name"
 - bank::UN{Int64} = nothing, "midi-bank", midi16384
 - program::Int64 = 1, "midi-program", midi128
@@ -112,7 +114,7 @@ end
 - id::String = "P1-I1", att"id"
 ```
 
-Midiinstrument type holds information about the sound of a midi instrument.
+MidiInstrument type holds information about the sound of a midi instrument.
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-midi-instrument.htm)
 
@@ -120,10 +122,10 @@ Pan: -90 is hard left, 0 is center, -180 is behind
 
 # Example
 ```julia
-Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
+MidiInstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
 ```
 """
-@aml mutable struct Midiinstrument "midi-instrument"
+@aml mutable struct MidiInstrument "midi-instrument"
     channel::Int64 = 1, "midi-channel",  midi16
     name::UN{String} = nothing, "midi-name"
     bank::UN{Int64} = nothing, "midi-bank", midi16384
@@ -136,72 +138,72 @@ Midiinstrument(channel= 1, program =1, volume = 127, pan =0, id = "P1-I1")
 end
 ################################################################
 """
-    Scorepart
+    ScorePart
 
 # Arguments
 ```julia
 - # identification
-- name::String, "part-name"
+- name::String = "Piano", "part-name"
 - nameDisplay::UN{String} = nothing, "part-name-display"
 - abbreviation::UN{String} = nothing, "part-abbreviation"
 - abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-- scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
-- mididevice::UN{Mididevice} = nothing, "midi-device"
-- midiinstrument::Midiinstrument, "midi-instrument"
-- id::String, att"id"
+- scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+- mididevice::UN{MidiDevice} = nothing, "midi-device"
+- midiinstrument::MidiInstrument = = MidiInstrument(), "midi-instrument"
+- id::String = "P1", att"id"
 ```
 
-Holds information about one Scorepart in a score
+Holds information about one ScorePart in a score
 
 Each MusicXML part corresponds to a track in a Standard MIDI Format 1 file. The score-instrument elements are used when there are multiple instruments per track. The midi-device element is used to make a MIDI device or port assignment for the given track or specific MIDI instruments. Initial midi-instrument assignments may be made here as well.
 
-scoreinstrument: See [`Scoreinstrument`](@ref) doc
-mididevice: See [`Mididevice`](@ref) doc
-midiinstrument: See [`Midiinstrument`](@ref) doc
+scoreinstrument: See [`ScoreInstrument`](@ref) doc
+mididevice: See [`MidiDevice`](@ref) doc
+midiinstrument: See [`MidiInstrument`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-score-part.htm)
 
 # Examples
 ```julia
-Scorepart(name = "Piano",midiinstrument = Midiinstrument(), id = "P1")
+ScorePart(name = "Piano",midiinstrument = MidiInstrument(), id = "P1")
 ```
 """
-@aml mutable struct Scorepart "score-part"
+@aml mutable struct ScorePart "score-part"
     # identification
-    name::String, "part-name"
+    name::String = "Piano", "part-name"
     nameDisplay::UN{String} = nothing, "part-name-display"
     abbreviation::UN{String} = nothing, "part-abbreviation"
     abbreviationDisplay::UN{String} = nothing, "part-abbreviation-display"
-    scoreinstrument::UN{Scoreinstrument} = nothing, "score-instrument"
-    mididevice::UN{Mididevice} = nothing, "midi-device"
-    midiinstrument::Midiinstrument, "midi-instrument"
-    id::String, att"id"
+    scoreinstrument::UN{ScoreInstrument} = nothing, "score-instrument"
+    mididevice::UN{MidiDevice} = nothing, "midi-device"
+    midiinstrument::MidiInstrument = MidiInstrument(), "midi-instrument"
+    id::String = "P1", att"id"
 end
 ################################################################
 """
-    Partlist
+    PartList
 
 # Arguments
 ```julia
 - # TODO partgroup
-- scoreparts::Vector{Scorepart}, "score-part"
+- scoreparts::Vector{ScorePart} = [ScorePart()], "score-part"
 ```
 
 Holds scoreparts and partgroup.
 
-See [`Scorepart`](@ref) doc
+See [`ScorePart`](@ref) doc
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-part-list.htm)
 
 # Example
-Partlist([
-    Scorepart(name = "Piano 1", midiinstrument = Midiinstrument(), id = "P1"),
-    Scorepart(name = "Piano 2", midiinstrument = Midiinstrument(), id = "P2"),
+PartList([
+    ScorePart(name = "Piano 1", midiinstrument = MidiInstrument(), id = "P1"),
+    ScorePart(name = "Piano 2", midiinstrument = MidiInstrument(), id = "P2"),
 ])
 """
-@aml mutable struct Partlist "part-list"
+@aml mutable struct PartList "part-list"
     # TODO partgroup
-    scoreparts::Vector{Scorepart}, "score-part"
+    scoreparts::Vector{ScorePart} = [ScorePart()], "score-part"
 end
 ################################################################
 """
@@ -210,7 +212,7 @@ end
 # Arguments
 ```julia
 - # cancel
-- fifths::Int8, "~"
+- fifths::Int8 = 0, "~"
 - mode::UN{String} = nothing, "~", modeCheck
 - # key-octave
 ```
@@ -243,8 +245,8 @@ modeCheck(x) = in(x, Ref("major", "minor", "dorian", "phrygian", "lydian", "mixo
 
 # Arguments
 ```julia
-- sign::String, "sign"
-- line::Int16, "line"
+- sign::String = "G", "sign"
+- line::Int16 = 2, "line"
 - octave::UN{Int64} = nothing, "clef-octave-change"
 ```
 
@@ -266,8 +268,8 @@ Clef(sign = "TAB")
 ```
 """
 @aml mutable struct Clef "clef"
-    sign::String, "sign"
-    line::Int16, "line"
+    sign::String = "G", "sign"
+    line::Int16 = 2, "line"
     octave::UN{Int64} = nothing, "clef-octave-change"
 end
 
@@ -350,9 +352,9 @@ end
 
 # Arguments
 ```julia
-- divisions::Int16, "~"
-- key::Key, "~"
-- time::Time, "~"
+- divisions::Int16 = 1, "~"
+- key::Key = Key(), "~"
+- time::Time = Time(), "~"
 - staves::UN{UInt16} = nothing, "~"
 - instruments::UN{UInt16} = nothing, "~"
 - clef::UN{Clef} = nothing, "~"
@@ -365,7 +367,9 @@ The attributes element contains musical information that typically changes on me
 
 key: See [`Key`](@ref) doc
 
-divisions: Musical notation duration is commonly represented as fractions. The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. For example, if duration = 1 and divisions = 2, this is an eighth note duration. Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
+divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `1`, which means each `duration = 1` means a quarter note.
+
+Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
 
 time: See [`Time`](@ref) doc
 
@@ -378,9 +382,9 @@ clef: See [`Clef`](@ref) doc
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/EL-MusicXML-attributes.htm)
 """
 @aml mutable struct Attributes "attributes"
-    divisions::Int16, "~"
-    key::Key, "~"
-    time::Time, "~"
+    divisions::Int16 = 1, "~"
+    key::Key = Key(), "~"
+    time::Time = Time(), "~"
     staves::UN{UInt16} = nothing, "~"
     instruments::UN{UInt16} = nothing, "~"
     clef::UN{Clef} = nothing, "~"
@@ -392,22 +396,32 @@ end
 
 # Arguments
 ```julia
-- step::String, "~"
+- step::String = "C", "~"
 - alter::UN{Float16} = nothing, "~"
-- octave::Int8, "~"
+- octave::Int8 = 1, "~"
 ```
 
 Holds musicxml pitch data. MusicXML pitch data is represented as a combination of the step of the diatonic scale, the chromatic alteration, and the octave.
 
-Use step, alter, octave = pitch2xml(pitch) and  pitch = xml2pitch(step, alter, octave)
+Use step, alter, octave = pitch2xml(midipitch) and  midipitch = xml2pitch(step, alter, octave)
 for conversions between midi pitch and musicxml pitch
+
+![Step Alter Octave on Staff](../deps/pitchesonstaff.png)
+![Pitch on Guitar](../deps/pitchesonguitar.png)
+![Pitch on Full Keyboard](../deps/fullpiano.gif)
 
 """
 @aml mutable struct Pitch "pitch"
-    step::String, "~"
+    step::String = "C", "~"
     alter::UN{Float16} = nothing, "~"
-    octave::Int8, "~"
+    octave::Int8 = 1, "~"
 end
+
+function Pitch(midipitch::UInt8)
+    step, alter, octave = pitch2xml(midipitch)
+    return Pitch(step = step, alter = alter, octave = octave)
+end
+
 ################################################################
 """
     Rest
@@ -481,7 +495,7 @@ tie:
     pitch::UN{Pitch} = nothing, "~"
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
-    duration::UInt, "~"
+    duration::UInt = 1, "~"
     # voice
     type::UN{String} = nothing, "~"
     accidental::UN{String} = nothing, "~"
@@ -514,7 +528,7 @@ end
 # Arguments
 ```julia
 - measures::Vector{Measure}, "measure"
-- id::String, att"~"
+- id::String = "P1", att"~"
 ```
 
 A type to hold the data for a part in musicxml file.
@@ -524,25 +538,25 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     measures::Vector{Measure}, "measure"
-    id::String, att"~"
+    id::String = "P1", att"~"
 end
 ################################################################
 """
-    Scorepartwise
+    ScorePartwise
 
 # Arguments
 ```julia
 - # TODO identification
 - # TODO defaults
-- partlist::Partlist, "part-list"
+- partlist::PartList, "part-list"
 - parts::Vector{Part}, "part"
 ```
 
 A type to hold the data for a musicxml file.
 """
-@aml mutable struct Scorepartwise doc"score-partwise"
+@aml mutable struct ScorePartwise doc"score-partwise"
     # TODO identification
     # TODO defaults
-    partlist::Partlist, "part-list"
+    partlist::PartList, "part-list"
     parts::Vector{Part}, "part"
 end

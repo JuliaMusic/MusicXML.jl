@@ -1,10 +1,10 @@
 function _precompile_()
     ccall(:jl_generating_output, Cint, ()) == 1 || return nothing
-    precompile(Tuple{typeof(findfirst),Function,Array{Scorepart,1}})
+    precompile(Tuple{typeof(findfirst),Function,Array{ScorePart,1}})
     precompile(Tuple{typeof(getproperty),Measure,Symbol})
     precompile(Tuple{typeof(getproperty),NoteX,Symbol})
-    precompile(Tuple{typeof(getproperty),Partlist,Symbol})
-    precompile(Tuple{typeof(getproperty),Scorepartwise,Symbol})
+    precompile(Tuple{typeof(getproperty),PartList,Symbol})
+    precompile(Tuple{typeof(getproperty),ScorePartwise,Symbol})
     precompile(Tuple{typeof(isnothing),Pitch})
     precompile(Tuple{typeof(iterate),Array{Measure,1}})
     precompile(Tuple{typeof(iterate),Array{NoteX,1}})
