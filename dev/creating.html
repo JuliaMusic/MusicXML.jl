@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Creating Example · MusicXML.jl</title><link rel="canonical" href="https://JuliaMusic.github.io/MusicXML.jl/creating.html"/><link href="https://fonts.googleapis.com/css?family=Lato|Roboto+Mono" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/solid.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/brands.min.css" rel="stylesheet" type="text/css"/><link href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.11.1/katex.min.css" rel="stylesheet" type="text/css"/><script>documenterBaseURL="."</script><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" data-main="assets/documenter.js"></script><script src="siteinfo.js"></script><script src="../versions.js"></script><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-dark.css" data-theme-name="documenter-dark"/><link class="docs-theme-link" rel="stylesheet" type="text/css" href="assets/themes/documenter-light.css" data-theme-name="documenter-light" data-theme-primary/><script src="assets/themeswap.js"></script></head><body><div id="documenter"><nav class="docs-sidebar"><div class="docs-package-name"><span class="docs-autofit">MusicXML.jl</span></div><form class="docs-search" action="search.html"><input class="docs-search-query" id="documenter-search-query" name="q" type="text" placeholder="Search docs"/></form><ul class="docs-menu"><li><a class="tocitem" href="index.html">Home</a></li><li><a class="tocitem" href="parsing.html">Parsing Example</a></li><li class="is-active"><a class="tocitem" href="creating.html">Creating Example</a></li><li><a class="tocitem" href="types.html">Types</a></li><li><a class="tocitem" href="io.html">IO</a></li><li><a class="tocitem" href="utilities.html">Utilities</a></li></ul><div class="docs-version-selector field has-addons"><div class="control"><span class="docs-label button is-static is-size-7">Version</span></div><div class="docs-selector control is-expanded"><div class="select is-fullwidth is-size-7"><select id="documenter-version-selector"></select></div></div></div></nav><div class="docs-main"><header class="docs-navbar"><nav class="breadcrumb"><ul class="is-hidden-mobile"><li class="is-active"><a href="creating.html">Creating Example</a></li></ul><ul class="is-hidden-tablet"><li class="is-active"><a href="creating.html">Creating Example</a></li></ul></nav><div class="docs-right"><a class="docs-edit-link" href="https://github.com/JuliaMusic/MusicXML.jl/blob/master/docs/src/creating.md#L" title="Edit on GitHub"><span class="docs-icon fab"></span><span class="docs-label is-hidden-touch">Edit on GitHub</span></a><a class="docs-settings-button fas fa-cog" id="documenter-settings-button" href="#" title="Settings"></a><a class="docs-sidebar-button fa fa-bars is-hidden-desktop" id="documenter-sidebar-button" href="#"></a></div></header><article class="content" id="documenter-page"><h1 id="Creating-1"><a class="docs-heading-anchor" href="#Creating-1">Creating</a><a class="docs-heading-anchor-permalink" href="#Creating-1" title="Permalink"></a></h1><pre><code class="language-julia">using MusicXML
+
+## Part List
+### Piano
+midiinstrument_piano = MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = &quot;P1-I1&quot;)
+scorepart_piano = ScorePart(name = &quot;Piano&quot;, midiinstrument = midiinstrument_piano, id = &quot;P1&quot;)
+
+### Acoustic Guitar
+midiinstrument_guitar = MidiInstrument(channel= 1, program =26, volume = 100, pan =0, id = &quot;P2-I1&quot;)
+scorepart_guitar = ScorePart(name = &quot;Acoustic Guitar&quot;, midiinstrument = midiinstrument_guitar, id = &quot;P2&quot;)
+
+###
+partlist = PartList(scoreparts = [scorepart_piano, scorepart_guitar])
+
+## Part
+### Piano
+
+attributes1_piano = Attributes(
+   time = Time(beats = 4, beattype = 4), # 4/4
+   divisions = 4, # we want to use 16th notes at minimum
+   clef = [Clef(number = 1, sign = &quot;G&quot;, line = 2), Clef(number = 2, sign = &quot;F&quot;, line = 4)], # Piano clefs
+   staves = 2, # Piano staves
+   key = Key(fifths = 0, mode = &quot;major&quot;), # no accidentals, major key
+)
+
+measure1_notes_piano = [
+NoteX(pitch = Pitch(step = &quot;C&quot;, alter = 0, octave = 4), duration =  4),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 4), duration =  4),
+NoteX(pitch = Pitch(step = &quot;E&quot;, alter = 0, octave = 4), duration =  4),
+NoteX(pitch = Pitch(step = &quot;F&quot;, alter = +1, octave = 4), duration =  4),
+]
+
+measure2_notes_piano = [
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 5), duration =  1),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = +1, octave = 5), duration =  1),
+NoteX(pitch = Pitch(step = &quot;B&quot;, alter = 0, octave = 5), duration =  1),
+NoteX(pitch = Pitch(step = &quot;A&quot;, alter = +1, octave = 5), duration =  1),
+NoteX(rest = Rest(), duration =  4), # Rest
+NoteX(pitch = Pitch(step = &quot;A&quot;, alter = 0, octave = 5), duration =  4),
+NoteX(pitch = Pitch(step = &quot;B&quot;, alter = 0, octave = 5), duration =  4),
+]
+
+measures_piano = [
+Measure(attributes = attributes1_piano, notes = measure1_notes_piano) # measure 1 has attributes
+Measure(notes = measure2_notes_piano)
+]
+
+
+part_piano = Part(measures = measures_piano, id = &quot;P1&quot;)
+
+
+### Guitar
+
+attributes1_guitar = Attributes(
+   time = Time(beats = 4, beattype = 4), # 4/4
+   divisions = 4, # we want to use 16th notes at minimum
+   clef = [Clef(number = 1, sign = &quot;G&quot;, line = 2), Clef(number = 2, sign = &quot;TAB&quot;, line = 6)], # Guitar Clefs
+   staves = 2, # Guitar staves
+   key = Key(fifths = 0, mode = &quot;major&quot;), # no accidentals, major key
+)
+
+measure1_notes_guitar = [
+# G Major chord for a bar
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 2), duration =  16, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;B&quot;, alter = 0, octave = 2), duration =  16, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 3), duration =  16, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 3), duration =  16, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 4), duration =  16, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 4), duration =  16, chord = Chord()),
+]
+
+measure2_notes_guitar = [
+# G Major chord for half a bar
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 2), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;B&quot;, alter = 0, octave = 2), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 3), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 3), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 4), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 4), duration =  8, chord = Chord()),
+
+# G Major chord for half a bar
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 2), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;B&quot;, alter = 0, octave = 2), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 3), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 3), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;D&quot;, alter = 0, octave = 4), duration =  8, chord = Chord()),
+NoteX(pitch = Pitch(step = &quot;G&quot;, alter = 0, octave = 4), duration =  8, chord = Chord()),
+]
+
+measures_guitar = [
+Measure(attributes = attributes1_guitar, notes = measure1_notes_guitar) # measure 1 has attributes
+Measure(notes = measure2_notes_guitar)
+]
+
+
+part_guitar = Part(measures = measures_guitar, id = &quot;P2&quot;)
+
+##
+score = ScorePartwise(
+partlist = partlist,
+parts =  [part_piano, part_guitar],
+)
+
+
+writemusicxml(&quot;myscore.musicxml&quot;, score)</code></pre></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="parsing.html">« Parsing Example</a><a class="docs-footer-nextpage" href="types.html">Types »</a></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> on <span class="colophon-date" title="Sunday 1 March 2020 23:11">Sunday 1 March 2020</span>. Using Julia version 1.3.1.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
