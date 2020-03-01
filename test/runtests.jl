@@ -6,8 +6,8 @@ cd(@__DIR__)
 @testset "parsing example" begin
     include("../examples/parsing.jl")
     @test scorepartwise isa ScorePartwise
-    @test scprts isa Vector{ScorePart}
-    @test prts isa Vector{Part}
+    @test scoreparts isa Vector{ScorePart}
+    @test parts isa Vector{Part}
 end
 
 @testset "creating example" begin
