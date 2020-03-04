@@ -2,8 +2,7 @@
 
 ```julia
 using MusicXML
-
-@MX begin # adds `MX.` to the name of all MusicXML types
+@importMX # imports all the MusicXML types since we know there is no conflict
 
 ## Part List
 ### Piano
@@ -105,8 +104,6 @@ score = ScorePartwise(
 partlist = partlist,
 parts =  [part_piano, part_guitar],
 )
-
-end # end @MX
 
 writemusicxml("myscore.musicxml", score)
 ```

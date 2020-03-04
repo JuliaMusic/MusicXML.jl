@@ -1,6 +1,6 @@
 using MusicXML
+@importMX # imports all the MusicXML types since we know there is no conflict
 
-@MX begin # adds `MX.` to the name of all MusicXML types
 ## Part List
 ### Piano
 midiinstrument_piano = MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = "P1-I1")
@@ -101,7 +101,5 @@ score = ScorePartwise(
 partlist = partlist,
 parts =  [part_piano, part_guitar],
 )
-
-end # end @MX
 
 writemusicxml("myscore.musicxml", score)
