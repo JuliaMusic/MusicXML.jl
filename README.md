@@ -7,14 +7,20 @@
 
 Powerful MusicXML reading and writing package for Julia.
 
-# Installation
+# Installation and Usage
 ```julia
-] add https://github.com/JuliaMusic/MusicXML.jl
+using Pkg
+Pkg.add("MusicXML")
 ```
+```julia
+using MusicXML
+```
+
 # Creating Example
 ```julia
-@MX begin # adds `MX.` to the name of all MusicXML types
 using MusicXML
+
+@MX begin # adds `MX.` to the name of all MusicXML types
 
 ## Part List
 ### Piano

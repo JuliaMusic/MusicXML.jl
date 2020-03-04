@@ -1,8 +1,9 @@
 # Creating
 
 ```julia
-@MX begin # adds `MX.` to the name of all MusicXML types
 using MusicXML
+
+@MX begin # adds `MX.` to the name of all MusicXML types
 
 ## Part List
 ### Piano
