@@ -1,5 +1,9 @@
 module MusicXML
 
+# Alias
+export MX
+const MX = MusicXML
+
 using AcuteML
 
 # I/O functions
