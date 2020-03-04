@@ -6,10 +6,14 @@ CurrentModule = MusicXML
 
 Powerful MusicXML reading and writing package for Julia.
 
-# Installation
+# Installation and Usage
 ```julia
-] add https://github.com/JuliaMusic/MusicXML.jl
+using Pkg
+Pkg.add("MusicXML")
+```
+```julia
+using MusicXML
 ```
 
 # Usage
-See `Example` from sidebar for an example of MusicXML usage. Study `Types` and `IO` for more information.
+Look into [Parsing Example](https://juliamusic.github.io/MusicXML.jl/dev/parsing.html) and [Creating Example](https://juliamusic.github.io/MusicXML.jl/dev/creating.html) for examples of MusicXML's usage. Study `Types` and `IO` for more information.
