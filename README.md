@@ -210,7 +210,7 @@ ScorePartwise
 					beattype
 				staves
 				instruments
-				clef (Clef)
+				clefs (Vector{Clef})
 					sign
 					line
 				transpose (Transpose)
@@ -228,13 +228,14 @@ ScorePartwise
 				duration
 				type
 				accidental
+				chord (Chord)
 ```
 
 For fieldnames, if it is a Vector it has `s` at the end of the word.
 
 For types, names are capitalized for each word (Camel convention):
 ```
-ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Chord, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```
 
 
