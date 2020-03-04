@@ -1,5 +1,10 @@
 # Types
 
+Since MusicXML's types are not exported from the package to avoid conflicts with the similarly named types from other libraries (such as `Dates.Time`, `MIDI.Note`),
+1) you should either `import` the types yourself if you are sure that there is no conflict.
+2) or us `MX.` before the type names (which `MX` is an alias for `MusicXML`)
+3) or use `@MX` macro, which adds `MX.` automatically to the type names. See `@MX` docstring for examples.
+
 ```
 ScorePartwise
 	partlist (PartList)
@@ -39,7 +44,7 @@ ScorePartwise
 					chromatic
 					octaveChange
 					double
-			notes (Vector{NoteX})
+			notes (Vector{Note})
 				pitch (Pitch)
 					step
 					alter
@@ -56,7 +61,7 @@ For fieldnames, if it is a Vector it has `s` at the end of the word.
 
 For types, names are capitalized for each word (Camel convention):
 ```
-ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Chord, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```
 
 
