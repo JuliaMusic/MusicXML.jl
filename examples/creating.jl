@@ -1,5 +1,6 @@
 using MusicXML
 
+@MX begin # adds `MX.` to the name of all MusicXML types
 ## Part List
 ### Piano
 midiinstrument_piano = MidiInstrument(channel= 1, program =1, volume = 100, pan =0, id = "P1-I1")
@@ -101,5 +102,6 @@ partlist = partlist,
 parts =  [part_piano, part_guitar],
 )
 
+end # end @MX
 
 writemusicxml("myscore.musicxml", score)

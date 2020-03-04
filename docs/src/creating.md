@@ -1,6 +1,7 @@
 # Creating
 
 ```julia
+@MX begin # adds `MX.` to the name of all MusicXML types
 using MusicXML
 
 ## Part List
@@ -104,6 +105,7 @@ partlist = partlist,
 parts =  [part_piano, part_guitar],
 )
 
+end # end @MX
 
 writemusicxml("myscore.musicxml", score)
 ```
