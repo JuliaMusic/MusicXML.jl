@@ -36,7 +36,7 @@ ScorePartwise
 					beattype
 				staves
 				instruments
-				clef (Clef)
+				clefs (Vector{Clef})
 					sign
 					line
 				transpose (Transpose)
@@ -54,7 +54,7 @@ ScorePartwise
 				duration
 				type
 				accidental
-			chord (Chord)
+				chord (Chord)
 ```
 
 For fieldnames, if it is a Vector it has `s` at the end of the word.
