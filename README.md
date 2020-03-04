@@ -187,9 +187,9 @@ readmusicxml, parsemusicxml
 
 ## Typess:
 
-Since MusicXML's types are not exported from the package to avoid conflicts with the similarly named types from other libraries (such as `Dates.Time`, `MIDI.Note`),
-1) you should either `import` the types yourself if you are sure that there is no conflict.
-2) or us `MX.` before the type names (which `MX` is an alias for `MusicXML`)
+Since MusicXML's types are not exported from the package to avoid conflicts with the similarly named types from other libraries (such as `Dates.Time`, `MIDI.Note`). There are 3 different solutions:
+1) `import` the types yourself if you are sure that there is no conflict. Use `@importMX` to `import` all the types.
+2) or use `MX.` before the type names (which `MX` is an alias for `MusicXML`)
 3) or use `@MX` macro, which adds `MX.` automatically to the type names. See `@MX` docstring for examples.
 
 ```
