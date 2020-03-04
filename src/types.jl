@@ -1,5 +1,4 @@
 # Types:
-export ScorePartwise, Part, Measure, NoteX, Unpitched, Rest, Pitch, Chord, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 
 ################################################################
 # musicxml yes-no type
@@ -380,7 +379,7 @@ The attributes element contains musical information that typically changes on me
 
 key: See [`Key`](@ref) doc
 
-divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `NoteX.duration/Attributes.divisions` gives the actual duration of a note. Should be given based on the shortest note in the measure. If you use 16th notes give `4`, and give duration for the notes as 1. For example, if `divisions = 2`, and we have a `NoteX` with `duration = 1` this is an eighth note duration. The default value is `4`, which means each `duration = 1` means a 16th note.
+divisions: The divisions element indicates how many divisions per quarter note are used to indicate a note's duration. `Note.duration/Attributes.divisions` gives the actual duration of a note. Should be given based on the shortest note in the measure. If you use 16th notes give `4`, and give duration for the notes as 1. For example, if `divisions = 2`, and we have a `Note` with `duration = 1` this is an eighth note duration. The default value is `4`, which means each `duration = 1` means a 16th note.
 
 Duration and divisions are used directly for generating sound output, so they must be chosen to take tuplets into account. Using a divisions element lets us use just one number to represent a duration for each note in the score, while retaining the full power of a fractional representation. If maximum compatibility with Standard MIDI 1.0 files is important, do not have the divisions value exceed 16383.
 
@@ -495,7 +494,7 @@ end
 
 ################################################################
 """
-    NoteX
+    Note
 
 # Arguments
 ```julia
@@ -524,7 +523,7 @@ tie:
 
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
-@aml mutable struct NoteX "note"
+@aml mutable struct Note "note"
     pitch::UN{Pitch} = nothing, "~"
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
@@ -542,18 +541,18 @@ end
 # Arguments
 ```julia
 - attributes::UN{Attributes} = nothing, "~"
-- notes::Vector{NoteX}, "note"
+- notes::Vector{Note}, "note"
 ```
 
 A type to hold the data for a musicxml measure
 
 attributes: See [`Attributes`](@ref) doc
-notes: See [`NoteX`](@ref) doc
+notes: See [`Note`](@ref) doc
 
 """
 @aml mutable struct Measure "measure"
     attributes::UN{Attributes} = nothing, "~"
-    notes::Vector{NoteX}, "note"
+    notes::Vector{Note}, "note"
 end
 ################################################################
 """

@@ -1,4 +1,4 @@
-MusicXMLTypes = [:ScorePartwise, :Part, :Measure, :NoteX, :Unpitched, :Rest, :Pitch, :Attributes, :Time, :Transpose, :Clef, :Key, :PartList, :ScorePart, :MidiInstrument, :MidiDevice, :ScoreInstrument]
+MusicXMLTypes = [:ScorePartwise, :Part, :Measure, :Note, :Unpitched, :Rest, :Pitch, :Attributes, :Time, :Transpose, :Clef, :Key, :PartList, :ScorePart, :MidiInstrument, :MidiDevice, :ScoreInstrument]
 
 import TreeViews: hastreeview, numberofnodes, treelabel, treenode
 import Base: inferencebarrier, show_circular

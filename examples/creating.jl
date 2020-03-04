@@ -25,20 +25,20 @@ attributes1_piano = Attributes(
 )
 
 measure1_notes_piano = [
-NoteX(pitch = Pitch(step = "C", alter = 0, octave = 4), duration =  4),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  4),
-NoteX(pitch = Pitch(step = "E", alter = 0, octave = 4), duration =  4),
-NoteX(pitch = Pitch(step = "F", alter = +1, octave = 4), duration =  4),
+Note(pitch = Pitch(step = "C", alter = 0, octave = 4), duration =  4),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  4),
+Note(pitch = Pitch(step = "E", alter = 0, octave = 4), duration =  4),
+Note(pitch = Pitch(step = "F", alter = +1, octave = 4), duration =  4),
 ]
 
 measure2_notes_piano = [
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 5), duration =  1),
-NoteX(pitch = Pitch(step = "G", alter = +1, octave = 5), duration =  1),
-NoteX(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  1),
-NoteX(pitch = Pitch(step = "A", alter = +1, octave = 5), duration =  1),
-NoteX(rest = Rest(), duration =  4), # Rest
-NoteX(pitch = Pitch(step = "A", alter = 0, octave = 5), duration =  4),
-NoteX(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  4),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "G", alter = +1, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "A", alter = +1, octave = 5), duration =  1),
+Note(rest = Rest(), duration =  4), # Rest
+Note(pitch = Pitch(step = "A", alter = 0, octave = 5), duration =  4),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  4),
 ]
 
 measures_piano = [
@@ -62,30 +62,30 @@ attributes1_guitar = Attributes(
 
 measure1_notes_guitar = [
 # G Major chord for a bar
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  16, chord = Chord()),
-NoteX(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  16, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  16, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  16, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  16, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  16, chord = Chord()),
 ]
 
 measure2_notes_guitar = [
 # G Major chord for half a bar
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  8, chord = Chord()),
 
 # G Major chord for half a bar
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  8, chord = Chord()),
-NoteX(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  8, chord = Chord()),
 ]
 
 measures_guitar = [
