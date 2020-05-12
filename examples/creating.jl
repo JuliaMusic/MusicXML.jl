@@ -62,7 +62,7 @@ attributes1_guitar = Attributes(
 
 measure1_notes_guitar = [
 # G Major chord for a bar
-Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  16, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  16),
 Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  16, chord = Chord()),
 Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  16, chord = Chord()),
 Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  16, chord = Chord()),
@@ -72,7 +72,7 @@ Note(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  16, chord = C
 
 measure2_notes_guitar = [
 # G Major chord for half a bar
-Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8),
 Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
 Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
 Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
@@ -80,7 +80,7 @@ Note(pitch = Pitch(step = "D", alter = 0, octave = 4), duration =  8, chord = Ch
 Note(pitch = Pitch(step = "G", alter = 0, octave = 4), duration =  8, chord = Chord()),
 
 # G Major chord for half a bar
-Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8, chord = Chord()),
+Note(pitch = Pitch(step = "G", alter = 0, octave = 2), duration =  8),
 Note(pitch = Pitch(step = "B", alter = 0, octave = 2), duration =  8, chord = Chord()),
 Note(pitch = Pitch(step = "D", alter = 0, octave = 3), duration =  8, chord = Chord()),
 Note(pitch = Pitch(step = "G", alter = 0, octave = 3), duration =  8, chord = Chord()),
