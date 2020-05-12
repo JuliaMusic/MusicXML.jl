@@ -34,6 +34,9 @@ Since MusicXML's types are not exported from the package to avoid conflicts with
 
 `@MX` assumes that all the types with these kinds of names inside in front of a macro, between `()`, or between `begin end` are MusicXML types unless explicitly written (e.g. `MIDI.Note`).
 
+!!! warn
+    It will replace the name of the types if they are used inside strings.
+
 # Examples
 ```julia
 @MX begin
