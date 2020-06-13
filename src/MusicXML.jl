@@ -13,12 +13,12 @@ Imports all the MusicXML types in case you are sure no conflicts happens.
 
 # Just put it in the code:
 ```julia
-@importMX # gets translated to: import MusicXML: ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+@importMX # gets translated to: import MusicXML: ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Grace, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```
 """
 macro importMX()
     out = quote
-        import MusicXML: ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+        import MusicXML: ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Grace, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
     end
     return out
 end
