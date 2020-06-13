@@ -72,4 +72,5 @@ Pages   = ["types.md"]
 
 ```@autodocs
 Modules = [MusicXML]
+Pages   = ["types.jl"]
 ```
