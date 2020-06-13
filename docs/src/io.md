@@ -1,6 +1,6 @@
 ## I/O functions
 ```julia
-readmusicxml, parsemusicxml
+readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml, readmusicxml_partial, parsemusicxml_partial
 ```
 
 

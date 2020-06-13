@@ -17,6 +17,10 @@ Pkg.add("MusicXML")
 using MusicXML
 ```
 
+# Documentation
+
+Please see [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaMusic.github.io/MusicXML.jl/dev). This readme is just a taste of the actual documentation.
+
 # Creating Example
 ```julia
 using MusicXML
@@ -180,7 +184,7 @@ You can use among these exported types and functions:
 
 ## I/O functions
 ```julia
-readmusicxml, parsemusicxml
+readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml, readmusicxml_partial, parsemusicxml_partial
 ```
 
 ## Typess:
