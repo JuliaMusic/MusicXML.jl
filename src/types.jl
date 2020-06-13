@@ -586,6 +586,64 @@ notes: See [`Note`](@ref) doc
     attributes::UN{Attributes} = nothing, "~"
     notes::Vector{Note}, "note"
 end
+
+################################################################
+"""
+Finds and fixes the graphical representation of the notes for the given measures.
+"""
+function note_graphics(measures::Vector{Measure})
+    last_attributes = Attributes()
+    for i = 1:length(measures)
+        if !isnothing(measures[i].attributes)
+            last_attributes = measures[i].attributes
+        end
+        measures[i].notes = note_graphics(measures[i].notes, last_attributes)
+    end
+    return measures
+end
+
+"""
+Finds the graphical representation of a note based on attributes.divisions and note.duration
+
+# Examples
+```julia
+notes = [
+Note(pitch = Pitch(step = "G", alter = 0, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "G", alter = +1, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  1),
+Note(pitch = Pitch(step = "A", alter = +1, octave = 5), duration =  1),
+Note(rest = Rest(), duration =  4), # Rest
+Note(pitch = Pitch(step = "A", alter = 0, octave = 5), duration =  4),
+Note(pitch = Pitch(step = "B", alter = 0, octave = 5), duration =  4),
+]
+MusicXML.note_graphics(notes, Attributes())
+```
+"""
+function note_graphics(notes::Vector{Note}, attributes::Attributes)
+    for inote=1:length(notes)
+        actual_duration = notes[inote].duration//attributes.divisions
+        type = note_graphics_map[actual_duration]
+        notes[inote].type = type
+    end
+    return notes
+end
+
+const note_graphics_map = Dict(
+    1//256 => "1024th",
+    1//128 => "512th",
+    1//64 => "256th",
+    1//32 => "128th",
+    1//16 => "64th",
+    1//8 => "32nd",
+    1//4 => "16th",
+    1//2 => "eighth",
+    1 => "quarter",
+    2 => "half",
+    4 => "whole",
+    # "breve"
+    # "long"
+    # "maxima"
+)
 ################################################################
 """
     Part
@@ -603,8 +661,12 @@ measures: See [`Measure`](@ref) doc
 """
 @aml mutable struct Part "part"
     id::String = "P1", att"~"
+    @creator begin
+        measures = note_graphics(measures)
+    end
     measures::Vector{Measure}, "measure"
 end
+
 ################################################################
 """
     ScorePartwise
