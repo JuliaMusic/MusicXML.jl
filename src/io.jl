@@ -44,7 +44,7 @@ Note(xml_note)
 """
 function readmusicxml_partial(filepath::String)
     doc = readxml(filepath) # read an XML document from a file
-    return data
+    return doc
 end
 ################################################################
 """
@@ -89,7 +89,7 @@ Note(xml_note)
 """
 function parsemusicxml_partial(s::String)
     doc = parsexml(s) # Parse an XML string
-    return data
+    return doc
 end
 
 ################################################################
