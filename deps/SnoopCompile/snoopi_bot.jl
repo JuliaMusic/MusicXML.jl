@@ -8,7 +8,7 @@ botconfig = BotConfig(
   exhaustive = false,
 )
 
-snoopi_bot(
+snoop_bot(
   botconfig,
   "$(@__DIR__)/example_script.jl",
 )

@@ -6,7 +6,6 @@ on:
   push:
     branches:
       # - 'master'
-  pull_request:  # comment for big repositories
 
 defaults:
   run:
@@ -20,7 +19,7 @@ jobs:
       matrix:
         # Uncomment other versions if you want multi-version signatures (should exactly match BotConfig.version):
         version:
-          - '1.4.1'
+          - '1.4.2'
         os:
           - ubuntu-latest
           - windows-latest

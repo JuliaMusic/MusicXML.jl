@@ -14,3 +14,7 @@ end
     include("../examples/creating.jl")
     @test isfile("../examples/myscore.musicxml")
 end
+
+@testset "grace note" begin
+    include("../examples/grace.jl")
+end

@@ -17,6 +17,10 @@ Pkg.add("MusicXML")
 using MusicXML
 ```
 
+# Documentation
+
+Please see [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://JuliaMusic.github.io/MusicXML.jl/dev). This readme is just a taste of the actual documentation.
+
 # Creating Example
 ```julia
 using MusicXML
@@ -180,7 +184,7 @@ You can use among these exported types and functions:
 
 ## I/O functions
 ```julia
-readmusicxml, parsemusicxml
+readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml, readmusicxml_partial, parsemusicxml_partial
 ```
 
 ## Typess:
@@ -230,6 +234,7 @@ ScorePartwise
 					octaveChange
 					double
 			notes (Vector{Note})
+				grace (Grace)
 				pitch (Pitch)
 					step
 					alter
@@ -246,7 +251,7 @@ For fieldnames, if it is a Vector it has `s` at the end of the word.
 
 For types, names are capitalized for each word (Camel convention):
 ```
-ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
+ScorePartwise, Part, Measure, Note, Chord, Unpitched, Rest, Pitch, Grace, Attributes, Time, Transpose, Clef, Key, PartList, ScorePart, MidiInstrument, MidiDevice, ScoreInstrument
 ```
 
 ## Utilities

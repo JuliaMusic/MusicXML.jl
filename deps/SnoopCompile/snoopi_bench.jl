@@ -10,14 +10,14 @@ botconfig = BotConfig(
 
 
 println("Benchmarking the inference time of `using MusicXML`")
-snoopi_bench(
+snoop_bench(
   botconfig,
   :(using MusicXML),
 )
 
 
 println("Benchmarking the inference time of `using MusicXML` & basic function test")
-snoopi_bench(
+snoop_bench(
   botconfig,
   "$(@__DIR__)/example_script.jl",
 )

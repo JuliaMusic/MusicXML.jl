@@ -404,6 +404,34 @@ clef: See [`Clef`](@ref) doc
 end
 ################################################################
 """
+    Grace
+
+# Arguments
+```julia
+steal_time_previous::UN{Float64} = nothing, "steal-time-previous", percent
+steal_time_following::UN{Float64} = nothing, "steal-time-following", percent
+# TODO make-time "make-time"
+slash::UN{YN} = nothing, "~"
+```
+
+steal_time_previous: The steal-time-previous attribute indicates the percentage of time to steal from the previous note for the grace note.
+    
+steal_time_following: The steal-time-following attribute indicates the percentage of time to steal from the following note for the grace note, as for appoggiaturas.
+
+slash: The slash attribute for a grace note is yes for slashed eighth notes.
+    
+[More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-grace.htm)
+```
+"""
+@aml mutable struct Grace empty"grace"
+    steal_time_previous::UN{Float64} = nothing, "steal-time-previous", percent
+    steal_time_following::UN{Float64} = nothing, "steal-time-following", percent
+    # TODO make-time "make-time"
+    slash::UN{YN} = nothing, "~"
+end
+
+################################################################
+"""
     Pitch
 
 # Arguments
@@ -498,6 +526,7 @@ end
 
 # Arguments
 ```julia
+- grace::UN{Grace} = nothing, "~"
 - pitch::UN{Pitch} = nothing, "~"
 - rest::UN{Rest} = nothing, "~"
 - unpitched::UN{Unpitched} = nothing, "~"
@@ -510,6 +539,8 @@ end
 ```
 
 Notes are the most common type of MusicXML data. The MusicXML format keeps the MuseData distinction between elements used for sound information and elements used for notation information (e.g., tie is used for sound, tied for notation). Thus grace notes do not have a duration element. Cue notes have a duration element, as do forward elements, but no tie elements. Having these two types of information available can make interchange considerably easier, as some programs handle one type of information much more readily than the other.
+
+grace: See [`Grace`](@ref) doc
 
 pitch: See [`Pitch`](@ref) doc
 
@@ -524,10 +555,11 @@ tie:
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-note.htm)
 """
 @aml mutable struct Note "note"
+    grace::UN{Grace} = nothing, "~"
     pitch::UN{Pitch} = nothing, "~"
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
-    duration::UInt = 1, "~"
+    duration::UN{UInt} = grace === nothing ? nothing : 1, "~"
     chord::UN{Chord} = nothing, "~"
     # voice
     type::UN{String} = nothing, "~"

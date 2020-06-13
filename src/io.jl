@@ -1,5 +1,5 @@
 # I/O functions
-export readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml
+export readmusicxml, parsemusicxml, writemusicxml, printmusicxml, pprint, fwritemusicxml, readmusicxml_partial, parsemusicxml_partial
 
 """
     extractdata(doc)
@@ -32,6 +32,21 @@ function readmusicxml(filepath::String)
     return data
 end
 ################################################################
+
+"""
+Similar to [`readmusicxml`](@ref) but without converting it to a Julia type. Use the appropriate type to convert it
+
+# Examples
+```julia
+xml_note = readmusicxml_partial(path_to_file)
+Note(xml_note)
+```
+"""
+function readmusicxml_partial(filepath::String)
+    doc = readxml(filepath) # read an XML document from a file
+    return data
+end
+################################################################
 """
     parsemusicxml(s)
 
@@ -48,6 +63,34 @@ function parsemusicxml(s::String)
     return data
 end
 
+################################################################
+"""
+Similar to [`parsemusicxml`](@ref) but without converting it to a Julia type. Use the appropriate type to convert it
+
+# Examples
+```julia
+xml_note = parsemusicxml_partial(\"\"\"
+<note>
+  <grace/>
+  <pitch>
+    <step>G</step>
+    <octave>4</octave>
+  </pitch>
+  <voice>1</voice>
+  <type>16th</type>
+  <stem>up</stem>
+  <beam number="1">end</beam>
+  <beam number="2">end</beam>
+</note>
+\"\"\")
+
+Note(xml_note)
+```
+"""
+function parsemusicxml_partial(s::String)
+    doc = parsexml(s) # Parse an XML string
+    return data
+end
 
 ################################################################
 """
