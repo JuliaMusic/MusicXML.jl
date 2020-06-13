@@ -1,8 +1,8 @@
 # https://github.com/JuliaMusic/MusicXML.jl/issues/46
-using MusicXML, AcuteML
+using MusicXML
 
 @importMX
-xml_note = parsexml("""
+xml_note = parsemusicxml_partial("""
 <note>
   <grace/>
   <pitch>
