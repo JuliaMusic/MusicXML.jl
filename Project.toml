@@ -1,7 +1,7 @@
 name = "MusicXML"
 uuid = "521615e9-e573-4eb2-bc7e-702d55c0bb95"
 authors = ["Amin Yahyaabadi"]
-version = "0.3.1"
+version = "0.3.2"
 
 [deps]
 AcuteML = "6b84a0a3-a11a-41fa-a417-e600528de108"
