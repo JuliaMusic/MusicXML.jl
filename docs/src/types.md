@@ -1,4 +1,4 @@
-# Types
+# Types 
 
 Since MusicXML's types are not exported from the package to avoid conflicts with the similarly named types from other libraries (such as `Dates.Time`, `MIDI.Note`). There are 3 different solutions:
 1) `import` the types yourself if you are sure that there is no conflict. Use `@importMX` to `import` all the types.
