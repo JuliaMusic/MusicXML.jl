@@ -34,11 +34,11 @@ jobs:
       - name: Install dependencies
         run: |
           julia --project -e 'using Pkg; Pkg.instantiate();'
-          julia -e 'using Pkg; Pkg.add("SnoopCompile"); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();'
+          julia -e 'using Pkg; Pkg.add(PackageSpec(url = "https://github.com/aminya/SnoopCompile.jl", rev = "depsbuild")); Pkg.develop(PackageSpec(; path=pwd())); using SnoopCompile; SnoopCompile.addtestdep();'
       - name: Generating precompile files
-        run: julia --project -e 'include("deps/SnoopCompile/snoopi_bot.jl")'
+        run: julia --project -e 'include("deps/SnoopCompile/snoop_bot.jl")'
       - name: Running Benchmark
-        run: julia --project -e 'include("deps/SnoopCompile/snoopi_bench.jl")'
+        run: julia --project -e 'include("deps/SnoopCompile/snoop_bench.jl")'
       - name: Upload all
         uses: actions/upload-artifact@v2
         with:
