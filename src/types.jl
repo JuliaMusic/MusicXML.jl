@@ -415,11 +415,11 @@ slash::UN{YN} = nothing, "~"
 ```
 
 steal_time_previous: The steal-time-previous attribute indicates the percentage of time to steal from the previous note for the grace note.
-    
+
 steal_time_following: The steal-time-following attribute indicates the percentage of time to steal from the following note for the grace note, as for appoggiaturas.
 
 slash: The slash attribute for a grace note is yes for slashed eighth notes.
-    
+
 [More info](https://usermanuals.musicxml.com/MusicXML/Content/CT-MusicXML-grace.htm)
 ```
 """
@@ -559,7 +559,7 @@ tie:
     pitch::UN{Pitch} = nothing, "~"
     rest::UN{Rest} = nothing, "~"
     unpitched::UN{Unpitched} = nothing, "~"
-    duration::UN{UInt} = grace === nothing ? nothing : 1, "~"
+    duration::UN{Int} = grace === nothing ? nothing : 1, "~"
     chord::UN{Chord} = nothing, "~"
     # voice
     type::UN{String} = nothing, "~"
