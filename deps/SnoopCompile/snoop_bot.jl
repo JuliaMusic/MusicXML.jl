@@ -1,4 +1,4 @@
-using SnoopCompile
+using CompileBot
 
 botconfig = BotConfig(
   "MusicXML";
